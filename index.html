@@ -82,15 +82,64 @@
         transform: translateY(0);
       }
     }
+
+    /* Mobile nav active state */
+    .mobile-nav-link.active {
+      background: #e8e4de;
+      color: #2d2d2d;
+    }
+    
+    /* Reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+      .animate-float,
+      .animate-float-slow,
+      .animate-pulse-dot {
+        animation: none;
+      }
+    }
   </style>
+  <script>
+    // Highlight active section in mobile nav on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.mobile-nav-link');
+      
+      function highlightNav() {
+        const scrollPos = window.scrollY + window.innerHeight / 3;
+        
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          const sectionId = section.getAttribute('id');
+          
+          if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+            navLinks.forEach(link => {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === '#' + sectionId) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+      }
+      
+      window.addEventListener('scroll', highlightNav, { passive: true });
+      highlightNav(); // Initial check
+    });
+  </script>
 </head>
 <body class="font-body bg-cream text-charcoal leading-relaxed text-[17px]">
   
-  <!-- Navigation -->
-  <nav class="fixed top-0 left-0 right-0 bg-cream/85 backdrop-blur-md z-50 border-b border-soft-border">
+  <!-- Desktop Navigation -->
+  <nav class="fixed top-0 left-0 right-0 bg-cream/85 backdrop-blur-md z-50 border-b border-soft-border" aria-label="Main navigation">
     <div class="max-w-[900px] mx-auto px-6 flex justify-between items-center h-16">
       <a href="#" class="font-display font-medium text-xl text-charcoal no-underline flex items-center gap-2">
-        <span class="w-2 h-2 bg-lime rounded-full animate-pulse-dot"></span>
+        <span class="w-2 h-2 bg-lime rounded-full animate-pulse-dot" aria-hidden="true"></span>
         liam thura
       </a>
       <ul class="hidden md:flex list-none gap-8">
@@ -103,29 +152,95 @@
     </div>
   </nav>
 
+  <!-- Mobile Navigation - Floating bottom pill -->
+  <nav 
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden"
+    aria-label="Mobile navigation"
+  >
+    <div class="bg-warm-white/90 backdrop-blur-md rounded-full px-1.5 py-1.5 shadow-md border border-soft-border">
+      <ul class="flex list-none gap-0.5" role="list">
+        <li>
+          <a 
+            href="#about" 
+            class="mobile-nav-link flex items-center justify-center px-3 py-2 rounded-full text-warm-gray text-xs font-medium no-underline hover:bg-cream focus:bg-cream focus:outline-none focus:ring-2 focus:ring-lime/50 focus:ring-offset-1 transition-all"
+            aria-label="About section"
+          >
+            About
+          </a>
+        </li>
+        <li>
+          <a 
+            href="#skills" 
+            class="mobile-nav-link flex items-center justify-center px-3 py-2 rounded-full text-warm-gray text-xs font-medium no-underline hover:bg-cream focus:bg-cream focus:outline-none focus:ring-2 focus:ring-lime/50 focus:ring-offset-1 transition-all"
+            aria-label="Skills section"
+          >
+            Skills
+          </a>
+        </li>
+        <li>
+          <a 
+            href="#projects" 
+            class="mobile-nav-link flex items-center justify-center px-3 py-2 rounded-full text-warm-gray text-xs font-medium no-underline hover:bg-cream focus:bg-cream focus:outline-none focus:ring-2 focus:ring-lime/50 focus:ring-offset-1 transition-all"
+            aria-label="Projects section"
+          >
+            Projects
+          </a>
+        </li>
+        <li>
+          <a 
+            href="#experience" 
+            class="mobile-nav-link flex items-center justify-center px-3 py-2 rounded-full text-warm-gray text-xs font-medium no-underline hover:bg-cream focus:bg-cream focus:outline-none focus:ring-2 focus:ring-lime/50 focus:ring-offset-1 transition-all"
+            aria-label="Experience section"
+          >
+            Work
+          </a>
+        </li>
+        <li>
+          <a 
+            href="#contact" 
+            class="mobile-nav-link flex items-center justify-center px-3 py-2 rounded-full text-warm-gray text-xs font-medium no-underline hover:bg-cream focus:bg-cream focus:outline-none focus:ring-2 focus:ring-lime/50 focus:ring-offset-1 transition-all"
+            aria-label="Contact section"
+          >
+            Contact
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
   <!-- Hero Section -->
   <section class="min-h-screen flex items-center pt-16 relative overflow-hidden">
     <!-- Floating gradient orbs -->
     <div class="absolute -top-[20%] -right-[10%] w-[500px] h-[500px] opacity-30 rounded-full animate-float" style="background: radial-gradient(circle, #c5d98a 0%, transparent 70%);"></div>
     <div class="absolute bottom-[10%] -left-[15%] w-[400px] h-[400px] opacity-25 rounded-full animate-float-slow" style="background: radial-gradient(circle, #b8c4ff 0%, transparent 70%);"></div>
     
-    <div class="flex flex-col-reverse md:flex-row md:items-center gap-10">
-      <div class="flex flex-col md:flex-row md:items-center gap-10">
+    <div class="max-w-[900px] mx-auto px-8 md:px-6 relative z-10">
+      <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
         <div class="flex-1">
           <div class="reveal">
-            <div class="inline-flex items-center gap-2 text-sm text-warm-gray mb-5 py-1.5 px-3.5 bg-warm-white rounded-full border border-soft-border">
+            <div class="inline-flex items-center gap-2 text-sm text-warm-gray mb-4 py-1.5 px-3.5 bg-warm-white rounded-full border border-soft-border">
               <span class="text-lime">●</span> Final year student & builder of things
             </div>
           </div>
-          <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-medium leading-tight mb-6 text-charcoal reveal reveal-delay-1">
+          <!-- Avatar - mobile only, left aligned under badge -->
+          <div class="reveal reveal-delay-1 md:hidden mb-6">
+            <div class="w-28 h-28 rounded-2xl overflow-hidden border-4 border-warm-white shadow-lg">
+              <img 
+                src="https://filedn.com/l7MoJ9O3yxzYHH8mSYBkrjH/liam-avatar.jpeg" 
+                alt="Liam Thura" 
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-medium leading-tight mb-6 text-charcoal reveal reveal-delay-2">
             I build tools that <span class="text-blue italic">actually</span> help people.
           </h1>
-          <p class="text-lg text-warm-gray max-w-[580px] mb-9 reveal reveal-delay-2">
+          <p class="text-lg text-warm-gray max-w-[580px] mb-9 reveal reveal-delay-3">
             <strong class="text-charcoal font-semibold">Khant Thura</strong>, but everyone calls me Liam. IT Management student at Northumbria, 
             former placement at Honda Motor Europe. I bridge the gap between tech and business—and yes, 
             I stress-cook a lot of dumplings in the process.
           </p>
-          <div class="flex gap-4 flex-wrap reveal reveal-delay-3">
+          <div class="flex gap-4 flex-wrap reveal reveal-delay-4">
             <a href="#projects" class="inline-flex items-center gap-2 py-3.5 px-7 rounded-lg font-semibold text-[15px] bg-charcoal text-warm-white hover:bg-[#1a1a1a] hover:-translate-y-0.5 hover:shadow-lg transition-all">
               See my work →
             </a>
@@ -134,9 +249,9 @@
             </a>
           </div>
         </div>
-        <!-- Avatar -->
-           <div class="reveal reveal-delay-2 flex-shrink-0 flex justify-center md:justify-start">
-          <div class="w-32 h-32 md:w-56 md:h-56 rounded-2xl overflow-hidden border-4 border-warm-white shadow-lg">
+        <!-- Avatar - desktop only -->
+        <div class="reveal reveal-delay-2 flex-shrink-0 hidden md:block">
+          <div class="w-56 h-56 rounded-2xl overflow-hidden border-4 border-warm-white shadow-lg">
             <img 
               src="https://filedn.com/l7MoJ9O3yxzYHH8mSYBkrjH/liam-avatar.jpeg" 
               alt="Liam Thura" 
