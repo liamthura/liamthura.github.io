@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liam Thura | Building things, one iteration at a time</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            lime: {
+              DEFAULT: '#8fb339',
+              light: '#c5d98a',
+            },
+            blue: {
+              DEFAULT: '#7189ff',
+              light: '#b8c4ff',
+            },
+            cream: '#faf8f5',
+            'warm-white': '#fffefb',
+            charcoal: '#2d2d2d',
+            'warm-gray': '#6b6b6b',
+            'soft-border': '#e8e4de',
+          },
+          fontFamily: {
+            'display': ['Fraunces', 'serif'],
+            'body': ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 8s ease-in-out infinite',
+            'float-slow': 'float 10s ease-in-out infinite reverse',
+            'pulse-dot': 'pulse-dot 2s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translate(0, 0)' },
+              '50%': { transform: 'translate(20px, -20px)' },
+            },
+            'pulse-dot': {
+              '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+              '50%': { transform: 'scale(1.2)', opacity: '0.7' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      z-index: 1000;
+    }
+
+    /* Reveal animation classes */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: reveal 0.6s ease forwards;
+    }
+    .reveal-delay-1 { animation-delay: 0.1s; }
+    .reveal-delay-2 { animation-delay: 0.2s; }
+    .reveal-delay-3 { animation-delay: 0.3s; }
+    .reveal-delay-4 { animation-delay: 0.4s; }
+
+    @keyframes reveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body class="font-body bg-cream text-charcoal leading-relaxed text-[17px]">
+  
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 bg-cream/85 backdrop-blur-md z-50 border-b border-soft-border">
+    <div class="max-w-[900px] mx-auto px-6 flex justify-between items-center h-16">
+      <a href="#" class="font-display font-medium text-xl text-charcoal no-underline flex items-center gap-2">
+        <span class="w-2 h-2 bg-lime rounded-full animate-pulse-dot"></span>
+        liam thura
+      </a>
+      <ul class="hidden md:flex list-none gap-8">
+        <li><a href="#about" class="text-warm-gray no-underline text-sm font-medium hover:text-charcoal transition-colors">About</a></li>
+        <li><a href="#skills" class="text-warm-gray no-underline text-sm font-medium hover:text-charcoal transition-colors">Skills</a></li>
+        <li><a href="#projects" class="text-warm-gray no-underline text-sm font-medium hover:text-charcoal transition-colors">Projects</a></li>
+        <li><a href="#experience" class="text-warm-gray no-underline text-sm font-medium hover:text-charcoal transition-colors">Experience</a></li>
+        <li><a href="#contact" class="text-warm-gray no-underline text-sm font-medium hover:text-charcoal transition-colors">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center pt-16 relative overflow-hidden">
+    <!-- Floating gradient orbs -->
+    <div class="absolute -top-[20%] -right-[10%] w-[500px] h-[500px] opacity-30 rounded-full animate-float" style="background: radial-gradient(circle, #c5d98a 0%, transparent 70%);"></div>
+    <div class="absolute bottom-[10%] -left-[15%] w-[400px] h-[400px] opacity-25 rounded-full animate-float-slow" style="background: radial-gradient(circle, #b8c4ff 0%, transparent 70%);"></div>
+    
+    <div class="max-w-[900px] mx-auto px-6 relative z-10">
+      <div class="flex flex-col md:flex-row md:items-center gap-10">
+        <div class="flex-1">
+          <div class="reveal">
+            <div class="inline-flex items-center gap-2 text-sm text-warm-gray mb-5 py-1.5 px-3.5 bg-warm-white rounded-full border border-soft-border">
+              <span class="text-lime">●</span> Final year student & builder of things
+            </div>
+          </div>
+          <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-medium leading-tight mb-6 text-charcoal reveal reveal-delay-1">
+            I build tools that <span class="text-blue italic">actually</span> help people.
+          </h1>
+          <p class="text-lg text-warm-gray max-w-[580px] mb-9 reveal reveal-delay-2">
+            <strong class="text-charcoal font-semibold">Khant Thura</strong>, but everyone calls me Liam. IT Management student at Northumbria, 
+            former placement at Honda Motor Europe. I bridge the gap between tech and business—and yes, 
+            I stress-cook a lot of dumplings in the process.
+          </p>
+          <div class="flex gap-4 flex-wrap reveal reveal-delay-3">
+            <a href="#projects" class="inline-flex items-center gap-2 py-3.5 px-7 rounded-lg font-semibold text-[15px] bg-charcoal text-warm-white hover:bg-[#1a1a1a] hover:-translate-y-0.5 hover:shadow-lg transition-all">
+              See my work →
+            </a>
+            <a href="#contact" class="inline-flex items-center gap-2 py-3.5 px-7 rounded-lg font-semibold text-[15px] bg-transparent text-charcoal border-[1.5px] border-soft-border hover:border-charcoal hover:bg-warm-white transition-all">
+              Let's chat
+            </a>
+          </div>
+        </div>
+        <!-- Avatar -->
+        <div class="reveal reveal-delay-2 flex-shrink-0">
+          <div class="w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden border-4 border-warm-white shadow-lg">
+            <img 
+              src="https://filedn.com/l7MoJ9O3yxzYHH8mSYBkrjH/liam-avatar.jpeg" 
+              alt="Liam Thura" 
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-24 bg-warm-white border-t border-b border-soft-border">
+    <div class="max-w-[900px] mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+        <div>
+          <div class="mb-12">
+            <p class="text-xs font-semibold uppercase tracking-widest text-lime mb-3">About me</p>
+            <h2 class="font-display text-3xl md:text-4xl font-medium text-charcoal">The slightly longer version</h2>
+          </div>
+          <p class="text-charcoal text-lg mb-5">
+            Originally from Myanmar, now based in Newcastle. I'm finishing up my IT Management degree 
+            while figuring out how to make AI tools that actually understand context (my Persona MCP 
+            project is basically my attempt at giving AI a proper memory).
+          </p>
+          <p class="text-warm-gray mb-5">
+            I spent a year at Honda Motor Europe where I learned that the best solutions come from 
+            really listening to what people need—not just what they ask for. Set up their observability 
+            platform from scratch, fixed a multi-year app issue, and got pretty good at translating 
+            "developer speak" into "everyone else speak."
+          </p>
+          <p class="text-warm-gray">
+            When I'm not debugging deployment issues at 2am (Coolify, I'm looking at you), you'll find 
+            me thrifting at Grainger Market, stress-cooking Burmese food, binging crime thrillers, 
+            or making cocktails that are "definitely too strong" for my mates.
+          </p>
+        </div>
+        <div class="bg-cream p-7 rounded-xl border border-soft-border">
+          <p class="font-display text-lg font-medium mb-4 text-charcoal">Things that describe me fairly well</p>
+          <ul class="list-none">
+            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray border-b border-dashed border-soft-border">
+              <span class="text-lg">🔍</span> Detail-oriented to a fault (I've rewritten this bio five times)
+            </li>
+            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray border-b border-dashed border-soft-border">
+              <span class="text-lg">🎯</span> Solution-oriented, calm under pressure
+            </li>
+            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray border-b border-dashed border-soft-border">
+              <span class="text-lg">💬</span> Clear, honest communication—even when it's awkward
+            </li>
+            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray border-b border-dashed border-soft-border">
+              <span class="text-lg">📊</span> Data-driven decision making
+            </li>
+            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray border-b border-dashed border-soft-border">
+              <span class="text-lg">📚</span> Continuous learner, currently obsessing over Systems Thinking
+            </li>
+            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray">
+              <span class="text-lg">🏠</span> Introverted, but I genuinely love helping others succeed
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="py-24">
+    <div class="max-w-[900px] mx-auto px-6">
+      <div class="mb-12">
+        <p class="text-xs font-semibold uppercase tracking-widest text-lime mb-3">What I work with</p>
+        <h2 class="font-display text-3xl md:text-4xl font-medium text-charcoal">The toolkit (always expanding)</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Skill Card -->
+        <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
+          <h3 class="font-display text-lg font-medium mb-2 text-charcoal">Backend & APIs</h3>
+          <p class="text-sm text-warm-gray mb-4">Building the stuff that powers the stuff you actually see.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Python</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">FastAPI</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">PostgreSQL</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Postman</span>
+          </div>
+        </div>
+        
+        <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
+          <h3 class="font-display text-lg font-medium mb-2 text-charcoal">Frontend</h3>
+          <p class="text-sm text-warm-gray mb-4">Making things look good and work smoothly. Still learning, honestly.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">React</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Next.js</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Svelte</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Tailwind CSS</span>
+          </div>
+        </div>
+        
+        <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
+          <h3 class="font-display text-lg font-medium mb-2 text-charcoal">Observability & Ops</h3>
+          <p class="text-sm text-warm-gray mb-4">Monitoring, alerting, and making sure things don't break silently.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs py-1 px-2.5 bg-lime/20 rounded text-lime font-medium">Datadog ★</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Azure Logs</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Incident Mgmt</span>
+          </div>
+        </div>
+        
+        <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
+          <h3 class="font-display text-lg font-medium mb-2 text-charcoal">DevOps & Infra</h3>
+          <p class="text-sm text-warm-gray mb-4">The unglamorous work that makes everything else possible.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Docker</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Coolify</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Git</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Azure DevOps</span>
+          </div>
+        </div>
+        
+        <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
+          <h3 class="font-display text-lg font-medium mb-2 text-charcoal">Project & Process</h3>
+          <p class="text-sm text-warm-gray mb-4">Keeping things organised and turning chaos into clarity.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Jira</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Change Mgmt</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">ServiceNow</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Agile</span>
+          </div>
+        </div>
+        
+        <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
+          <h3 class="font-display text-lg font-medium mb-2 text-charcoal">Data & Reporting</h3>
+          <p class="text-sm text-warm-gray mb-4">Turning data into decisions and dashboards into stories.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs py-1 px-2.5 bg-lime/20 rounded text-lime font-medium">Excel/Power Query ★</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Power BI</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">SharePoint</span>
+          </div>
+        </div>
+
+        <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
+          <h3 class="font-display text-lg font-medium mb-2 text-charcoal">AI & LLMs</h3>
+          <p class="text-sm text-warm-gray mb-4">Currently my biggest rabbit hole. Building tools that remember context.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">MCP Servers</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Prompt Engineering</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">FastMCP</span>
+          </div>
+        </div>
+        
+        <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
+          <h3 class="font-display text-lg font-medium mb-2 text-charcoal">Testing & QA</h3>
+          <p class="text-sm text-warm-gray mb-4">Making sure things work before they break in production.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Regression Testing</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">API Testing</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Bug Validation</span>
+          </div>
+        </div>
+        
+        <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
+          <h3 class="font-display text-lg font-medium mb-2 text-charcoal">People & Comms</h3>
+          <p class="text-sm text-warm-gray mb-4">The stuff that actually matters in the real world.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Stakeholder Mgmt</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Vendor Relations</span>
+            <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Process Improvement</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-24 bg-warm-white border-t border-soft-border">
+    <div class="max-w-[900px] mx-auto px-6">
+      <div class="mb-12">
+        <p class="text-xs font-semibold uppercase tracking-widest text-lime mb-3">Selected work</p>
+        <h2 class="font-display text-3xl md:text-4xl font-medium text-charcoal">Things I've built (and am building)</h2>
+      </div>
+      <div class="flex flex-col gap-6">
+        <!-- Project Card -->
+        <a href="https://github.com/liamthura" target="_blank" class="grid md:grid-cols-[1fr_auto] gap-6 p-8 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all group">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-3 bg-lime/15 text-lime">Active</span>
+            <h3 class="font-display text-xl font-medium text-charcoal mb-2">Persona MCP Server</h3>
+            <p class="text-warm-gray text-[15px]">
+              An MCP server that creates a personal digital twin for AI interactions. 
+              Stores profile info, interests, knowledge, and preferences so Claude actually 
+              remembers who you are. My attempt at making AI context-aware.
+            </p>
+          </div>
+          <span class="hidden md:flex items-center text-warm-gray text-2xl group-hover:translate-x-1 group-hover:text-lime transition-all">→</span>
+        </a>
+        
+        <a href="https://solterra.thuradev.qzz.io" target="_blank" class="grid md:grid-cols-[1fr_auto] gap-6 p-8 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all group">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-3 bg-lime/15 text-lime">Active</span>
+            <h3 class="font-display text-xl font-medium text-charcoal mb-2">Solterra</h3>
+            <p class="text-warm-gray text-[15px]">
+              Full-stack event management app for Malaysian B40 communities, specifically for 
+              cancer screening events. Built with Next.js, FastAPI, and PostgreSQL. Group project 
+              that taught me a lot about deployment headaches and CORS configuration.
+            </p>
+          </div>
+          <span class="hidden md:flex items-center text-warm-gray text-2xl group-hover:translate-x-1 group-hover:text-lime transition-all">→</span>
+        </a>
+        
+        <a href="https://justsoiknow.substack.com" target="_blank" class="grid md:grid-cols-[1fr_auto] gap-6 p-8 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all group">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-3 bg-lime/15 text-lime">Active</span>
+            <h3 class="font-display text-xl font-medium text-charcoal mb-2">just so i know</h3>
+            <p class="text-warm-gray text-[15px]">
+              A Substack where I process life as an international student navigating abroad, 
+              away from a struggling family and country. Writing about relationships, growth, 
+              failures, and the messy parts of figuring things out.
+            </p>
+          </div>
+          <span class="hidden md:flex items-center text-warm-gray text-2xl group-hover:translate-x-1 group-hover:text-lime transition-all">→</span>
+        </a>
+        
+        <a href="https://capture-booth-tawny.vercel.app/" target="_blank" class="grid md:grid-cols-[1fr_auto] gap-6 p-8 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all group">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-3 bg-blue/15 text-blue">Completed</span>
+            <h3 class="font-display text-xl font-medium text-charcoal mb-2">Capture Booth</h3>
+            <p class="text-warm-gray text-[15px]">
+              A modern photo booth app I built to learn Svelte. Explores authentication flow, 
+              HTML canvas manipulation, and state management. Sometimes the best way to learn 
+              is to just build something fun.
+            </p>
+          </div>
+          <span class="hidden md:flex items-center text-warm-gray text-2xl group-hover:translate-x-1 group-hover:text-lime transition-all">→</span>
+        </a>
+        
+        <a href="https://thurashares.qzz.io/blog/first-hackathon/" target="_blank" class="grid md:grid-cols-[1fr_auto] gap-6 p-8 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all group">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-3 bg-blue/15 text-blue">Completed</span>
+            <h3 class="font-display text-xl font-medium text-charcoal mb-2">CBC Hackathon</h3>
+            <p class="text-warm-gray text-[15px]">
+              Led and hosted the first Claude Builder Club Hackathon at Northumbria. Theme planning, 
+              judging criteria, agenda, MC duties—the whole thing. Achieved >90% retention across 
+              two days. Learned a lot about event organisation (and what not to do).
+            </p>
+          </div>
+          <span class="hidden md:flex items-center text-warm-gray text-2xl group-hover:translate-x-1 group-hover:text-lime transition-all">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience" class="py-24">
+    <div class="max-w-[900px] mx-auto px-6">
+      <div class="mb-12">
+        <p class="text-xs font-semibold uppercase tracking-widest text-lime mb-3">Experience</p>
+        <h2 class="font-display text-3xl md:text-4xl font-medium text-charcoal">Where I've worked</h2>
+      </div>
+      <div>
+        <!-- Experience Item -->
+        <div class="py-8 border-b border-soft-border grid md:grid-cols-[200px_1fr] gap-6 md:gap-10">
+          <div class="text-warm-gray text-sm">
+            <span class="font-semibold text-charcoal block mb-1">Honda Motor Europe</span>
+            <span>Jul 2024 – Jul 2025</span><br>
+            <span>Placement Year</span>
+          </div>
+          <div>
+            <h3 class="font-display text-xl font-medium text-charcoal mb-3">IT Operations Support Undergraduate</h3>
+            <p class="text-warm-gray mb-4">
+              A year of learning that the best solutions come from really understanding the problem. 
+              Built their Datadog observability platform from scratch (log parsing, dashboards, alerting). 
+              Led an API development project end-to-end with IBM developers. Handled P1 critical incidents 
+              under pressure. Fixed a multi-year app issue affecting 1000+ weekly users. Also organised 
+              a recruitment assessment centre that got 4.85/5 satisfaction.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs py-1.5 px-3 bg-warm-white border border-soft-border rounded-md text-warm-gray">Datadog</span>
+              <span class="text-xs py-1.5 px-3 bg-warm-white border border-soft-border rounded-md text-warm-gray">API Development</span>
+              <span class="text-xs py-1.5 px-3 bg-warm-white border border-soft-border rounded-md text-warm-gray">Incident Management</span>
+              <span class="text-xs py-1.5 px-3 bg-warm-white border border-soft-border rounded-md text-warm-gray">Vendor Management</span>
+              <span class="text-xs py-1.5 px-3 bg-warm-white border border-soft-border rounded-md text-warm-gray">Process Improvement</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="py-8 border-b border-soft-border grid md:grid-cols-[200px_1fr] gap-6 md:gap-10">
+          <div class="text-warm-gray text-sm">
+            <span class="font-semibold text-charcoal block mb-1">Northumbria University</span>
+            <span>Sep 2025 – Present</span><br>
+            <span>Volunteer</span>
+          </div>
+          <div>
+            <h3 class="font-display text-xl font-medium text-charcoal mb-3">International Student Representative</h3>
+            <p class="text-warm-gray mb-4">
+              Liaising between international students, academic staff, and the student union. 
+              Trying to make sure the unique challenges we face actually get heard.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs py-1.5 px-3 bg-warm-white border border-soft-border rounded-md text-warm-gray">Student Advocacy</span>
+              <span class="text-xs py-1.5 px-3 bg-warm-white border border-soft-border rounded-md text-warm-gray">Feedback Mechanisms</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="py-8 grid md:grid-cols-[200px_1fr] gap-6 md:gap-10">
+          <div class="text-warm-gray text-sm">
+            <span class="font-semibold text-charcoal block mb-1">Mantra Thai Dining</span>
+            <span>Sep 2022 – Jun 2024</span><br>
+            <span>Part-time</span>
+          </div>
+          <div>
+            <h3 class="font-display text-xl font-medium text-charcoal mb-3">Front of House Staff</h3>
+            <p class="text-warm-gray mb-4">
+              Best Part-time Staff Q4 2022. Learned a lot about customer service in a multicultural 
+              environment and how to train new team members. Also, the pad thai inspiration had to 
+              come from somewhere.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs py-1.5 px-3 bg-warm-white border border-soft-border rounded-md text-warm-gray">Customer Service</span>
+              <span class="text-xs py-1.5 px-3 bg-warm-white border border-soft-border rounded-md text-warm-gray">Staff Training</span>
+              <span class="text-xs py-1.5 px-3 bg-warm-white border border-soft-border rounded-md text-warm-gray">Team Award</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Outside of Work Section -->
+  <section class="py-24 bg-warm-white border-t border-soft-border">
+    <div class="max-w-[900px] mx-auto px-6">
+      <div class="mb-12">
+        <p class="text-xs font-semibold uppercase tracking-widest text-lime mb-3">Outside of work</p>
+        <h2 class="font-display text-3xl md:text-4xl font-medium text-charcoal">When I'm not coding</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="bg-cream p-6 rounded-xl border border-soft-border">
+          <span class="text-2xl mb-3 block">🍜</span>
+          <h3 class="font-display text-base font-medium text-charcoal mb-1">Stress Cooking</h3>
+          <p class="text-sm text-warm-gray">Asian cuisine, dumplings, Burmese food. I cook when stressed—which means a lot.</p>
+        </div>
+        <div class="bg-cream p-6 rounded-xl border border-soft-border">
+          <span class="text-2xl mb-3 block">🎬</span>
+          <h3 class="font-display text-base font-medium text-charcoal mb-1">Crime Thrillers</h3>
+          <p class="text-sm text-warm-gray">Films and books. If there's a plot twist, I'm probably watching or reading it.</p>
+        </div>
+        <div class="bg-cream p-6 rounded-xl border border-soft-border">
+          <span class="text-2xl mb-3 block">📚</span>
+          <h3 class="font-display text-base font-medium text-charcoal mb-1">Reading</h3>
+          <p class="text-sm text-warm-gray">Substacks, Kindle, non-fiction. Always have something on the go.</p>
+        </div>
+        <div class="bg-cream p-6 rounded-xl border border-soft-border">
+          <span class="text-2xl mb-3 block">🛍️</span>
+          <h3 class="font-display text-base font-medium text-charcoal mb-1">Vintage Shopping</h3>
+          <p class="text-sm text-warm-gray">Grainger Market regular. There's something satisfying about a good thrift find.</p>
+        </div>
+        <div class="bg-cream p-6 rounded-xl border border-soft-border">
+          <span class="text-2xl mb-3 block">🏸</span>
+          <h3 class="font-display text-base font-medium text-charcoal mb-1">Badminton</h3>
+          <p class="text-sm text-warm-gray">Sport Central sessions. Still figuring out my backhand.</p>
+        </div>
+        <div class="bg-cream p-6 rounded-xl border border-soft-border">
+          <span class="text-2xl mb-3 block">🍸</span>
+          <h3 class="font-display text-base font-medium text-charcoal mb-1">Mixology</h3>
+          <p class="text-sm text-warm-gray">Classic cocktails. "Definitely too strong" according to everyone.</p>
+        </div>
+        <div class="bg-cream p-6 rounded-xl border border-soft-border">
+          <span class="text-2xl mb-3 block">🎵</span>
+          <h3 class="font-display text-base font-medium text-charcoal mb-1">Music</h3>
+          <p class="text-sm text-warm-gray">Indie pop, alternative. Currently into Of Monsters and Men.</p>
+        </div>
+        <div class="bg-cream p-6 rounded-xl border border-soft-border">
+          <span class="text-2xl mb-3 block">🎮</span>
+          <h3 class="font-display text-base font-medium text-charcoal mb-1">Strategy Games</h3>
+          <p class="text-sm text-warm-gray">City Skylines, Civilisation, Outer Wilds. Building things, even virtually.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-24 bg-charcoal text-warm-white text-center">
+    <div class="max-w-[900px] mx-auto px-6">
+      <div class="mb-8">
+        <p class="text-xs font-semibold uppercase tracking-widest text-lime-light mb-3">Get in touch</p>
+        <h2 class="font-display text-3xl md:text-4xl font-medium text-warm-white mb-4">Let's build something together</h2>
+      </div>
+      <p class="text-white/70 max-w-[500px] mx-auto mb-9">
+        Whether you've got a project idea, want to chat about AI tools, or just want to 
+        swap shan noodle recipes—I'm always happy to connect.
+      </p>
+      <div class="flex justify-center gap-4 flex-wrap">
+        <a href="mailto:khantthura.work@gmail.com" class="inline-flex items-center gap-2 py-3 px-6 bg-white/10 border border-white/20 rounded-lg text-warm-white no-underline font-medium text-sm hover:bg-white/15 hover:border-white/40 hover:-translate-y-0.5 transition-all">
+          ✉️ Email me
+        </a>
+        <a href="https://linkedin.com/in/khantthura" target="_blank" class="inline-flex items-center gap-2 py-3 px-6 bg-white/10 border border-white/20 rounded-lg text-warm-white no-underline font-medium text-sm hover:bg-white/15 hover:border-white/40 hover:-translate-y-0.5 transition-all">
+          💼 LinkedIn
+        </a>
+        <a href="https://github.com/liamthura" target="_blank" class="inline-flex items-center gap-2 py-3 px-6 bg-white/10 border border-white/20 rounded-lg text-warm-white no-underline font-medium text-sm hover:bg-white/15 hover:border-white/40 hover:-translate-y-0.5 transition-all">
+          💻 GitHub
+        </a>
+        <a href="https://justsoiknow.substack.com" target="_blank" class="inline-flex items-center gap-2 py-3 px-6 bg-white/10 border border-white/20 rounded-lg text-warm-white no-underline font-medium text-sm hover:bg-white/15 hover:border-white/40 hover:-translate-y-0.5 transition-all">
+          ✍️ Substack
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-charcoal border-t border-white/10 py-8 text-center">
+    <div class="max-w-[900px] mx-auto px-6">
+      <p class="text-white/50 text-sm">Built with care (and probably too much attention to detail) by Liam Thura</p>
+      <p class="text-white/50 text-sm mt-2 flex items-center justify-center gap-1.5">
+        📍 Newcastle upon Tyne, UK
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
