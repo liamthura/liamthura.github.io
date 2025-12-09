@@ -52,7 +52,6 @@
     }
   </script>
   <style>
-    /* Grain overlay */
     body::before {
       content: '';
       position: fixed;
@@ -65,8 +64,6 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
       z-index: 1000;
     }
-
-    /* Reveal animation classes */
     .reveal {
       opacity: 0;
       transform: translateY(20px);
@@ -76,21 +73,16 @@
     .reveal-delay-2 { animation-delay: 0.2s; }
     .reveal-delay-3 { animation-delay: 0.3s; }
     .reveal-delay-4 { animation-delay: 0.4s; }
-
     @keyframes reveal {
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
-
-    /* Mobile nav active state */
     .mobile-nav-link.active {
       background: #e8e4de;
       color: #2d2d2d;
     }
-    
-    /* Reduced motion preference */
     @media (prefers-reduced-motion: reduce) {
       .reveal {
         animation: none;
@@ -105,19 +97,15 @@
     }
   </style>
   <script>
-    // Highlight active section in mobile nav on scroll
     document.addEventListener('DOMContentLoaded', function() {
       const sections = document.querySelectorAll('section[id]');
       const navLinks = document.querySelectorAll('.mobile-nav-link');
-      
       function highlightNav() {
         const scrollPos = window.scrollY + window.innerHeight / 3;
-        
         sections.forEach(section => {
           const sectionTop = section.offsetTop;
           const sectionHeight = section.offsetHeight;
           const sectionId = section.getAttribute('id');
-          
           if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
             navLinks.forEach(link => {
               link.classList.remove('active');
@@ -128,9 +116,8 @@
           }
         });
       }
-      
       window.addEventListener('scroll', highlightNav, { passive: true });
-      highlightNav(); // Initial check
+      highlightNav();
     });
   </script>
 </head>
@@ -153,65 +140,21 @@
     </div>
   </nav>
 
-  <!-- Mobile Navigation - Floating bottom pill -->
-  <nav 
-    class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden"
-    aria-label="Mobile navigation"
-  >
+  <!-- Mobile Navigation -->
+  <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden" aria-label="Mobile navigation">
     <div class="bg-warm-white/90 backdrop-blur-md rounded-full px-1.5 py-1.5 shadow-md border border-soft-border">
       <ul class="flex list-none gap-0.5" role="list">
-        <li>
-          <a 
-            href="#about" 
-            class="mobile-nav-link flex items-center justify-center px-3 py-2 rounded-full text-warm-gray text-xs font-medium no-underline hover:bg-cream focus:bg-cream focus:outline-none focus:ring-2 focus:ring-lime/50 focus:ring-offset-1 transition-all"
-            aria-label="About section"
-          >
-            About
-          </a>
-        </li>
-        <li>
-          <a 
-            href="#skills" 
-            class="mobile-nav-link flex items-center justify-center px-3 py-2 rounded-full text-warm-gray text-xs font-medium no-underline hover:bg-cream focus:bg-cream focus:outline-none focus:ring-2 focus:ring-lime/50 focus:ring-offset-1 transition-all"
-            aria-label="Skills section"
-          >
-            Skills
-          </a>
-        </li>
-        <li>
-          <a 
-            href="#projects" 
-            class="mobile-nav-link flex items-center justify-center px-3 py-2 rounded-full text-warm-gray text-xs font-medium no-underline hover:bg-cream focus:bg-cream focus:outline-none focus:ring-2 focus:ring-lime/50 focus:ring-offset-1 transition-all"
-            aria-label="Projects section"
-          >
-            Projects
-          </a>
-        </li>
-        <li>
-          <a 
-            href="#experience" 
-            class="mobile-nav-link flex items-center justify-center px-3 py-2 rounded-full text-warm-gray text-xs font-medium no-underline hover:bg-cream focus:bg-cream focus:outline-none focus:ring-2 focus:ring-lime/50 focus:ring-offset-1 transition-all"
-            aria-label="Experience section"
-          >
-            Work
-          </a>
-        </li>
-        <li>
-          <a 
-            href="#contact" 
-            class="mobile-nav-link flex items-center justify-center px-3 py-2 rounded-full text-warm-gray text-xs font-medium no-underline hover:bg-cream focus:bg-cream focus:outline-none focus:ring-2 focus:ring-lime/50 focus:ring-offset-1 transition-all"
-            aria-label="Contact section"
-          >
-            Contact
-          </a>
-        </li>
+        <li><a href="#about" class="mobile-nav-link flex items-center justify-center px-3 py-2 rounded-full text-warm-gray text-xs font-medium no-underline hover:bg-cream transition-all">About</a></li>
+        <li><a href="#skills" class="mobile-nav-link flex items-center justify-center px-3 py-2 rounded-full text-warm-gray text-xs font-medium no-underline hover:bg-cream transition-all">Skills</a></li>
+        <li><a href="#projects" class="mobile-nav-link flex items-center justify-center px-3 py-2 rounded-full text-warm-gray text-xs font-medium no-underline hover:bg-cream transition-all">Projects</a></li>
+        <li><a href="#experience" class="mobile-nav-link flex items-center justify-center px-3 py-2 rounded-full text-warm-gray text-xs font-medium no-underline hover:bg-cream transition-all">Work</a></li>
+        <li><a href="#contact" class="mobile-nav-link flex items-center justify-center px-3 py-2 rounded-full text-warm-gray text-xs font-medium no-underline hover:bg-cream transition-all">Contact</a></li>
       </ul>
     </div>
   </nav>
 
   <!-- Hero Section -->
   <section class="min-h-screen flex items-center pt-16 relative overflow-hidden">
-    <!-- Floating gradient orbs -->
     <div class="absolute -top-[20%] -right-[10%] w-[500px] h-[500px] opacity-30 rounded-full animate-float" style="background: radial-gradient(circle, #c5d98a 0%, transparent 70%);"></div>
     <div class="absolute bottom-[10%] -left-[15%] w-[400px] h-[400px] opacity-25 rounded-full animate-float-slow" style="background: radial-gradient(circle, #b8c4ff 0%, transparent 70%);"></div>
     
@@ -223,14 +166,9 @@
               <span class="text-lime">●</span> IT Management · Northumbria University · 2026
             </div>
           </div>
-          <!-- Avatar - mobile only, left aligned under badge -->
           <div class="reveal reveal-delay-1 md:hidden mb-6">
             <div class="w-28 h-28 rounded-2xl overflow-hidden border-4 border-warm-white shadow-lg">
-              <img 
-                src="https://filedn.com/l7MoJ9O3yxzYHH8mSYBkrjH/liam-avatar.jpeg" 
-                alt="Liam Thura" 
-                class="w-full h-full object-cover"
-              />
+              <img src="https://filedn.com/l7MoJ9O3yxzYHH8mSYBkrjH/liam-avatar.jpeg" alt="Liam Thura" class="w-full h-full object-cover"/>
             </div>
           </div>
           <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-medium leading-tight mb-6 text-charcoal reveal reveal-delay-2">
@@ -243,22 +181,13 @@
             and explaining complicated things in ways that make sense.
           </p>
           <div class="flex gap-4 flex-wrap reveal reveal-delay-4">
-            <a href="#projects" class="inline-flex items-center gap-2 py-3.5 px-7 rounded-lg font-semibold text-[15px] bg-charcoal text-warm-white hover:bg-[#1a1a1a] hover:-translate-y-0.5 hover:shadow-lg transition-all">
-              See my work →
-            </a>
-            <a href="#contact" class="inline-flex items-center gap-2 py-3.5 px-7 rounded-lg font-semibold text-[15px] bg-transparent text-charcoal border-[1.5px] border-soft-border hover:border-charcoal hover:bg-warm-white transition-all">
-              Get in touch
-            </a>
+            <a href="#projects" class="inline-flex items-center gap-2 py-3.5 px-7 rounded-lg font-semibold text-[15px] bg-charcoal text-warm-white hover:bg-[#1a1a1a] hover:-translate-y-0.5 hover:shadow-lg transition-all">See my work →</a>
+            <a href="#contact" class="inline-flex items-center gap-2 py-3.5 px-7 rounded-lg font-semibold text-[15px] bg-transparent text-charcoal border-[1.5px] border-soft-border hover:border-charcoal hover:bg-warm-white transition-all">Get in touch</a>
           </div>
         </div>
-        <!-- Avatar - desktop only -->
         <div class="reveal reveal-delay-2 flex-shrink-0 hidden md:block">
           <div class="w-56 h-56 rounded-2xl overflow-hidden border-4 border-warm-white shadow-lg">
-            <img 
-              src="https://filedn.com/l7MoJ9O3yxzYHH8mSYBkrjH/liam-avatar.jpeg" 
-              alt="Liam Thura" 
-              class="w-full h-full object-cover"
-            />
+            <img src="https://filedn.com/l7MoJ9O3yxzYHH8mSYBkrjH/liam-avatar.jpeg" alt="Liam Thura" class="w-full h-full object-cover"/>
           </div>
         </div>
       </div>
@@ -299,24 +228,12 @@
         <div class="bg-cream p-7 rounded-xl border border-soft-border">
           <p class="font-display text-lg font-medium mb-4 text-charcoal">What I bring to a team</p>
           <ul class="list-none">
-            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray border-b border-dashed border-soft-border">
-              <span class="text-lime font-bold">→</span> Translating technical problems into clear business decisions
-            </li>
-            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray border-b border-dashed border-soft-border">
-              <span class="text-lime font-bold">→</span> Building monitoring and reporting systems that people actually use
-            </li>
-            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray border-b border-dashed border-soft-border">
-              <span class="text-lime font-bold">→</span> Staying calm when things break and coordinating the fix (I've had practice)
-            </li>
-            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray border-b border-dashed border-soft-border">
-              <span class="text-lime font-bold">→</span> Working across teams and vendors to get things done
-            </li>
-            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray border-b border-dashed border-soft-border">
-              <span class="text-lime font-bold">→</span> Spotting process inefficiencies and fixing them
-            </li>
-            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray">
-              <span class="text-lime font-bold">→</span> Documenting things properly so knowledge doesn't walk out the door
-            </li>
+            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray border-b border-dashed border-soft-border"><span class="text-lime font-bold">→</span> Translating technical problems into clear business decisions</li>
+            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray border-b border-dashed border-soft-border"><span class="text-lime font-bold">→</span> Building monitoring and reporting systems that people actually use</li>
+            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray border-b border-dashed border-soft-border"><span class="text-lime font-bold">→</span> Staying calm when things break and coordinating the fix (I've had practice)</li>
+            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray border-b border-dashed border-soft-border"><span class="text-lime font-bold">→</span> Working across teams and vendors to get things done</li>
+            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray border-b border-dashed border-soft-border"><span class="text-lime font-bold">→</span> Spotting process inefficiencies and fixing them</li>
+            <li class="flex items-start gap-3 py-2.5 text-[15px] text-warm-gray"><span class="text-lime font-bold">→</span> Documenting things properly so knowledge doesn't walk out the door</li>
           </ul>
         </div>
       </div>
@@ -331,7 +248,6 @@
         <h2 class="font-display text-3xl md:text-4xl font-medium text-charcoal">Technical skills</h2>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- Skill Card -->
         <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
           <h3 class="font-display text-lg font-medium mb-2 text-charcoal">Observability & Monitoring</h3>
           <p class="text-sm text-warm-gray mb-4">Built Honda's monitoring platform from scratch. Now I get alerts before users start complaining. Usually.</p>
@@ -341,7 +257,6 @@
             <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">KQL</span>
           </div>
         </div>
-        
         <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
           <h3 class="font-display text-lg font-medium mb-2 text-charcoal">Data & Reporting</h3>
           <p class="text-sm text-warm-gray mb-4">Turning raw data into dashboards stakeholders actually look at. A rare achievement, apparently.</p>
@@ -351,7 +266,6 @@
             <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">SQL</span>
           </div>
         </div>
-        
         <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
           <h3 class="font-display text-lg font-medium mb-2 text-charcoal">Backend & APIs</h3>
           <p class="text-sm text-warm-gray mb-4">Building services and integrations. Led API project with external developers.</p>
@@ -362,7 +276,6 @@
             <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Postman</span>
           </div>
         </div>
-        
         <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
           <h3 class="font-display text-lg font-medium mb-2 text-charcoal">Frontend</h3>
           <p class="text-sm text-warm-gray mb-4">Building interfaces. More comfortable with this than I used to be.</p>
@@ -373,7 +286,6 @@
             <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Tailwind CSS</span>
           </div>
         </div>
-        
         <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
           <h3 class="font-display text-lg font-medium mb-2 text-charcoal">Project & Process</h3>
           <p class="text-sm text-warm-gray mb-4">Coordinating work, tracking changes, attending meetings about meetings. The usual.</p>
@@ -384,7 +296,6 @@
             <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Agile</span>
           </div>
         </div>
-        
         <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
           <h3 class="font-display text-lg font-medium mb-2 text-charcoal">DevOps & Infrastructure</h3>
           <p class="text-sm text-warm-gray mb-4">Deployment, version control, and debugging why it works on my machine but not yours.</p>
@@ -395,7 +306,6 @@
             <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Coolify</span>
           </div>
         </div>
-
         <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
           <h3 class="font-display text-lg font-medium mb-2 text-charcoal">Testing & QA</h3>
           <p class="text-sm text-warm-gray mb-4">Regression testing, API validation, bug confirmation. Finding problems before users do is surprisingly satisfying.</p>
@@ -405,7 +315,6 @@
             <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">Bug Validation</span>
           </div>
         </div>
-        
         <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
           <h3 class="font-display text-lg font-medium mb-2 text-charcoal">AI & LLM Tools</h3>
           <p class="text-sm text-warm-gray mb-4">Exploring how to make AI more context-aware. Dissertation focus area.</p>
@@ -415,7 +324,6 @@
             <span class="text-xs py-1 px-2.5 bg-cream rounded text-warm-gray font-medium">FastMCP</span>
           </div>
         </div>
-        
         <div class="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all">
           <h3 class="font-display text-lg font-medium mb-2 text-charcoal">Stakeholder & Vendor Work</h3>
           <p class="text-sm text-warm-gray mb-4">First point of contact for IBM, AT&T, Bosch at Honda. Cross-team coordination.</p>
@@ -429,79 +337,95 @@
     </div>
   </section>
 
-  <!-- Projects Section -->
+  <!-- Projects Section - Masonry Bento -->
   <section id="projects" class="py-24 bg-warm-white border-t border-soft-border">
     <div class="max-w-[900px] mx-auto px-6">
       <div class="mb-12">
         <p class="text-xs font-semibold uppercase tracking-widest text-lime mb-3">Selected work</p>
         <h2 class="font-display text-3xl md:text-4xl font-medium text-charcoal">Projects</h2>
       </div>
-      <div class="flex flex-col gap-6">
-        <!-- Project Card -->
-        <a href="https://github.com/liamthura" target="_blank" class="grid md:grid-cols-[1fr_auto] gap-6 p-8 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all group">
-          <div>
-            <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-3 bg-lime/15 text-lime">Active · Side Project</span>
-            <h3 class="font-display text-xl font-medium text-charcoal mb-2">Persona MCP Server</h3>
-            <p class="text-warm-gray text-[15px]">
-              An MCP server that stores personal context for AI interactions—profile, interests, 
-              knowledge, preferences. Part of my dissertation on context-aware AI tools for 
-              small business owners using design science methodology.
-            </p>
+      
+      <!-- Masonry Bento Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-6 gap-4 auto-rows-[minmax(120px,auto)]">
+        
+        <!-- Persona MCP Server - Large featured card -->
+        <a href="https://github.com/liamthura" target="_blank" class="md:col-span-4 md:row-span-2 p-6 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all flex flex-col">
+          <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-3 bg-lime/15 text-lime w-fit">Active · Dissertation</span>
+          <h3 class="font-display text-2xl font-medium text-charcoal mb-3">Persona MCP Server</h3>
+          <p class="text-warm-gray text-[15px] mb-4 flex-grow">
+            An MCP server that stores personal context for AI interactions—profile, interests, 
+            knowledge, preferences. Part of my dissertation on context-aware AI tools for 
+            small business owners using design science methodology.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs py-1 px-2.5 bg-warm-white rounded text-warm-gray">Python</span>
+            <span class="text-xs py-1 px-2.5 bg-warm-white rounded text-warm-gray">FastMCP</span>
+            <span class="text-xs py-1 px-2.5 bg-warm-white rounded text-warm-gray">Pydantic</span>
           </div>
-          <span class="hidden md:flex items-center text-warm-gray text-2xl group-hover:translate-x-1 group-hover:text-lime transition-all">→</span>
         </a>
         
-        <a href="https://solterra.thuradev.qzz.io" target="_blank" class="grid md:grid-cols-[1fr_auto] gap-6 p-8 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all group">
-          <div>
-            <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-3 bg-lime/15 text-lime">Active · Group Project</span>
-            <h3 class="font-display text-xl font-medium text-charcoal mb-2">Solterra</h3>
-            <p class="text-warm-gray text-[15px]">
-              Full-stack event management app for Malaysian B40 communities, focused on 
-              cancer screening events. Built with Next.js, FastAPI, and PostgreSQL. 
-              I handled project coordination, deployment, and cross-team communication.
-            </p>
-          </div>
-          <span class="hidden md:flex items-center text-warm-gray text-2xl group-hover:translate-x-1 group-hover:text-lime transition-all">→</span>
+        <!-- just so i know - Compact -->
+        <a href="https://justsoiknow.substack.com" target="_blank" class="md:col-span-2 p-5 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all">
+          <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-2 bg-lime/15 text-lime">Active · Writing</span>
+          <h3 class="font-display text-lg font-medium text-charcoal mb-1">just so i know</h3>
+          <p class="text-warm-gray text-sm">Substack about life as an international student. Mostly therapy disguised as content.</p>
         </a>
         
-        <a href="https://justsoiknow.substack.com" target="_blank" class="grid md:grid-cols-[1fr_auto] gap-6 p-8 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all group">
-          <div>
-            <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-3 bg-lime/15 text-lime">Active · Writing</span>
-            <h3 class="font-display text-xl font-medium text-charcoal mb-2">just so i know</h3>
-            <p class="text-warm-gray text-[15px]">
-              A Substack where I write about navigating life as an international student—relationships, 
-              growth, failures, and figuring things out away from home. Mostly therapy disguised as content. 
-              Others seem to find it useful too.
-            </p>
-          </div>
-          <span class="hidden md:flex items-center text-warm-gray text-2xl group-hover:translate-x-1 group-hover:text-lime transition-all">→</span>
+        <!-- CBC Hackathon - Compact -->
+        <a href="https://thurashares.qzz.io/blog/first-hackathon/" target="_blank" class="md:col-span-2 p-5 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all">
+          <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-2 bg-blue/15 text-blue">Completed · Event</span>
+          <h3 class="font-display text-lg font-medium text-charcoal mb-1">CBC Hackathon</h3>
+          <p class="text-warm-gray text-sm">Led the first Claude Builder Club Hackathon at Northumbria. 90%+ retention.</p>
         </a>
         
-        <a href="https://thurashares.qzz.io/blog/first-hackathon/" target="_blank" class="grid md:grid-cols-[1fr_auto] gap-6 p-8 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all group">
-          <div>
-            <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-3 bg-blue/15 text-blue">Completed · Event</span>
-            <h3 class="font-display text-xl font-medium text-charcoal mb-2">CBC Hackathon</h3>
-            <p class="text-warm-gray text-[15px]">
-              Led the first Claude Builder Club Hackathon at Northumbria. Handled theme planning, 
-              judging criteria, agenda, and MC duties. Over 90% attendance retention across 
-              two days. Learned a lot about event organisation.
-            </p>
+        <!-- Solterra - Medium -->
+        <a href="https://solterra.thuradev.qzz.io" target="_blank" class="md:col-span-3 md:row-span-2 p-6 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all flex flex-col">
+          <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-3 bg-lime/15 text-lime w-fit">Active · Group Project</span>
+          <h3 class="font-display text-xl font-medium text-charcoal mb-2">Solterra</h3>
+          <p class="text-warm-gray text-sm mb-4 flex-grow">
+            Full-stack event management app for Malaysian B40 communities, focused on cancer screening events. I handled project coordination, deployment, and cross-team communication.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs py-1 px-2.5 bg-warm-white rounded text-warm-gray">Next.js</span>
+            <span class="text-xs py-1 px-2.5 bg-warm-white rounded text-warm-gray">FastAPI</span>
+            <span class="text-xs py-1 px-2.5 bg-warm-white rounded text-warm-gray">PostgreSQL</span>
           </div>
-          <span class="hidden md:flex items-center text-warm-gray text-2xl group-hover:translate-x-1 group-hover:text-lime transition-all">→</span>
         </a>
         
-        <a href="https://capture-booth-tawny.vercel.app/" target="_blank" class="grid md:grid-cols-[1fr_auto] gap-6 p-8 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all group">
-          <div>
-            <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-3 bg-blue/15 text-blue">Completed · Learning</span>
-            <h3 class="font-display text-xl font-medium text-charcoal mb-2">Capture Booth</h3>
-            <p class="text-warm-gray text-[15px]">
-              A photo booth app I built to learn Svelte. Explores authentication flow, 
-              HTML canvas manipulation, and state management. The best way to learn 
-              is to build something.
-            </p>
+        <!-- Gateshead by Bike - Medium -->
+        <a href="https://github.com/liamthura/gateshead-by-bike-eli" target="_blank" class="md:col-span-3 p-5 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all">
+          <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-2 bg-blue/15 text-blue">Completed · Uni Project</span>
+          <h3 class="font-display text-lg font-medium text-charcoal mb-2">Gateshead by Bike</h3>
+          <p class="text-warm-gray text-sm mb-3">Social platform for cyclists. Database modelling, role-based permissions, accessibility focus.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs py-1 px-2.5 bg-warm-white rounded text-warm-gray">Python</span>
+            <span class="text-xs py-1 px-2.5 bg-warm-white rounded text-warm-gray">SQLite</span>
           </div>
-          <span class="hidden md:flex items-center text-warm-gray text-2xl group-hover:translate-x-1 group-hover:text-lime transition-all">→</span>
         </a>
+        
+        <!-- Events Great North -->
+        <a href="https://github.com/liamthura/events-great-north" target="_blank" class="md:col-span-3 p-5 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all">
+          <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-2 bg-blue/15 text-blue">Completed · Uni Project</span>
+          <h3 class="font-display text-lg font-medium text-charcoal mb-2">Events Great North</h3>
+          <p class="text-warm-gray text-sm mb-3">Events booking site with server-side rendering and data sanitisation.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs py-1 px-2.5 bg-warm-white rounded text-warm-gray">PHP</span>
+            <span class="text-xs py-1 px-2.5 bg-warm-white rounded text-warm-gray">JavaScript</span>
+            <span class="text-xs py-1 px-2.5 bg-warm-white rounded text-warm-gray">MySQL</span>
+          </div>
+        </a>
+        
+        <!-- Capture Booth -->
+        <a href="https://capture-booth-tawny.vercel.app/" target="_blank" class="md:col-span-3 p-5 bg-cream rounded-xl border border-soft-border no-underline hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all">
+          <span class="text-xs font-semibold uppercase tracking-wider py-1 px-2.5 rounded inline-block mb-2 bg-blue/15 text-blue">Completed · Learning</span>
+          <h3 class="font-display text-lg font-medium text-charcoal mb-2">Capture Booth</h3>
+          <p class="text-warm-gray text-sm mb-3">Photo booth app to learn Svelte. Auth flow, canvas manipulation, state management.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs py-1 px-2.5 bg-warm-white rounded text-warm-gray">Svelte</span>
+            <span class="text-xs py-1 px-2.5 bg-warm-white rounded text-warm-gray">SvelteKit</span>
+          </div>
+        </a>
+        
       </div>
     </div>
   </section>
@@ -514,7 +438,6 @@
         <h2 class="font-display text-3xl md:text-4xl font-medium text-charcoal">Where I've worked</h2>
       </div>
       <div>
-        <!-- Experience Item -->
         <div class="py-8 border-b border-soft-border grid md:grid-cols-[200px_1fr] gap-6 md:gap-10">
           <div class="text-warm-gray text-sm">
             <span class="font-semibold text-charcoal block mb-1">Honda Motor Europe</span>
@@ -636,21 +559,11 @@
           <div>
             <p class="text-sm text-warm-gray mb-2">Key coursework</p>
             <ul class="text-[15px] text-warm-gray space-y-2">
-              <li class="flex items-start gap-2">
-                <span class="text-lime">•</span> Business Intelligence & Systems Thinking
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-lime">•</span> Enterprise Project Management (PRINCE2, Agile)
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-lime">•</span> SAP ERP & Integrated Enterprise Systems
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-lime">•</span> Web Development & Application Design
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-lime">•</span> Business Integrative Consultancy Project
-              </li>
+              <li class="flex items-start gap-2"><span class="text-lime">•</span> Business Intelligence & Systems Thinking</li>
+              <li class="flex items-start gap-2"><span class="text-lime">•</span> Enterprise Project Management (PRINCE2, Agile)</li>
+              <li class="flex items-start gap-2"><span class="text-lime">•</span> SAP ERP & Integrated Enterprise Systems</li>
+              <li class="flex items-start gap-2"><span class="text-lime">•</span> Web Development & Application Design</li>
+              <li class="flex items-start gap-2"><span class="text-lime">•</span> Business Integrative Consultancy Project</li>
             </ul>
           </div>
         </div>
@@ -702,29 +615,29 @@
             or business analysis roles. If you think I might be a good fit for your team, 
             I'd be happy to chat.
           </p>
-          <p class="text-white/70">
+          <p class="text-white/70 mb-6">
             Also open to conversations about AI tools, systems thinking, or just 
             exchanging notes on navigating early career stuff. I reply to emails. 
             (Revolutionary, I know.)
           </p>
-          <p class="text-white/70 text-sm">Graduate visa eligible till 2028 · Available from July 2026</p>
+          <p class="text-white/50 text-sm">Graduate visa eligible till 2028 · Available from July 2026</p>
         </div>
         <div class="flex flex-col gap-4">
-          <a href="mailto:khantthura.work@gmail.com" class="flex items-center gap-4 p-4 bg-white/5 border border-white/10 rounded-xl text-warm-white no-underline hover:bg-white/10 hover:border-white/20 transition-all group">
+          <a href="mailto:khantthura.work@gmail.com" class="flex items-center gap-4 p-4 bg-white/5 border border-white/10 rounded-xl text-warm-white no-underline hover:bg-white/10 hover:border-white/20 transition-all">
             <span class="text-2xl">✉️</span>
             <div>
               <p class="font-medium text-sm">Email</p>
               <p class="text-white/60 text-sm">khantthura.work@gmail.com</p>
             </div>
           </a>
-          <a href="https://linkedin.com/in/khantthura" target="_blank" class="flex items-center gap-4 p-4 bg-white/5 border border-white/10 rounded-xl text-warm-white no-underline hover:bg-white/10 hover:border-white/20 transition-all group">
+          <a href="https://linkedin.com/in/khantthura" target="_blank" class="flex items-center gap-4 p-4 bg-white/5 border border-white/10 rounded-xl text-warm-white no-underline hover:bg-white/10 hover:border-white/20 transition-all">
             <span class="text-2xl">💼</span>
             <div>
               <p class="font-medium text-sm">LinkedIn</p>
               <p class="text-white/60 text-sm">linkedin.com/in/khantthura</p>
             </div>
           </a>
-          <a href="https://github.com/liamthura" target="_blank" class="flex items-center gap-4 p-4 bg-white/5 border border-white/10 rounded-xl text-warm-white no-underline hover:bg-white/10 hover:border-white/20 transition-all group">
+          <a href="https://github.com/liamthura" target="_blank" class="flex items-center gap-4 p-4 bg-white/5 border border-white/10 rounded-xl text-warm-white no-underline hover:bg-white/10 hover:border-white/20 transition-all">
             <span class="text-2xl">💻</span>
             <div>
               <p class="font-medium text-sm">GitHub</p>
