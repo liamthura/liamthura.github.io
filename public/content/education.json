@@ -1,0 +1,18 @@
+[
+  {
+    "id": "northumbria",
+    "from": "2022",
+    "to": "2026",
+    "title": "BSc IT Management for Business",
+    "institution": "Northumbria University, Newcastle",
+    "grades": "Level 4: 86% · Level 5: 80% · Expected First Class Honours",
+    "dissertation": "Development and evaluation of a context-aware AI adoption toolkit for SMB owners using design science methodology and MCP-based architecture.",
+    "highlights": [
+      "Business Intelligence & Systems Thinking",
+      "Enterprise Project Management (PRINCE2, Agile)",
+      "SAP ERP & Integrated Enterprise Systems",
+      "Web Development & Application Design",
+      "Business Integrative Consultancy Project"
+    ]
+  }
+]

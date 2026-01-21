@@ -1,0 +1,98 @@
+[
+  {
+    "id": "persona-mcp",
+    "title": "Persona MCP Server",
+    "description": " An MCP server that stores personal context for AI interactions—profile, interests, knowledge, preferences. Inspired by my dissertation on context-aware AI tools for small business owners using design science methodology.",
+    "status": "Active",
+    "type": "Side Project",
+    "url": "",
+    "github": "https://github.com/liamthura/project-twin",
+    "image": "",
+    "tags": ["Python", "FastMCP", "Pydantic"],
+    "size": "large"
+  },
+  {
+    "id": "substack",
+    "title": "just so i know",
+    "description": "Substack about life as an international student. Mostly therapy disguised as content.",
+    "status": "Active",
+    "type": "Writing",
+    "url": "https://justsoiknow.substack.com",
+    "github": "",
+    "image": "",
+    "tags": [],
+    "size": "small"
+  },
+  {
+    "id": "cbc-hackathon",
+    "title": "CBC Hackathon",
+    "description": "Led the first Claude Builder Club Hackathon at Northumbria. 90%+ retention.",
+    "status": "Completed",
+    "type": "Event",
+    "url": "https://thurashares.qzz.io/blog/first-hackathon/",
+    "github": "",
+    "image": "",
+    "tags": [],
+    "size": "small"
+  },
+  {
+    "id": "solterra",
+    "title": "Solterra",
+    "description": "Full-stack healthcare event management app for Malaysian B40 communities, focused on cancer screening events. I handled as project lead for analysis, project management, quality assurance, and overall project coordination.",
+    "status": "Completed",
+    "type": "Uni Project",
+    "url": "https://solterra.thuradev.qzz.io",
+    "github": "https://github.com/itsdiy0/solterra",
+    "image": "",
+    "tags": ["React", "Next.js", "FastAPI", "PostgreSQL"],
+    "size": "medium"
+  },
+  {
+    "id": "gateshead-bike",
+    "title": "Gateshead by Bike",
+    "description": "Social platform for cyclists. Database modelling, role-based permissions, accessibility focus.",
+    "status": "Completed",
+    "type": "Uni Project",
+    "url": "https://hg4oc4cwsw04c0wows8kw0k0.thuradev.qzz.io/",
+    "github": "https://github.com/liamthura/gateshead-by-bike-eli",
+    "image": "",
+    "tags": ["Python", "SQLite"],
+    "size": "standard"
+  },
+  {
+    "id": "events-great-north",
+    "title": "Events Great North",
+    "description": "Events booking site with server-side rendering and data sanitisation.",
+    "status": "Completed",
+    "type": "Uni Project",
+    "url": "",
+    "github": "https://github.com/liamthura/events-great-north",
+    "image": "",
+    "tags": ["PHP", "JavaScript", "MySQL"],
+    "size": "standard"
+  },
+  {
+    "id": "capture-booth",
+    "title": "Capture Booth",
+    "description": "Photo booth app to learn Svelte. Auth flow, canvas manipulation, state management.",
+    "status": "Completed",
+    "type": "Learning",
+    "url": "https://capture-booth-tawny.vercel.app/",
+    "github": "",
+    "image": "",
+    "tags": ["Svelte", "SvelteKit"],
+    "size": "standard"
+  },
+  {
+    "id": "portfolio",
+    "title": "Portfolio Site",
+    "description": "Personal portfolio built with Next.js and JSON-based content management, and a local editor because I got tired of manually editing JSON files. Static export for GitHub Pages.",
+    "status": "Active",
+    "type": "Side Project",
+    "url": "https://liamthura.github.io",
+    "github": "https://github.com/liamthura/liamthura.github.io",
+    "image": "",
+    "tags": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    "size": "small"
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "headline": "Let's talk",
+  "intro": "I'm looking for graduate opportunities in IT operations, technology consulting, or business analysis roles. If you think I might be a good fit for your team, I'd be happy to chat.",
+  "secondary": "Also open to conversations about AI tools, systems thinking, or just exchanging notes on navigating early career stuff. I reply to emails. (Revolutionary, I know.)",
+  "availability": "Graduate visa eligible till 2028 · Available from July 2026",
+  "links": [
+    {
+      "label": "Email",
+      "value": "khantthura.work@gmail.com",
+      "url": "mailto:khantthura.work@gmail.com",
+      "icon": "EnvelopeIcon"
+    },
+    {
+      "label": "LinkedIn",
+      "value": "/in/khantthura",
+      "url": "https://linkedin.com/in/khantthura",
+      "icon": "LinkedinLogoIcon"
+    },
+    {
+      "label": "GitHub",
+      "value": "@liamthura",
+      "url": "https://github.com/liamthura",
+      "icon": "GithubLogoIcon"
+    }
+  ]
+}
