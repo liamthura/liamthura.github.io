@@ -8,7 +8,11 @@
     "url": "",
     "github": "https://github.com/liamthura/project-twin",
     "image": "",
-    "tags": ["Python", "FastMCP", "Pydantic"],
+    "tags": [
+      "Python",
+      "FastMCP",
+      "Pydantic"
+    ],
     "size": "large"
   },
   {
@@ -44,7 +48,12 @@
     "url": "https://solterra.thuradev.qzz.io",
     "github": "https://github.com/itsdiy0/solterra",
     "image": "",
-    "tags": ["React", "Next.js", "FastAPI", "PostgreSQL"],
+    "tags": [
+      "React",
+      "Next.js",
+      "FastAPI",
+      "PostgreSQL"
+    ],
     "size": "medium"
   },
   {
@@ -56,7 +65,10 @@
     "url": "https://hg4oc4cwsw04c0wows8kw0k0.thuradev.qzz.io/",
     "github": "https://github.com/liamthura/gateshead-by-bike-eli",
     "image": "",
-    "tags": ["Python", "SQLite"],
+    "tags": [
+      "Python",
+      "SQLite"
+    ],
     "size": "standard"
   },
   {
@@ -68,7 +80,11 @@
     "url": "",
     "github": "https://github.com/liamthura/events-great-north",
     "image": "",
-    "tags": ["PHP", "JavaScript", "MySQL"],
+    "tags": [
+      "PHP",
+      "JavaScript",
+      "MySQL"
+    ],
     "size": "standard"
   },
   {
@@ -76,11 +92,14 @@
     "title": "Capture Booth",
     "description": "Photo booth app to learn Svelte. Auth flow, canvas manipulation, state management.",
     "status": "Completed",
-    "type": "Learning",
+    "type": "Side Project",
     "url": "https://capture-booth-tawny.vercel.app/",
     "github": "",
     "image": "",
-    "tags": ["Svelte", "SvelteKit"],
+    "tags": [
+      "Svelte",
+      "SvelteKit"
+    ],
     "size": "standard"
   },
   {
@@ -92,7 +111,12 @@
     "url": "https://liamthura.github.io",
     "github": "https://github.com/liamthura/liamthura.github.io",
     "image": "",
-    "tags": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    "tags": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS"
+    ],
     "size": "small"
   }
 ]
