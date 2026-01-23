@@ -1,8 +1,12 @@
-// About.tsx - Bio section with story and strengths sidebar
+// About.tsx - Bio section with collapsible story
+"use client";
 
+import { useState } from "react";
 import about from "@/content/about.json";
 
 export function About() {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <section
       id="about"
@@ -22,18 +26,29 @@ export function About() {
               </h2>
             </div>
 
-            {/* Intro paragraph */}
+            {/* Intro paragraph - always visible */}
             <p className="text-charcoal text-lg mb-5">{about.intro}</p>
+            {/* Second paragraph - also always visible */}
+            <p className="text-warm-gray mb-5">{about.paragraphs[0]}</p>
 
-            {/* Remaining paragraphs */}
-            {about.paragraphs.map((para, i) => (
-              <p
-                key={i}
-                className={`text-warm-gray ${i < about.paragraphs.length - 1 ? "mb-5" : ""}`}
-              >
-                {para}
-              </p>
-            ))}
+            {/* Collapsible content */}
+            {isExpanded && (
+              <div className="space-y-5">
+                {about.paragraphs.slice(1).map((para, i) => (
+                  <p key={i} className="text-warm-gray">
+                    {para}
+                  </p>
+                ))}
+              </div>
+            )}
+
+            {/* Toggle button */}
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="mt-5 text-sm font-medium text-warm-gray hover:text-charcoal transition-colors"
+            >
+              {isExpanded ? "Shorter ↑" : "Even longer ↓"}
+            </button>
           </div>
 
           {/* Right column - strengths card */}

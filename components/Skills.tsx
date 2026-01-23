@@ -21,7 +21,8 @@ export function Skills() {
           {skills.map((skill) => (
             <div
               key={skill.title}
-              className="bg-warm-white p-7 rounded-xl border border-soft-border hover:-translate-y-1 hover:shadow-lg hover:border-transparent transition-all"
+              className="bg-warm-white p-7 rounded-xl border border-soft-border overflow-hidden
+                hover:-translate-y-1 hover:border-lime-light transition-all"
             >
               {/* Skill title */}
               <h3 className="font-display text-lg font-medium mb-2 text-charcoal">

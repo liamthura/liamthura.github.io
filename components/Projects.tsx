@@ -31,7 +31,7 @@ export function Projects() {
               key={project.id}
               className={`
                 bg-cream rounded-xl border border-soft-border overflow-hidden
-                hover:-translate-y-1 hover:shadow-lg hover:border-lime-light transition-all
+                hover:-translate-y-1 hover:border-lime-light transition-all
                 flex flex-col h-full w-full
                 ${project.size === "large" ? "md:col-span-4 md:row-span-2 p-6" : ""}
                 ${project.size === "medium" ? "md:col-span-2 md:row-span-2 p-6" : ""}

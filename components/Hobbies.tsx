@@ -21,7 +21,8 @@ export function Hobbies() {
           {hobbies.map((hobby) => (
             <div
               key={hobby.title}
-              className="bg-warm-white p-6 rounded-xl border border-soft-border"
+              className="bg-warm-white p-6 rounded-xl border border-soft-border overflow-hidden
+                hover:-translate-y-1 hover:border-lime-light transition-all"
             >
               <span className="text-3xl mb-3 block">{hobby.emoji}</span>
               <h3 className="font-display text-xl font-medium text-charcoal mb-1">
