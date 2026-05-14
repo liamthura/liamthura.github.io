@@ -1,5 +1,37 @@
 [
   {
+    "id": "project-lighthouse",
+    "title": "Project Lighthouse",
+    "description": "Dissertation project, focused on building a context-aware conversational AI adoption toolkit for small business owners. Comprises assessment layer, context layer, and interrogation layer. Built using Tambo UI for conversational interface, and FastMCP servers for data orchestration.",
+    "status": "Completed",
+    "type": "Uni Project",
+    "url": "",
+    "github": "https://github.com/liamthura/project-lighthouse",
+    "image": "https://filedn.com/l7MoJ9O3yxzYHH8mSYBkrjH/Porforlio/project-lighthouse-1.png",
+    "tags": [
+      "FastMCP",
+      "Next.js",
+      "TamboUI",
+      "Zod"
+    ],
+    "size": "medium"
+  },
+  {
+    "id": "project-keeper",
+    "title": "StudentStack",
+    "description": "A side project for inventory of my favourite tools with UI/UX of my favourite OS experience. Design experimentation, and CMS supported by Directus.",
+    "status": "Active",
+    "type": "Side Project",
+    "url": "https://bsc.thuradev.qzz.io/",
+    "github": "",
+    "image": "https://filedn.com/l7MoJ9O3yxzYHH8mSYBkrjH/Porforlio/project-keeper-1.png",
+    "tags": [
+      "UI/UX Experiment",
+      "CMS"
+    ],
+    "size": "large"
+  },
+  {
     "id": "persona-mcp",
     "title": "Persona MCP Server",
     "description": " An MCP server that stores personal context for AI interactions—profile, interests, knowledge, preferences. Inspired by my dissertation on context-aware AI tools for small business owners using design science methodology.",
@@ -105,7 +137,7 @@
   {
     "id": "portfolio",
     "title": "Portfolio Site",
-    "description": "Personal portfolio built with Next.js and JSON-based content management, and a local editor because I got tired of manually editing JSON files. Static export for GitHub Pages.",
+    "description": "Personal portfolio built with Next.js and JSON-based content management, and a local editor because I got tired of manually editing JSON files. Static export for GitHub Pages. (This site you're looking at)",
     "status": "Active",
     "type": "Side Project",
     "url": "https://liamthura.github.io",

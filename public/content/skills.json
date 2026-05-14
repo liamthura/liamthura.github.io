@@ -2,37 +2,71 @@
   {
     "title": "Observability & Monitoring",
     "description": "Built an application observability pipeline for my team. Now we get alerts before users start complaining. Usually.",
-    "tags": ["Datadog", "Azure Logs", "KQL"],
+    "tags": [
+      "Datadog",
+      "Azure Logs",
+      "KQL"
+    ],
     "highlight": ""
   },
   {
     "title": "Data & Reporting",
     "description": "Turning raw data into dashboards stakeholders actually look at. A rare achievement, apparently.",
-    "tags": ["Excel/Power Query", "Power BI", "SQL"],
+    "tags": [
+      "Excel/Power Query",
+      "Power BI",
+      "SQL"
+    ],
     "highlight": ""
   },
   {
     "title": "Backend & APIs",
     "description": "Building services and integrations for my work and my own side projects.",
-    "tags": ["Python", "FastAPI", "PostgreSQL", "Postman"],
+    "tags": [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "Postman"
+    ],
     "highlight": ""
   },
   {
-    "title": "Frontend",
+    "title": "Frontend & UI/UX",
     "description": "Building interfaces. More comfortable with this than I used to be.",
-    "tags": ["React", "Next.js", "Svelte", "Tailwind CSS"],
+    "tags": [
+      "Figma",
+      "A/B Testing",
+      "User-centric design",
+      "Usability testing",
+      "Accessibility",
+      "React",
+      "Next.js",
+      "Svelte",
+      "Tailwind CSS"
+    ],
     "highlight": ""
   },
   {
     "title": "Project & Process",
     "description": "Coordinating work, tracking changes, attending meetings about meetings. The usual.",
-    "tags": ["YouTrack", "Jira", "ServiceNow", "Change Mgmt", "Agile"],
+    "tags": [
+      "YouTrack",
+      "Jira",
+      "ServiceNow",
+      "Change Mgmt",
+      "Agile"
+    ],
     "highlight": ""
   },
   {
     "title": "DevOps & Infrastructure",
     "description": "Deployment, version control, and debugging why it works on my machine but not yours.",
-    "tags": ["Docker", "Git", "Azure DevOps", "Coolify"],
+    "tags": [
+      "Docker",
+      "Git",
+      "Azure DevOps",
+      "Coolify"
+    ],
     "highlight": ""
   },
   {
@@ -50,13 +84,22 @@
   {
     "title": "AI & LLM Tools",
     "description": "Exploring how to make AI more context-aware. Dissertation focus area.",
-    "tags": ["MCP Servers", "Prompt Engineering", "FastMCP"],
+    "tags": [
+      "MCP Servers",
+      "Prompt Engineering",
+      "FastMCP",
+      "AI Agent Tools"
+    ],
     "highlight": ""
   },
   {
     "title": "Stakeholder & Vendor Work",
     "description": "First point of contact for group projects, and vendors at my placement. Cross-team coordination.",
-    "tags": ["Vendor Relations", "Stakeholder Comms", "Requirements"],
+    "tags": [
+      "Vendor Relations",
+      "Stakeholder Comms",
+      "Requirements"
+    ],
     "highlight": ""
   }
 ]

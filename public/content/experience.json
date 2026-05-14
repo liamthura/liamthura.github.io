@@ -7,7 +7,13 @@
     "type": "Placement Year",
     "role": "IT Operations Support Undergraduate",
     "description": "Managed day-to-day operations for the My Honda+ app across European markets. Built the Datadog monitoring platform from an underutilised state—log parsing, dashboards, alerting with Teams integration. Led an API development project end-to-end with IBM developers for regulatory compliance. Handled P1 critical incidents, coordinating resolution bridges with suppliers. Fixed a multi-year app issue affecting 1000+ weekly users. Organised the 2025 undergraduate assessment centre (4.85/5 satisfaction). First point of contact for vendor communications across IBM, AT&T, and Bosch.",
-    "tags": ["Datadog", "API Development", "Incident Management", "Vendor Management", "Process Improvement"]
+    "tags": [
+      "Datadog",
+      "API Development",
+      "Incident Management",
+      "Vendor Management",
+      "Process Improvement"
+    ]
   },
   {
     "id": "aiesec",
@@ -17,7 +23,12 @@
     "type": "Volunteer Leadership",
     "role": "Local Committee President",
     "description": "Led a committee of 30+ members through COVID-19 and political crisis in Myanmar. Designed virtual exchange programmes connecting 100+ Myanmar youth with international students when in-person wasn't possible. Organised public events with 100+ attendees. Achieved \"Activating Leadership\" award for 2021. Also served as Entity Development Manager for AIESEC Myanmar, managing projects across 5 regional teams and delivering training sessions to groups of up to 50 members.",
-    "tags": ["Team Leadership", "Crisis Management", "Event Planning", "Training Delivery"]
+    "tags": [
+      "Team Leadership",
+      "Crisis Management",
+      "Event Planning",
+      "Training Delivery"
+    ]
   },
   {
     "id": "northumbria",
@@ -27,7 +38,37 @@
     "type": "Volunteer",
     "role": "International Student Representative",
     "description": "Liaising between international students, academic staff, and the student union to make sure the challenges we face get heard and addressed. Faculty of Environment and Science representative.",
-    "tags": ["Student Advocacy", "Stakeholder Communication"]
+    "tags": [
+      "Student Advocacy",
+      "Stakeholder Communication"
+    ]
+  },
+  {
+    "id": "claude-builder-club",
+    "company": "Claude Builder Club - Northumbria",
+    "from": "Oct 2025",
+    "to": "Present",
+    "type": "Volunteer Leadership",
+    "role": "Hackathon Lead",
+    "description": "Designed and ran the inaugural 2-day hackathon: theme, judging criteria, participant materials, two-day agenda. Theme tackled passive university learning and the skills articulation gap in higher education. 9 teams, 90% retention across the weekend. Event recognised for “Best Professional Development Society of 2025” at Society Awards.",
+    "tags": [
+      "Leadership",
+      "Project Management",
+      "Event Facilitation"
+    ]
+  },
+  {
+    "id": "lane7",
+    "company": "Lane 7 The Gate Newcastle",
+    "from": "Nov 2025",
+    "to": "Present",
+    "type": "Part-time",
+    "role": "Team Member",
+    "description": "Customer-facing service across bowling, arcade, darts and the bar in a high-traffic three-floor venue. I still suck at bowling tho, unfortunately.",
+    "tags": [
+      "Customer Service",
+      "Problem Solving"
+    ]
   },
   {
     "id": "mantra",
@@ -37,6 +78,9 @@
     "type": "Part-time",
     "role": "Front of House Staff",
     "description": "Customer service in a busy restaurant while balancing full-time studies. Trained new team members on service standards and POS systems. Best Part-time Staff Q4 2022.",
-    "tags": ["Customer Service", "Staff Training"]
+    "tags": [
+      "Customer Service",
+      "Staff Training"
+    ]
   }
 ]
