@@ -5,6 +5,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { CaretDownIcon } from "@phosphor-icons/react";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navLinks = [
   { label: "Home", href: "#", sectionId: "" },
@@ -79,8 +80,8 @@ export function Nav() {
           liam thura
         </a>
 
-        {/* Desktop links */}
-        <div className="hidden md:block">
+        {/* Desktop links + theme toggle */}
+        <div className="hidden md:flex items-center gap-8">
           <ul className="flex list-none gap-8">
             {navLinks
               .filter((link) => link.sectionId !== "")
@@ -102,43 +103,47 @@ export function Nav() {
                 </li>
               ))}
           </ul>
+          <ThemeToggle />
         </div>
 
-        {/* Mobile dropdown */}
-        <div className="md:hidden relative" ref={menuRef}>
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-charcoal hover:bg-warm-white transition-colors"
-          >
-            {activeLabel}
-            <CaretDownIcon
-              size={16}
-              className={`transition-transform ${mobileMenuOpen ? "rotate-180" : ""}`}
-            />
-          </button>
+        {/* Mobile: theme toggle + dropdown */}
+        <div className="md:hidden flex items-center gap-1">
+          <ThemeToggle />
+          <div className="relative" ref={menuRef}>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-charcoal hover:bg-warm-white transition-colors"
+            >
+              {activeLabel}
+              <CaretDownIcon
+                size={16}
+                className={`transition-transform ${mobileMenuOpen ? "rotate-180" : ""}`}
+              />
+            </button>
 
-          {/* Dropdown menu */}
-          {mobileMenuOpen && (
-            <div className="absolute right-0 top-full mt-2 bg-warm-white rounded-xl border border-soft-border shadow-lg py-2 min-w-[140px]">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={handleLinkClick}
-                  className={`
-                    block px-4 py-2 text-sm no-underline transition-colors
-                    ${
-                      activeSection === link.sectionId
-                        ? "text-charcoal bg-cream font-medium"
-                        : "text-warm-gray hover:bg-cream hover:text-charcoal"
-                    }
-                  `}
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          )}
+            {/* Dropdown menu */}
+            {mobileMenuOpen && (
+              <div className="absolute right-0 top-full mt-2 bg-warm-white rounded-xl border border-soft-border shadow-lg py-2 min-w-[140px]">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={handleLinkClick}
+                    className={`
+                      block px-4 py-2 text-sm no-underline transition-colors
+                      ${
+                        activeSection === link.sectionId
+                          ? "text-charcoal bg-cream font-medium"
+                          : "text-warm-gray hover:bg-cream hover:text-charcoal"
+                      }
+                    `}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </nav>

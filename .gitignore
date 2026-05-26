@@ -46,3 +46,10 @@ next-env.d.ts
 /components/admin
 
 .github/skills
+
+# Cowork / Claude session artefacts
+/sessions/
+.cowork/
+.claude/
+*.cowork-session
+.claude-session/

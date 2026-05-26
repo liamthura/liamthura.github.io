@@ -28,7 +28,7 @@ export function Contact() {
   );
 
   return (
-    <section id="contact" className="py-24 bg-charcoal text-warm-white">
+    <section id="contact" className="py-24 bg-ink text-ink-fg">
       <div className="container-main">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left column - text */}
@@ -36,12 +36,12 @@ export function Contact() {
             <p className="text-xs font-semibold uppercase tracking-widest text-lime-light mb-3">
               Get in touch
             </p>
-            <h2 className="font-display text-3xl md:text-4xl font-medium text-warm-white mb-4">
+            <h2 className="font-display text-3xl md:text-4xl font-medium text-ink-fg mb-4">
               {contact.headline}
             </h2>
-            <p className="text-white/70 mb-6">{contact.intro}</p>
-            <p className="text-white/70 mb-6">{contact.secondary}</p>
-            <p className="text-white/50 text-sm">{contact.availability}</p>
+            <p className="text-ink-fg/70 mb-6">{contact.intro}</p>
+            <p className="text-ink-fg/70 mb-6">{contact.secondary}</p>
+            <p className="text-ink-fg/50 text-sm">{contact.availability}</p>
           </div>
 
           {/* Right column - links */}
@@ -59,9 +59,9 @@ export function Contact() {
                       target={
                         link.url.startsWith("mailto") ? undefined : "_blank"
                       }
-                      className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-warm-white no-underline hover:bg-white/10 hover:border-white/20 transition-all"
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-ink-fg/5 border border-ink-fg/10 rounded-xl text-ink-fg no-underline hover:bg-ink-fg/10 hover:border-ink-fg/20 transition-all"
                     >
-                      {Icon && <Icon size={20} className="text-warm-white" />}
+                      {Icon && <Icon size={20} className="text-ink-fg" />}
                       <span className="font-medium text-sm">{link.label}</span>
                     </a>
                   );
@@ -78,12 +78,12 @@ export function Contact() {
                   key={link.label}
                   href={link.url}
                   target={link.url.startsWith("mailto") ? undefined : "_blank"}
-                  className="flex items-center gap-4 p-4 bg-white/5 border border-white/10 rounded-xl text-warm-white no-underline hover:bg-white/10 hover:border-white/20 transition-all"
+                  className="flex items-center gap-4 p-4 bg-ink-fg/5 border border-ink-fg/10 rounded-xl text-ink-fg no-underline hover:bg-ink-fg/10 hover:border-ink-fg/20 transition-all"
                 >
-                  {Icon && <Icon size={24} className="text-warm-white" />}
+                  {Icon && <Icon size={24} className="text-ink-fg" />}
                   <div>
                     <p className="font-medium text-sm">{link.label}</p>
-                    <p className="text-white/60 text-sm">{link.value}</p>
+                    <p className="text-ink-fg/60 text-sm">{link.value}</p>
                   </div>
                 </a>
               );

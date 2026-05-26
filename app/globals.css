@@ -1,26 +1,87 @@
 @import "tailwindcss";
 
-@theme inline {
-  /* Existing colors */
-  --color-cream: #faf8f5;
-  --color-warm-white: #fffefb;
-  --color-charcoal: #2d2d2d;
-  --color-warm-gray: #6b6b6b;
-  --color-soft-border: #e8e4de;
-  --color-lime: #8fb339;
-  --color-lime-light: #c5d98a;
-  --color-blue: #7189ff;
-  --color-blue-light: #b8c4ff;
+/* These folders are gitignored, so Tailwind's automatic source detection
+   skips them. Re-include them explicitly so admin utilities are generated. */
+@source "./admin";
+@source "../components/admin";
 
-  /* Add font families */
-  --font-family-body: var(--font-body), sans-serif;
+/* Class-based dark mode (toggled by <html class="dark">). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* -------------------------------------------------------------------------- */
+/*  Theme tokens                                                              */
+/*  All tokens swap by overriding the underlying --* variables. Tailwind      */
+/*  utilities (bg-cream, text-charcoal, bg-cream/50, etc.) all reference      */
+/*  the same vars via @theme inline below, so color-mix opacities work too.   */
+/* -------------------------------------------------------------------------- */
+
+:root {
+  --cream:       #faf8f5;
+  --warm-white:  #fffefb;
+  --charcoal:    #2d2d2d;
+  --warm-gray:   #6b6b6b;
+  --soft-border: #e8e4de;
+  --lime:        #8fb339;
+  --lime-light:  #c5d98a;
+  --blue:        #7189ff;
+  --blue-light:  #b8c4ff;
+  /* `ink` is an *always-dark* surface (Footer, Contact). In light mode it
+     matches charcoal; in dark mode it goes deeper than the page so it still
+     reads as a sealed "dark island". `ink-fg` is the matching always-light
+     text colour. */
+  --ink:         #2d2d2d;
+  --ink-fg:      #fffefb;
+  color-scheme: light;
+}
+
+.dark {
+  --cream:       #181614; /* page bg */
+  --warm-white:  #221f1c; /* slightly raised surface */
+  --charcoal:    #ece9e3; /* primary text + inverted surface */
+  --warm-gray:   #9c9994; /* secondary text */
+  --soft-border: #36322d; /* subtle border */
+  --lime:        #b8d068;
+  --lime-light:  #d0e09c; /* stays pale so it reads on the dark ink section */
+  --blue:        #8ea0ff;
+  --blue-light:  #3a447f;
+  --ink:         #0e0c0a; /* deeper than page bg */
+  --ink-fg:      #ece9e3;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-cream:        var(--cream);
+  --color-warm-white:   var(--warm-white);
+  --color-charcoal:     var(--charcoal);
+  --color-warm-gray:    var(--warm-gray);
+  --color-soft-border:  var(--soft-border);
+  --color-lime:         var(--lime);
+  --color-lime-light:   var(--lime-light);
+  --color-blue:         var(--blue);
+  --color-blue-light:   var(--blue-light);
+  --color-ink:          var(--ink);
+  --color-ink-fg:       var(--ink-fg);
+
+  --font-family-body:    var(--font-body), sans-serif;
   --font-family-display: var(--font-display), serif;
 }
 
 body {
-  background: var(--color-cream);
-  color: var(--color-charcoal);
+  background: var(--cream);
+  color: var(--charcoal);
   font-family: var(--font-family-body);
+}
+
+/* Smooth the cross-fade on theme switch — applied only to colour properties
+   so layout and transforms aren't impacted. */
+html.theme-transition,
+html.theme-transition * {
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    fill 180ms ease,
+    stroke 180ms ease !important;
 }
 
 .font-display {
