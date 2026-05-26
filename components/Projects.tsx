@@ -6,7 +6,11 @@
 // Sizes (on 6-col grid): large = 4×2, medium = 2×2, standard = 4×1, small = 2×1.
 
 import Image from "next/image";
-import { ArrowSquareOutIcon, GithubLogoIcon } from "@phosphor-icons/react";
+import {
+  ArrowSquareOutIcon,
+  GithubLogoIcon,
+  ArticleIcon,
+} from "@phosphor-icons/react";
 import projects from "@/content/projects.json";
 
 const STATUS_BADGE: Record<string, string> = {
@@ -111,7 +115,7 @@ export function Projects() {
                 {/* Links + Tags grouped at bottom */}
                 <div className="mt-auto space-y-3">
                   {/* Link buttons */}
-                  {(project.url || project.github) && (
+                  {(project.url || project.github || project.readMore) && (
                     <div className="flex flex-wrap gap-2">
                       {project.url && (
                         <a
@@ -121,7 +125,7 @@ export function Projects() {
                           onClick={(e) => e.stopPropagation()}
                         >
                           <ArrowSquareOutIcon size={14} />
-                          Explore
+                          Demo
                         </a>
                       )}
                       {project.github && (
@@ -133,6 +137,17 @@ export function Projects() {
                         >
                           <GithubLogoIcon size={14} />
                           Source Code
+                        </a>
+                      )}
+                      {project.readMore && (
+                        <a
+                          href={project.readMore}
+                          target="_blank"
+                          className="inline-flex items-center gap-1.5 text-xs font-medium py-1.5 px-3 rounded-md border border-soft-border text-charcoal hover:bg-warm-white transition-colors"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <ArticleIcon size={14} />
+                          Read more
                         </a>
                       )}
                     </div>

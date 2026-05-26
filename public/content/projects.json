@@ -7,6 +7,7 @@
     "type": "Uni Project",
     "url": "",
     "github": "https://github.com/liamthura/project-lighthouse",
+    "readMore": "",
     "image": "https://filedn.com/l7MoJ9O3yxzYHH8mSYBkrjH/Porforlio/project-lighthouse-1.png",
     "tags": [
       "FastMCP",
@@ -24,6 +25,7 @@
     "type": "Side Project",
     "url": "https://bsc.thuradev.qzz.io/",
     "github": "",
+    "readMore": "",
     "image": "https://filedn.com/l7MoJ9O3yxzYHH8mSYBkrjH/Porforlio/project-keeper-1.png",
     "tags": [
       "UI/UX Experiment",
@@ -39,6 +41,7 @@
     "type": "Side Project",
     "url": "",
     "github": "https://github.com/liamthura/project-twin",
+    "readMore": "",
     "image": "",
     "tags": [
       "Python",
@@ -53,8 +56,9 @@
     "description": "Substack about life as an international student. Mostly therapy disguised as content.",
     "status": "Active",
     "type": "Writing",
-    "url": "https://justsoiknow.substack.com",
+    "url": "",
     "github": "",
+    "readMore": "https://justsoiknow.substack.com",
     "image": "",
     "tags": [],
     "size": "small"
@@ -65,8 +69,9 @@
     "description": "Led the first Claude Builder Club Hackathon at Northumbria. 90%+ retention.",
     "status": "Completed",
     "type": "Event",
-    "url": "https://thurashares.qzz.io/blog/first-hackathon/",
+    "url": "",
     "github": "",
+    "readMore": "https://thurashares.qzz.io/blog/first-hackathon/",
     "image": "",
     "tags": [],
     "size": "small"
@@ -79,6 +84,7 @@
     "type": "Uni Project",
     "url": "https://solterra.thuradev.qzz.io",
     "github": "https://github.com/itsdiy0/solterra",
+    "readMore": "",
     "image": "",
     "tags": [
       "React",
@@ -96,6 +102,7 @@
     "type": "Uni Project",
     "url": "https://hg4oc4cwsw04c0wows8kw0k0.thuradev.qzz.io/",
     "github": "https://github.com/liamthura/gateshead-by-bike-eli",
+    "readMore": "",
     "image": "",
     "tags": [
       "Python",
@@ -111,6 +118,7 @@
     "type": "Uni Project",
     "url": "",
     "github": "https://github.com/liamthura/events-great-north",
+    "readMore": "",
     "image": "",
     "tags": [
       "PHP",
@@ -127,6 +135,7 @@
     "type": "Side Project",
     "url": "https://capture-booth-tawny.vercel.app/",
     "github": "",
+    "readMore": "",
     "image": "",
     "tags": [
       "Svelte",
@@ -142,6 +151,7 @@
     "type": "Side Project",
     "url": "https://liamthura.github.io",
     "github": "https://github.com/liamthura/liamthura.github.io",
+    "readMore": "",
     "image": "",
     "tags": [
       "Next.js",
