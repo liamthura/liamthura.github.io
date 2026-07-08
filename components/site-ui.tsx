@@ -1,0 +1,74 @@
+// site-ui.tsx — shared primitives for the public redesign.
+// Section shell (centered column + hairline rules + hatch divider),
+// section header (green eyebrow + Bricolage title), chips, marker text.
+
+import type { ReactNode } from "react";
+
+export function SectionShell({
+  id,
+  dark = false,
+  children,
+}: {
+  id?: string;
+  dark?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <section id={id} className={dark ? "bg-ink-island text-ink-island-fg" : ""}>
+      {!dark && <div className="hatch-divider" aria-hidden />}
+      <div className="container-main">
+        <div className="col-shell py-20 md:py-24">{children}</div>
+      </div>
+    </section>
+  );
+}
+
+export function SectionHeader({
+  label,
+  title,
+  dark = false,
+}: {
+  label: string;
+  title: string;
+  dark?: boolean;
+}) {
+  return (
+    <div className="mb-10">
+      <p
+        className={`text-[11px] font-bold uppercase tracking-[0.14em] mb-3 ${
+          dark ? "text-accent-deep" : "text-accent-deep"
+        }`}
+      >
+        {label}
+      </p>
+      <h2
+        className={`font-display text-3xl md:text-[40px] font-semibold ${
+          dark ? "text-ink-island-fg" : "text-ink"
+        }`}
+      >
+        {title}
+      </h2>
+    </div>
+  );
+}
+
+export function Tag({ children }: { children: ReactNode }) {
+  return (
+    <span className="text-[10px] font-semibold uppercase tracking-[0.08em] py-1.5 px-2.5 rounded border border-line text-muted">
+      {children}
+    </span>
+  );
+}
+
+export function StatusChip({ children }: { children: ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.08em] py-1.5 px-2.5 rounded bg-tint text-accent-deep">
+      <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden />
+      {children}
+    </span>
+  );
+}
+
+export function MarkerText({ children }: { children: ReactNode }) {
+  return <span className="mark">{children}</span>;
+}
