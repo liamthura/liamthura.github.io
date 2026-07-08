@@ -48,7 +48,15 @@ export function Projects() {
               )}
 
               <div className="mb-2.5">
-                <StatusChip>
+                <StatusChip
+                  tone={
+                    project.status === "Completed"
+                      ? "completed"
+                      : project.status === "Archived"
+                        ? "archived"
+                        : "active"
+                  }
+                >
                   {project.status} · {project.type}
                 </StatusChip>
               </div>

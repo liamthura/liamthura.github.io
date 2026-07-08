@@ -50,10 +50,21 @@ export function Tag({ children }: { children: ReactNode }) {
   );
 }
 
-export function StatusChip({ children }: { children: ReactNode }) {
+export function StatusChip({
+  tone = "active",
+  children,
+}: {
+  tone?: "active" | "completed" | "archived";
+  children: ReactNode;
+}) {
+  const styles = {
+    active: { chip: "bg-tint text-accent-deep", dot: "bg-accent" },
+    completed: { chip: "bg-info-tint text-info", dot: "bg-info" },
+    archived: { chip: "bg-line/60 text-muted", dot: "bg-muted" },
+  }[tone];
   return (
-    <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.08em] py-1.5 px-2.5 rounded bg-tint text-accent-deep">
-      <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden />
+    <span className={`inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.08em] py-1.5 px-2.5 rounded ${styles.chip}`}>
+      <span className={`w-1.5 h-1.5 rounded-full ${styles.dot}`} aria-hidden />
       {children}
     </span>
   );

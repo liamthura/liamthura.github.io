@@ -28,6 +28,8 @@
   --tint:        #e9f6ee;
   --tint-line:   #b7dec9;
   --cover:       #edebe5;
+  --info:        #3a52b8;
+  --info-tint:   #e7ecfd;
 
   /* Backward-compat aliases — the admin CMS + ThemeToggle depend on these
      token names. Keep them defined; they now point at the new palette. */
@@ -59,6 +61,8 @@
   --tint:        #1b2a22;
   --tint-line:   #385f4c;
   --cover:       #292622;
+  --info:        #9db0ff;
+  --info-tint:   #1c2440;
 
   --cream:       var(--paper);
   --warm-white:  var(--surface);
@@ -98,6 +102,8 @@
   --color-tint:         var(--tint);
   --color-tint-line:    var(--tint-line);
   --color-cover-fill:   var(--cover);
+  --color-info:         var(--info);
+  --color-info-tint:    var(--info-tint);
   --color-ink-island:   var(--ink);
   --color-ink-island-fg: var(--ink-fg);
 
