@@ -26,26 +26,16 @@ export function SectionShell({
 export function SectionHeader({
   label,
   title,
-  dark = false,
 }: {
   label: string;
   title: string;
-  dark?: boolean;
 }) {
   return (
     <div className="mb-10">
-      <p
-        className={`text-[11px] font-bold uppercase tracking-[0.14em] mb-3 ${
-          dark ? "text-accent-deep" : "text-accent-deep"
-        }`}
-      >
+      <p className="text-[11px] font-bold uppercase tracking-[0.14em] mb-3 text-accent-deep">
         {label}
       </p>
-      <h2
-        className={`font-display text-3xl md:text-[40px] font-semibold ${
-          dark ? "text-ink-island-fg" : "text-ink"
-        }`}
-      >
+      <h2 className="font-display text-3xl md:text-[40px] font-semibold text-ink">
         {title}
       </h2>
     </div>

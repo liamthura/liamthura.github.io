@@ -83,6 +83,10 @@ export function Contact() {
         </span>
         <a
           href="#"
+          onClick={(e) => {
+            e.preventDefault()
+            window.scrollTo({ top: 0, behavior: "smooth" })
+          }}
           className="text-[11px] font-bold uppercase tracking-[0.1em] text-accent-deep"
         >
           Back to top ↑

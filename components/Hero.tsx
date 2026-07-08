@@ -59,7 +59,7 @@ export function Hero() {
                   aria-hidden
                 />
                 <div className="bg-white rounded-xl p-3.5 shadow-[0_10px_30px_rgba(30,26,20,0.14)]">
-                  <div className="w-[222px] h-[222px] rounded-md overflow-hidden bg-cover">
+                  <div className="w-[222px] h-[222px] rounded-md overflow-hidden bg-cover-fill">
                     <Image
                       src={profile.avatar}
                       alt={profile.name}

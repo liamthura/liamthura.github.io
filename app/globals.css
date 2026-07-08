@@ -97,12 +97,12 @@
   --color-marker:       var(--marker);
   --color-tint:         var(--tint);
   --color-tint-line:    var(--tint-line);
-  --color-cover:        var(--cover);
+  --color-cover-fill:   var(--cover);
   --color-ink-island:   var(--ink);
   --color-ink-island-fg: var(--ink-fg);
 
   --font-family-body:    var(--font-body), sans-serif;
-  --font-family-display: var(--font-display), serif;
+  --font-family-display: var(--font-display), sans-serif;
 }
 
 body {
@@ -169,7 +169,7 @@ html.theme-transition * {
 /* Lime marker highlight behind a headline word. */
 .mark {
   background: var(--marker);
-  color: var(--ink-1);
+  color: #1c1917;
   padding: 0 0.3em 0.08em;
   border-radius: 0.4rem;
   box-decoration-break: clone;
