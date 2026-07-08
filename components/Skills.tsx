@@ -1,60 +1,40 @@
-// Skills.tsx - Grid of skill cards with tags
+// Skills.tsx — 3-col card grid; the AI & LLM card gets the green tint.
 
 import skills from "@/content/skills.json";
+import { SectionShell, SectionHeader, Tag } from "@/components/site-ui";
 
 export function Skills() {
   return (
-    <section id="skills" className="py-24">
-      <div className="container-main">
-        {/* Section header */}
-        <div className="mb-12">
-          <p className="text-xs font-semibold uppercase tracking-widest text-lime mb-3">
-            What I work with
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl font-medium text-charcoal">
-            Technical skills
-          </h2>
-        </div>
+    <SectionShell id="skills">
+      <SectionHeader label="Skills" title="What I work with" />
 
-        {/* Skills grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {skills.map((skill) => (
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {skills.map((skill) => {
+          const tinted = skill.title.startsWith("AI");
+          return (
             <div
               key={skill.title}
-              className="bg-warm-white p-7 rounded-xl border border-soft-border overflow-hidden
-                hover:-translate-y-1 hover:border-lime-light transition-all"
+              className={`p-5 rounded-2xl border ${
+                tinted
+                  ? "bg-tint border-tint-line"
+                  : "bg-surface border-line"
+              }`}
             >
-              {/* Skill title */}
-              <h3 className="font-display text-lg font-medium mb-2 text-charcoal">
+              <h3 className="font-display text-[17px] font-semibold mb-2 text-ink">
                 {skill.title}
               </h3>
-
-              {/* Description */}
-              <p className="text-sm text-warm-gray mb-4">{skill.description}</p>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2">
+              <p className="text-[12.5px] leading-[1.58] text-muted mb-3">
+                {skill.description}
+              </p>
+              <div className="flex flex-wrap gap-1.5">
                 {skill.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className={`
-                      text-xs py-1 px-2.5 rounded font-medium
-                      ${
-                        tag === skill.highlight
-                          ? "bg-lime/20 text-lime"
-                          : "bg-cream text-warm-gray"
-                      }
-                    `}
-                  >
-                    {tag}
-                    {tag === skill.highlight && " ★"}
-                  </span>
+                  <Tag key={tag}>{tag}</Tag>
                 ))}
               </div>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    </section>
+    </SectionShell>
   );
 }
