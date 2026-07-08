@@ -16,36 +16,62 @@
 /* -------------------------------------------------------------------------- */
 
 :root {
-  --cream:       #faf8f5;
-  --warm-white:  #fffefb;
-  --charcoal:    #2d2d2d;
-  --warm-gray:   #6b6b6b;
-  --soft-border: #e8e4de;
-  --lime:        #8fb339;
-  --lime-light:  #c5d98a;
-  --blue:        #7189ff;
-  --blue-light:  #b8c4ff;
-  /* `ink` is an *always-dark* surface (Footer, Contact). In light mode it
-     matches charcoal; in dark mode it goes deeper than the page so it still
-     reads as a sealed "dark island". `ink-fg` is the matching always-light
-     text colour. */
-  --ink:         #2d2d2d;
-  --ink-fg:      #fffefb;
+  /* New "working drawing" palette (source of truth) */
+  --paper:       #faf9f5;
+  --surface:     #ffffff;
+  --ink-1:       #1c1917;
+  --muted:       #57534e;
+  --line:        #e5e1d8;
+  --accent:      #00a05c;
+  --accent-deep: #0a7a50;
+  --marker:      #c8f169;
+  --tint:        #e9f6ee;
+  --tint-line:   #b7dec9;
+  --cover:       #edebe5;
+
+  /* Backward-compat aliases — the admin CMS + ThemeToggle depend on these
+     token names. Keep them defined; they now point at the new palette. */
+  --cream:       var(--paper);
+  --warm-white:  var(--surface);
+  --charcoal:    var(--ink-1);
+  --warm-gray:   var(--muted);
+  --soft-border: var(--line);
+  --lime:        var(--accent-deep); /* admin accent text now reads green */
+  --lime-light:  var(--marker);
+  --blue:        var(--accent);      /* retired from public; kept for safety */
+  --blue-light:  var(--tint);
+
+  /* Always-dark island (Contact/Footer) */
+  --ink:         #1c1917;
+  --ink-fg:      #faf9f5;
   color-scheme: light;
 }
 
 .dark {
-  --cream:       #181614; /* page bg */
-  --warm-white:  #221f1c; /* slightly raised surface */
-  --charcoal:    #ece9e3; /* primary text + inverted surface */
-  --warm-gray:   #9c9994; /* secondary text */
-  --soft-border: #36322d; /* subtle border */
-  --lime:        #b8d068;
-  --lime-light:  #d0e09c; /* stays pale so it reads on the dark ink section */
-  --blue:        #8ea0ff;
-  --blue-light:  #3a447f;
-  --ink:         #0e0c0a; /* deeper than page bg */
-  --ink-fg:      #ece9e3;
+  --paper:       #131110;
+  --surface:     #1f1c19;
+  --ink-1:       #f3f1ec;
+  --muted:       #a8a29a;
+  --line:        #332f2b;
+  --accent:      #1cba73;
+  --accent-deep: #4ac78c;
+  --marker:      #c8f169;
+  --tint:        #1b2a22;
+  --tint-line:   #385f4c;
+  --cover:       #292622;
+
+  --cream:       var(--paper);
+  --warm-white:  var(--surface);
+  --charcoal:    var(--ink-1);
+  --warm-gray:   var(--muted);
+  --soft-border: var(--line);
+  --lime:        var(--accent-deep);
+  --lime-light:  var(--marker);
+  --blue:        var(--accent);
+  --blue-light:  var(--tint);
+
+  --ink:         #0e0c0a; /* contact island: lighter island now sits darker */
+  --ink-fg:      #f3f1ec;
   color-scheme: dark;
 }
 
@@ -59,8 +85,21 @@
   --color-lime-light:   var(--lime-light);
   --color-blue:         var(--blue);
   --color-blue-light:   var(--blue-light);
-  --color-ink:          var(--ink);
+  --color-ink:          var(--ink-1);
   --color-ink-fg:       var(--ink-fg);
+
+  --color-paper:        var(--paper);
+  --color-surface:      var(--surface);
+  --color-muted:        var(--muted);
+  --color-line:         var(--line);
+  --color-accent:       var(--accent);
+  --color-accent-deep:  var(--accent-deep);
+  --color-marker:       var(--marker);
+  --color-tint:         var(--tint);
+  --color-tint-line:    var(--tint-line);
+  --color-cover:        var(--cover);
+  --color-ink-island:   var(--ink);
+  --color-ink-island-fg: var(--ink-fg);
 
   --font-family-body:    var(--font-body), sans-serif;
   --font-family-display: var(--font-display), serif;
@@ -89,9 +128,50 @@ html.theme-transition * {
 }
 
 .container-main {
-  max-width: 1100px;
+  max-width: 1216px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+
+/* Centered content column with full-height hairline rules on both edges. */
+.col-shell {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 3rem;
+  border-inline: 1px solid var(--line);
+}
+
+/* Diagonal hatch strip used as a divider between sections. */
+.hatch-divider {
+  height: 32px;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--line) 0 1px,
+    transparent 1px 12px
+  );
+}
+
+/* Dashed dot-grid band (hero texture). */
+.dot-band {
+  height: 88px;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--line) 0 2px,
+    transparent 2px 16px
+  );
+  background-size: 100% 16px;
+  background-repeat: repeat-y;
+  opacity: 0.9;
+}
+
+/* Lime marker highlight behind a headline word. */
+.mark {
+  background: var(--marker);
+  color: var(--ink-1);
+  padding: 0 0.3em 0.08em;
+  border-radius: 0.4rem;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
