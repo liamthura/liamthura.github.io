@@ -6,6 +6,7 @@
 
 import { useMemo, useState } from "react";
 import experience from "@/content/experience.json";
+import { SectionShell, SectionHeader, Tag } from "@/components/site-ui";
 
 type Role = (typeof experience)[number];
 
@@ -97,56 +98,38 @@ export function Experience() {
   };
 
   return (
-    <section id="experience" className="py-24">
-      <div className="container-main">
-        {/* Section header */}
-        <div className="mb-12">
-          <p className="text-xs font-semibold uppercase tracking-widest text-lime mb-3">
-            Experience
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl font-medium text-charcoal">
-            Where I&apos;ve worked
-          </h2>
-        </div>
+    <SectionShell id="experience">
+      <SectionHeader label="Experience" title="Where I've worked" />
 
-        {/* Company groups */}
-        <div>
-          {groups.map((group, i) => {
-            const isMulti = group.roles.length > 1;
-            return (
-              <div
-                key={group.company}
-                className={`
-                  py-8 grid md:grid-cols-[200px_1fr] gap-6 md:gap-10
-                  ${i < groups.length - 1 ? "border-b border-soft-border" : ""}
-                `}
-              >
-                {/* Left column — company and overall span */}
-                <div className="text-warm-gray text-sm">
-                  <span className="font-semibold text-charcoal block mb-1">
-                    {group.company}
-                  </span>
-                  <span>
-                    {formatMonth(group.spanFrom)} – {formatMonth(group.spanTo)}
-                  </span>
-                  {!isMulti && (
-                    <>
-                      <br />
-                      <span>{group.roles[0].type}</span>
-                    </>
-                  )}
-                </div>
+      <div>
+        {groups.map((group, i) => {
+          const isMulti = group.roles.length > 1;
+          return (
+            <div
+              key={group.company}
+              className={`py-7 grid md:grid-cols-[190px_1fr] gap-4 md:gap-8 ${
+                i < groups.length - 1 ? "border-b border-line" : ""
+              }`}
+            >
+              {/* Left column — dates only */}
+              <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted pt-1">
+                {formatMonth(group.spanFrom)} — {formatMonth(group.spanTo)}
+              </div>
 
-                {/* Right column — roles (with a vertical timeline when multi) */}
+              {/* Right column — org eyebrow + role(s) */}
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-accent-deep mb-3">
+                  {group.company}
+                </p>
+
                 <div className={isMulti ? "relative" : ""}>
                   {isMulti && (
                     <div
                       aria-hidden
-                      className="absolute left-[5px] top-3 bottom-3 w-px bg-soft-border"
+                      className="absolute left-[4px] top-3 bottom-3 w-0.5 bg-line"
                     />
                   )}
-
-                  <div className={isMulti ? "space-y-8" : ""}>
+                  <div className={isMulti ? "space-y-6" : ""}>
                     {group.roles.map((role) => {
                       const { firstSentence, rest } = splitDescription(
                         role.description,
@@ -162,30 +145,27 @@ export function Experience() {
                           {isMulti && (
                             <div
                               aria-hidden
-                              className={`
-                                absolute left-0 top-2.5 w-[11px] h-[11px] rounded-full
-                                ${
-                                  isCurrent
-                                    ? "bg-lime border-2 border-cream ring-1 ring-lime/30"
-                                    : "bg-cream border-2 border-soft-border"
-                                }
-                              `}
+                              className={`absolute left-0 top-1.5 w-[9px] h-[9px] rounded-full ${
+                                isCurrent
+                                  ? "bg-accent"
+                                  : "bg-paper border-[1.5px] border-muted"
+                              }`}
                             />
                           )}
 
-                          <h3 className="font-display text-xl font-medium text-charcoal mb-1">
-                            {role.role}
-                          </h3>
-
                           {isMulti && (
-                            <p className="text-xs font-medium text-warm-gray mb-3 tracking-wide">
-                              {formatMonth(role.from)} – {formatMonth(role.to)}
-                              <span className="text-warm-gray/60"> · </span>
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted mb-1">
+                              {formatMonth(role.from)} — {formatMonth(role.to)}
+                              <span className="text-muted/60"> · </span>
                               {role.type}
                             </p>
                           )}
 
-                          <p className="text-warm-gray mb-4">
+                          <h3 className="font-display text-xl font-semibold text-ink mb-2">
+                            {role.role}
+                          </h3>
+
+                          <p className="text-sm leading-[1.65] text-muted mb-3">
                             {rest && rest.length <= 100
                               ? role.description
                               : firstSentence +
@@ -195,7 +175,7 @@ export function Experience() {
                           {rest && rest.length > 100 && (
                             <button
                               onClick={() => toggleRole(role.id)}
-                              className="mb-4 text-sm font-medium text-warm-gray hover:text-charcoal transition-colors"
+                              className="mb-3 text-sm font-medium text-muted hover:text-ink transition-colors"
                             >
                               {isExpanded ? "Read less ↑" : "Read more ↓"}
                             </button>
@@ -204,12 +184,7 @@ export function Experience() {
                           {role.tags.length > 0 && (
                             <div className="flex flex-wrap gap-2">
                               {role.tags.map((tag) => (
-                                <span
-                                  key={tag}
-                                  className="text-xs py-1.5 px-3 bg-warm-white border border-soft-border rounded-md text-warm-gray"
-                                >
-                                  {tag}
-                                </span>
+                                <Tag key={tag}>{tag}</Tag>
                               ))}
                             </div>
                           )}
@@ -219,10 +194,10 @@ export function Experience() {
                   </div>
                 </div>
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
       </div>
-    </section>
+    </SectionShell>
   );
 }
