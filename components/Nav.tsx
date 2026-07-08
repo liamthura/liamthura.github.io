@@ -69,15 +69,14 @@ export function Nav() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-cream/85 backdrop-blur-md z-50 border-b border-soft-border">
+    <nav className="fixed top-0 left-0 right-0 bg-paper/85 backdrop-blur-md z-50 border-b border-line">
       <div className="container-main flex justify-between items-center h-16">
         {/* Logo */}
         <a
           href="#"
-          className="font-display font-medium text-xl text-charcoal no-underline flex items-center gap-2"
+          className="font-display font-bold text-xl text-ink no-underline flex items-center gap-2"
         >
-          <span className="w-2 h-2 bg-lime rounded-full animate-pulse"></span>
-          liam thura
+          khant<span className="text-accent">.</span>
         </a>
 
         {/* Desktop links + theme toggle */}
@@ -90,11 +89,11 @@ export function Nav() {
                   <a
                     href={link.href}
                     className={`
-            text-sm font-medium no-underline transition-colors
+            text-[11px] font-semibold uppercase tracking-[0.1em] no-underline transition-colors
             ${
               activeSection === link.sectionId
-                ? "text-charcoal border-b-2 border-lime pb-1"
-                : "text-warm-gray hover:text-charcoal"
+                ? "text-accent-deep"
+                : "text-muted hover:text-ink"
             }
           `}
                   >
@@ -112,7 +111,7 @@ export function Nav() {
           <div className="relative" ref={menuRef}>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-charcoal hover:bg-warm-white transition-colors"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-ink hover:bg-surface transition-colors"
             >
               {activeLabel}
               <CaretDownIcon
@@ -123,7 +122,7 @@ export function Nav() {
 
             {/* Dropdown menu */}
             {mobileMenuOpen && (
-              <div className="absolute right-0 top-full mt-2 bg-warm-white rounded-xl border border-soft-border shadow-lg py-2 min-w-[140px]">
+              <div className="absolute right-0 top-full mt-2 bg-surface rounded-xl border border-line shadow-lg py-2 min-w-[140px]">
                 {navLinks.map((link) => (
                   <a
                     key={link.href}
@@ -133,8 +132,8 @@ export function Nav() {
                       block px-4 py-2 text-sm no-underline transition-colors
                       ${
                         activeSection === link.sectionId
-                          ? "text-charcoal bg-cream font-medium"
-                          : "text-warm-gray hover:bg-cream hover:text-charcoal"
+                          ? "text-ink bg-paper font-medium"
+                          : "text-muted hover:bg-paper hover:text-ink"
                       }
                     `}
                   >
