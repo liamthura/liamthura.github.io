@@ -111,9 +111,16 @@ export function Experience() {
                 i < groups.length - 1 ? "border-b border-line" : ""
               }`}
             >
-              {/* Left column — dates only */}
-              <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted pt-1">
-                {formatMonth(group.spanFrom)} — {formatMonth(group.spanTo)}
+              {/* Left column — dates (+ role type for single-role groups) */}
+              <div className="pt-1">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted">
+                  {formatMonth(group.spanFrom)} — {formatMonth(group.spanTo)}
+                </p>
+                {!isMulti && group.roles[0].type && (
+                  <p className="text-[11px] uppercase tracking-[0.08em] text-muted/70 mt-1">
+                    {group.roles[0].type}
+                  </p>
+                )}
               </div>
 
               {/* Right column — org eyebrow + role(s) */}
