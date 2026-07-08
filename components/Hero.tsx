@@ -17,7 +17,7 @@ export function Hero() {
           {/* Status line */}
           <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.08em] mb-8 py-1.5 px-2.5 rounded bg-tint text-accent-deep">
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            Currently: writing my dissertation · Newcastle, UK
+            {profile.status}
           </div>
 
           <div className="flex flex-col md:flex-row md:items-start gap-10">
@@ -31,7 +31,7 @@ export function Hero() {
               <p className="text-lg text-muted max-w-[560px] mb-6">{profile.bio}</p>
 
               <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-muted mb-8">
-                IT Management · Northumbria University · Ex-Honda Motor Europe
+                {profile.credentials}
               </p>
 
               <div className="flex gap-3.5 flex-wrap">
