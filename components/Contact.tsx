@@ -75,8 +75,8 @@ export function Contact() {
 
       {/* Footer bar */}
       <div className="mt-9 pt-6 border-t border-ink-island-fg/15 flex flex-col md:flex-row justify-between items-center gap-3">
-        <span className="font-display font-bold text-base">
-          khant<span className="text-accent">.</span>
+        <span className="font-display font-bold text-base inline-flex items-baseline">
+          liam<span className="text-accent text-2xl leading-none">.</span>
         </span>
         <span className="text-xs text-ink-island-fg/60">
           © 2026 · Built by Liam Thura, fuelled by dumplings

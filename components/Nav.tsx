@@ -74,9 +74,9 @@ export function Nav() {
         {/* Logo */}
         <a
           href="#"
-          className="font-display font-bold text-xl text-ink no-underline flex items-center gap-2"
+          className="font-display font-bold text-xl text-ink no-underline flex items-baseline"
         >
-          khant<span className="text-accent">.</span>
+          liam<span className="text-accent text-3xl leading-none">.</span>
         </a>
 
         {/* Desktop links + theme toggle */}
