@@ -1,4 +1,4 @@
-// Skills.tsx — 3-col card grid; the AI & LLM card gets the green tint.
+// Skills.tsx — 3-col card grid. All cards share one clean treatment.
 
 import skills from "@/content/skills.json";
 import { SectionShell, SectionHeader, Tag } from "@/components/site-ui";
@@ -10,15 +10,10 @@ export function Skills() {
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {skills.map((skill) => {
-          const tinted = skill.title.startsWith("AI");
           return (
             <div
               key={skill.title}
-              className={`p-5 rounded-2xl border ${
-                tinted
-                  ? "bg-tint border-tint-line"
-                  : "bg-surface border-line"
-              }`}
+              className="p-5 rounded-2xl border bg-surface border-line"
             >
               <h3 className="font-display text-[17px] font-semibold mb-2 text-ink">
                 {skill.title}
