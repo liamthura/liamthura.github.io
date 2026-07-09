@@ -16,16 +16,6 @@
     ]
   },
   {
-    "id": "experience-1779834717267",
-    "company": "Honda Motor Europe",
-    "from": "2025-08",
-    "to": null,
-    "type": "Full-time",
-    "role": "Test",
-    "description": "",
-    "tags": []
-  },
-  {
     "id": "aiesec",
     "company": "AIESEC in Yangon",
     "from": "2021-02",
@@ -44,7 +34,7 @@
     "id": "northumbria",
     "company": "Northumbria University",
     "from": "2025-09",
-    "to": null,
+    "to": "2026-07",
     "type": "Volunteer",
     "role": "International Student Representative",
     "description": "Liaising between international students, academic staff, and the student union to make sure the challenges we face get heard and addressed. Faculty of Environment and Science representative.",
