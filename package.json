@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "update-posts": "node scripts/update-posts.mjs",
     "start": "next start",
     "lint": "eslint"
   },

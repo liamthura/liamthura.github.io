@@ -5,6 +5,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { ArrowDownIcon, ArrowUpIcon } from "@phosphor-icons/react";
 import experience from "@/content/experience.json";
 import { SectionShell, SectionHeader, Tag } from "@/components/site-ui";
 
@@ -182,9 +183,15 @@ export function Experience() {
                           {rest && rest.length > 100 && (
                             <button
                               onClick={() => toggleRole(role.id)}
-                              className="mb-3 text-sm font-medium text-muted hover:text-ink transition-colors"
+                              aria-expanded={isExpanded}
+                              className="inline-flex items-center gap-1.5 min-h-[44px] mb-3 text-sm font-medium text-muted hover:text-ink transition-colors"
                             >
-                              {isExpanded ? "Read less ↑" : "Read more ↓"}
+                              {isExpanded ? "Read less" : "Read more"}
+                              {isExpanded ? (
+                                <ArrowUpIcon size={14} aria-hidden />
+                              ) : (
+                                <ArrowDownIcon size={14} aria-hidden />
+                              )}
                             </button>
                           )}
 

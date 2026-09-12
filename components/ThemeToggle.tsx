@@ -75,7 +75,7 @@ export function ThemeToggle() {
         aria-expanded={open}
         aria-label={triggerLabel}
         title={triggerLabel}
-        className="w-9 h-9 inline-flex items-center justify-center rounded-lg text-warm-gray hover:text-charcoal hover:bg-warm-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-charcoal/30"
+        className="w-11 h-11 inline-flex items-center justify-center rounded-lg text-muted hover:text-ink hover:bg-surface transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-charcoal/30"
       >
         <TriggerIcon
           size={17}
@@ -88,7 +88,7 @@ export function ThemeToggle() {
           ref={menuRef}
           role="menu"
           aria-label="Theme"
-          className="absolute right-0 top-full mt-2 bg-warm-white rounded-xl border border-soft-border shadow-lg py-1 min-w-[150px] z-50"
+          className="absolute right-0 top-full mt-2 bg-surface rounded-xl border border-line shadow-lg py-1 min-w-[150px] z-50"
         >
           {OPTIONS.map((opt) => {
             const Icon = opt.icon;
@@ -104,11 +104,11 @@ export function ThemeToggle() {
                   setOpen(false);
                 }}
                 className={`
-                  w-full flex items-center gap-2.5 px-3 py-2 text-sm text-left transition-colors
+                  w-full flex items-center gap-2.5 px-3 min-h-[44px] py-2 text-sm text-left transition-colors
                   ${
                     active
-                      ? "text-charcoal font-medium bg-cream"
-                      : "text-warm-gray hover:bg-cream hover:text-charcoal"
+                      ? "text-ink font-medium bg-paper"
+                      : "text-muted hover:bg-paper hover:text-ink"
                   }
                 `}
               >
@@ -118,7 +118,7 @@ export function ThemeToggle() {
                   <CheckIcon
                     size={13}
                     weight="bold"
-                    className="text-charcoal/60"
+                    className="text-muted"
                   />
                 )}
               </button>

@@ -22,7 +22,7 @@ export function Projects() {
           return (
             <div
               key={project.id}
-              className={`group relative bg-surface rounded-2xl border overflow-hidden flex flex-col h-full w-full transition-all
+              className={`group relative bg-surface rounded-2xl border overflow-hidden flex flex-col h-full w-full transition-transform transition-colors
                 ${
                   isArchived
                     ? "border-line/70 opacity-70 hover:opacity-100"
@@ -35,13 +35,17 @@ export function Projects() {
             >
               {project.image && (
                 <div
-                  className="w-full h-44 relative -m-6 mb-4"
-                  style={{ width: "calc(100% + 48px)" }}
+                  className={`h-44 relative mb-4 ${
+                    project.size === "large" || project.size === "medium"
+                      ? "-m-6 w-[calc(100%+3rem)]"
+                      : "-m-5 w-[calc(100%+2.5rem)]"
+                  }`}
                 >
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
                   />
                 </div>
@@ -79,12 +83,13 @@ export function Projects() {
 
               {/* Link row — pinned to the bottom edge */}
               {(project.url || project.github || project.readMore) && (
-                <div className="mt-auto pt-3 border-t border-line flex flex-wrap gap-5 text-[11px] font-bold uppercase tracking-[0.1em]">
+                <div className="mt-auto pt-3 border-t border-line flex flex-wrap gap-x-5 gap-y-1 text-[11px] font-bold uppercase tracking-[0.1em]">
                   {project.url && (
                     <a
                       href={project.url}
                       target="_blank"
-                      className="inline-flex items-center gap-1.5 text-accent-deep hover:opacity-80"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 min-h-[44px] text-accent-deep hover:opacity-80"
                     >
                       <ArrowSquareOutIcon size={13} /> Live
                     </a>
@@ -93,7 +98,8 @@ export function Projects() {
                     <a
                       href={project.github}
                       target="_blank"
-                      className="inline-flex items-center gap-1.5 text-ink hover:opacity-80"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 min-h-[44px] text-ink hover:opacity-80"
                     >
                       <GithubLogoIcon size={13} /> GitHub
                     </a>
@@ -102,7 +108,8 @@ export function Projects() {
                     <a
                       href={project.readMore}
                       target="_blank"
-                      className="inline-flex items-center gap-1.5 text-accent-deep hover:opacity-80"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 min-h-[44px] text-accent-deep hover:opacity-80"
                     >
                       <ArticleIcon size={13} /> Read
                     </a>

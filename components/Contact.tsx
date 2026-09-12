@@ -6,6 +6,7 @@ import {
   EnvelopeIcon,
   LinkedinLogoIcon,
   GithubLogoIcon,
+  ArrowUpIcon,
 } from "@phosphor-icons/react";
 import contact from "@/content/contact.json";
 import { SectionShell } from "@/components/site-ui";
@@ -56,7 +57,8 @@ export function Contact() {
                 key={link.label}
                 href={link.url}
                 target={link.url.startsWith("mailto") ? undefined : "_blank"}
-                className="flex items-center justify-between gap-3 px-[18px] py-3.5 border border-ink-island-fg/15 rounded-[10px] hover:border-ink-island-fg/30 transition-colors"
+                rel={link.url.startsWith("mailto") ? undefined : "noopener noreferrer"}
+                className="flex items-center justify-between gap-3 px-[18px] py-3.5 min-h-[44px] border border-ink-island-fg/15 rounded-[10px] hover:border-ink-island-fg/30 transition-colors"
               >
                 <span className="inline-flex items-center gap-2.5">
                   {Icon && <Icon size={16} className="text-accent-deep" />}
@@ -87,9 +89,9 @@ export function Contact() {
             e.preventDefault()
             window.scrollTo({ top: 0, behavior: "smooth" })
           }}
-          className="text-[11px] font-bold uppercase tracking-[0.1em] text-accent-deep"
+          className="inline-flex items-center gap-1.5 min-h-[44px] text-[11px] font-bold uppercase tracking-[0.1em] text-accent-deep"
         >
-          Back to top ↑
+          Back to top <ArrowUpIcon size={13} aria-hidden />
         </a>
       </div>
     </SectionShell>

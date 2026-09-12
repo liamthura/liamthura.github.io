@@ -8,6 +8,7 @@ import { Projects } from "@/components/Projects";
 import { Experience } from "@/components/Experience";
 import { Education } from "@/components/Education";
 import { Hobbies } from "@/components/Hobbies";
+import { Blog } from "@/components/Blog";
 import { Contact } from "@/components/Contact";
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
       <Experience />
       <Education />
       <Hobbies />
+      <Blog />
       <Contact />
     </main>
   );

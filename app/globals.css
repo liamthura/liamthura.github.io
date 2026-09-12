@@ -145,8 +145,14 @@ html.theme-transition * {
 .col-shell {
   max-width: 1120px;
   margin-inline: auto;
-  padding-inline: 3rem;
+  padding-inline: 1.5rem;
   border-inline: 1px solid var(--line);
+}
+
+@media (min-width: 768px) {
+  .col-shell {
+    padding-inline: 3rem;
+  }
 }
 
 /* Diagonal hatch strip used as a divider between sections. */
@@ -180,4 +186,29 @@ html.theme-transition * {
   border-radius: 0.4rem;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+}
+
+/* Browser surfaces: carry the palette into the parts not drawn above. */
+::selection {
+  background: var(--marker);
+  color: #1c1917;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-deep);
+  outline-offset: 2px;
+}
+
+/* Motion sensitivity: keep state changes, drop the decoration. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto !important;
+  }
 }

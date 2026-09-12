@@ -1,5 +1,7 @@
 // Education.tsx — degree (left) + dissertation callout & highlights (right).
+"use client";
 
+import { ArrowRightIcon } from "@phosphor-icons/react";
 import education from "@/content/education.json";
 import { SectionShell, SectionHeader, StatusChip } from "@/components/site-ui";
 
@@ -28,7 +30,7 @@ export function Education() {
           {/* Detail */}
           <div>
             {entry.dissertation && (
-              <div className="bg-surface border-l-[3px] border-accent px-5 py-4 mb-5">
+              <div className="bg-surface border border-line rounded-xl px-5 py-4 mb-5">
                 <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-accent-deep mb-2">
                   Dissertation
                 </p>
@@ -46,7 +48,12 @@ export function Education() {
                 <ul className="space-y-2.5">
                   {entry.highlights.map((item) => (
                     <li key={item} className="flex items-start gap-2.5">
-                      <span className="text-accent-deep font-bold text-sm">→</span>
+                      <ArrowRightIcon
+                        size={14}
+                        weight="bold"
+                        aria-hidden
+                        className="text-accent-deep shrink-0 mt-[3px]"
+                      />
                       <span className="text-[13px] font-semibold text-ink">
                         {item}
                       </span>

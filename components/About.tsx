@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowRightIcon } from "@phosphor-icons/react";
 import about from "@/content/about.json";
 import { SectionShell, SectionHeader } from "@/components/site-ui";
 
@@ -36,9 +37,15 @@ export function About() {
 
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="text-sm font-medium text-muted hover:text-ink transition-colors mb-9"
+            aria-expanded={isExpanded}
+            className="inline-flex items-center gap-1.5 min-h-[44px] text-sm font-medium text-muted hover:text-ink transition-colors mb-9"
           >
-            {isExpanded ? "Shorter ↑" : "Even longer ↓"}
+            {isExpanded ? "Shorter" : "Even longer"}
+            <ArrowRightIcon
+              size={14}
+              aria-hidden
+              className={`transition-transform ${isExpanded ? "-rotate-90" : "rotate-90"}`}
+            />
           </button>
 
           <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-ink mb-4">
@@ -47,9 +54,12 @@ export function About() {
           <div className="grid sm:grid-cols-2 gap-x-7 gap-y-3.5">
             {about.strengths.map((item, i) => (
               <div key={i} className="flex items-start gap-2.5">
-                <span className="text-accent-deep font-bold text-sm leading-[1.5]">
-                  →
-                </span>
+                <ArrowRightIcon
+                  size={14}
+                  weight="bold"
+                  aria-hidden
+                  className="text-accent-deep shrink-0 mt-[3px]"
+                />
                 <span className="text-[13px] font-semibold leading-[1.5] text-ink">
                   {item}
                 </span>

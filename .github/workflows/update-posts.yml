@@ -1,0 +1,39 @@
+# Refresh the blog-post snapshot weekly. Commits public/content/posts.json
+# when the RSS feed changed; the push to main triggers the Pages deploy,
+# so the portfolio picks up new posts automatically.
+name: Refresh blog posts
+
+on:
+  schedule:
+    # Mondays 06:00 UTC
+    - cron: "0 6 * * 1"
+
+  # Allows manual refresh from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-posts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Fetch latest posts
+        run: node scripts/update-posts.mjs
+      - name: Commit updated posts
+        run: |
+          if git diff --quiet -- public/content/posts.json; then
+            echo "No new posts."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/content/posts.json
+            git commit -m "Update latest blog posts"
+            git push
+          fi
