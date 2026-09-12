@@ -7,10 +7,19 @@
 import { writeFile, mkdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { existsSync } from "node:fs";
 
 const FEED_URL = "https://thurashares.qzz.io/blog/index.xml";
 const MAX_POSTS = 6;
 const EXCERPT_LENGTH = 170;
+
+// The blog host blocks non-browser clients (403 on CI runners),
+// so identify as a browser.
+const HEADERS = {
+  "User-Agent":
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+  Accept: "application/rss+xml, application/xml, text/html, */*",
+};
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const outPath = join(root, "public", "content", "posts.json");
@@ -61,7 +70,7 @@ function excerptOf(text) {
 // <meta name="description">. Null when missing or unreachable.
 async function pageDescription(url) {
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, { headers: HEADERS });
     if (!res.ok) return null;
     const html = await res.text();
     for (const m of html.matchAll(/<meta\s[^>]*>/gi)) {
@@ -80,9 +89,20 @@ async function pageDescription(url) {
   return null;
 }
 
-const res = await fetch(FEED_URL);
-if (!res.ok) throw new Error(`Feed request failed: ${res.status}`);
-const xml = await res.text();
+let xml;
+try {
+  const res = await fetch(FEED_URL, { headers: HEADERS });
+  if (!res.ok) throw new Error(`Feed request failed: ${res.status}`);
+  xml = await res.text();
+} catch (err) {
+  // The blog being unreachable must never break the site build:
+  // keep the last committed snapshot.
+  if (existsSync(outPath)) {
+    console.warn(`Feed unreachable (${err.message}); keeping cached posts.json`);
+    process.exit(0);
+  }
+  throw err;
+}
 
 const posts = await Promise.all(
   [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map(async (m) => {
