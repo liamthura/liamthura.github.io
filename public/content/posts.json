@@ -2,36 +2,41 @@
   {
     "id": "20260913-my-homelabbing-episode",
     "title": "My Homelabbing Episode",
-    "url": "https://thurashares.qzz.io/blog/test/20260913-my-homelabbing-episode/",
+    "url": "https://thurashares.qzz.io/blog/20260913-my-homelabbing-episode/",
     "date": "2026-09-13T00:00:00.000Z",
-    "excerpt": "Opening paragraph."
+    "excerpt": "Opening paragraph.",
+    "contentHash": "b9325ad8f686"
   },
   {
     "id": "first-hackathon",
     "title": "So I Ran a Hackathon (And Didn't Completely Fall Apart)",
     "url": "https://thurashares.qzz.io/blog/first-hackathon/",
     "date": "2025-12-02T15:40:32.000Z",
-    "excerpt": "A very honest reflection on organising the Claude Builder Club Hackathon at Northumbria University"
+    "excerpt": "A very honest reflection on organising the Claude Builder Club Hackathon at Northumbria University",
+    "contentHash": "4e851a556405"
   },
   {
     "id": "lessons-from-honda",
     "title": "Lessons from Honda: Working in a professional team",
     "url": "https://thurashares.qzz.io/blog/lessons-from-honda/",
     "date": "2025-11-04T15:44:26.000Z",
-    "excerpt": "A year at Honda taught me that real teamwork is less about perfect execution and more about clear communication, shared accountability, and knowing when to ask for help."
+    "excerpt": "A year at Honda taught me that real teamwork is less about perfect execution and more about clear communication, shared accountability, and knowing when to ask for help.",
+    "contentHash": "f5355999a065"
   },
   {
     "id": "the-map-of-tiny-perfect-things",
     "title": "so i just finished watching The Map of Tiny Perfect Things",
     "url": "https://thurashares.qzz.io/blog/the-map-of-tiny-perfect-things/",
     "date": "2025-08-27T21:00:37.000Z",
-    "excerpt": "it’s all about noticing and appreciating"
+    "excerpt": "it’s all about noticing and appreciating",
+    "contentHash": "cf693cf2d581"
   },
   {
     "id": "dunning-kruger-effect",
     "title": "The More I Know, The More I Know That I Don't Know",
     "url": "https://thurashares.qzz.io/blog/dunning-kruger-effect/",
     "date": "2021-10-03T12:15:48.000Z",
-    "excerpt": "who isn’t disappointed to find out actually you don’t know much? well maybe this can be explained."
+    "excerpt": "who isn’t disappointed to find out actually you don’t know much? well maybe this can be explained.",
+    "contentHash": "76a90612d125"
   }
 ]
