@@ -38,6 +38,11 @@ const iconMap: {
   [key: string]: React.ComponentType<{ size?: number; className?: string }>;
 } = { EnvelopeIcon, LinkedinLogoIcon, GithubLogoIcon };
 
+// reCAPTCHA Enterprise site key for the YouTrack feedback form. The form's
+// own script requests the token itself — the host page only provides the
+// library, so there is no onSubmit wiring or extra button here.
+const RECAPTCHA_SITE_KEY = "6LeqFbotAAAAAB4GDe0AEbiKVZysmW-7Hf-keyIn";
+
 export function Contact() {
   const headlineParts = contact.headline.split(/(\btalk\b)/i);
   const { resolved } = useTheme();
@@ -169,6 +174,10 @@ export function Contact() {
           Back to top <ArrowUpIcon size={13} aria-hidden />
         </a>
       </div>
+      <Script
+        src={`https://www.google.com/recaptcha/enterprise.js?render=${RECAPTCHA_SITE_KEY}`}
+        strategy="afterInteractive"
+      />
       <Script
         src="https://thuradev.youtrack.cloud/static/simplified/form/form-entry.js?auto=false"
         strategy="lazyOnload"
