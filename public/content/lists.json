@@ -2,6 +2,11 @@
   {
     "id": "u5t3od2xythx8apeielz0amf",
     "name": "💡 Recommendations",
-    "items": []
+    "items": [
+      {
+        "title": "This is a test item",
+        "url": "https://google.com"
+      }
+    ]
   }
 ]
