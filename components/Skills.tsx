@@ -12,7 +12,7 @@ export function Skills({
 }) {
   return (
     <SectionShell id="skills" bare={bare}>
-      {header && <SectionHeader label="Skills" title="What I work with" />}
+      {header && <SectionHeader label="Skills" title="What I've learned" />}
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {skills.map((skill) => {

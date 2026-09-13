@@ -1,15 +1,9 @@
 {
   "headline": "Let's talk",
   "intro": "I'm looking for graduate opportunities in HCI design, IT operations, technology consulting, or business analysis roles. If you think I might be a good fit for your team, I'd be happy to chat.",
-  "secondary": "Also open to conversations about AI tools, systems thinking, or just exchanging notes on navigating early career stuff. I reply to emails. (Revolutionary, I know.)",
+  "secondary": "Also open to conversations about AI tools, systems thinking, or just exchanging notes on navigating early career stuff. I reply to messages. (Revolutionary, I know.)",
   "availability": "",
   "links": [
-    {
-      "label": "Email",
-      "value": "khantthura.work@gmail.com",
-      "url": "mailto:khantthura.work@gmail.com",
-      "icon": "EnvelopeIcon"
-    },
     {
       "label": "LinkedIn",
       "value": "/in/khantthura",

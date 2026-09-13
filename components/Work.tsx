@@ -28,7 +28,7 @@ const IMAGE_POSITIONS: Record<string, string> = {
   "bottom-right": "object-right-bottom",
 };
 
-export function Work() {
+export function Work({ children }: { children?: React.ReactNode }) {
   // Starred in /admin/projects (max 4); falls back to list order.
   const featured = projects.filter((p) => p.featured).slice(0, 4);
   const strip = featured.length > 0 ? featured : projects.slice(0, 4);
@@ -191,6 +191,9 @@ export function Work() {
       >
         All projects <ArrowUpRightIcon size={13} aria-hidden />
       </Link>
+      {children && (
+        <div className="border-t border-line mt-12">{children}</div>
+      )}
     </SectionShell>
   );
 }

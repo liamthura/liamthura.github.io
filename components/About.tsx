@@ -10,9 +10,11 @@ import { SectionShell, SectionHeader } from "@/components/site-ui";
 export function About({
   header = true,
   bare = false,
+  children,
 }: {
   header?: boolean;
   bare?: boolean;
+  children?: React.ReactNode;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -108,6 +110,9 @@ export function About({
           )}
         </div>
       </div>
+      {children && (
+        <div className="border-t border-line mt-12">{children}</div>
+      )}
     </SectionShell>
   );
 }

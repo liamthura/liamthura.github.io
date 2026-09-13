@@ -13,7 +13,7 @@ export function Fold({
   title,
   children,
 }: {
-  label: string;
+  label: React.ReactNode;
   title: string;
   children: React.ReactNode;
 }) {
