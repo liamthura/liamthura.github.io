@@ -16,6 +16,18 @@
     ]
   },
   {
+    "id": "experience-1789308497792",
+    "company": "Honda Motor Europe",
+    "from": "2026-08",
+    "to": null,
+    "type": "Full-time",
+    "role": "Digital Service Ownership Specialist",
+    "description": "Manage application services for European Honda operations, such as MyHonda+ Connected App.",
+    "tags": [
+      "Operations"
+    ]
+  },
+  {
     "id": "aiesec",
     "company": "AIESEC in Yangon",
     "from": "2021-02",
