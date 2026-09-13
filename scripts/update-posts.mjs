@@ -9,6 +9,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { existsSync } from "node:fs";
 import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { createInterface } from "node:readline/promises";
 
 const FEED_URL = "https://thurashares.qzz.io/blog/index.xml";
@@ -111,14 +112,17 @@ const posts = await Promise.all(
     const block = m[1];
     const url = field(block, "link");
     const date = new Date(field(block, "pubDate"));
+    const body = field(block, "description");
     return {
       id: new URL(url).pathname.replace(/\/$/, "").split("/").pop(),
       title: stripHtml(field(block, "title")),
       url,
       date: Number.isNaN(date.getTime()) ? null : date.toISOString(),
       excerpt:
-        (await pageDescription(url)) ||
-        excerptOf(stripHtml(field(block, "description"))),
+        (await pageDescription(url)) || excerptOf(stripHtml(body)),
+      // Tripwire for body edits: the excerpt only tracks the one-liner,
+      // so hash the full content to notice when the post itself changes.
+      contentHash: createHash("sha1").update(body).digest("hex").slice(0, 12),
     };
   }),
 );
@@ -147,27 +151,37 @@ console.log(`Wrote ${latest.length} posts to public/content/posts.json`);
 // --sync: interactive commit + push flow. Reports what changed since the
 // last snapshot, then walks through commit and push with confirmations.
 async function syncFlow(previous, latest) {
-  if (!process.stdin.isTTY) {
-    throw new Error("--sync needs an interactive terminal");
-  }
-
   const prevById = new Map(previous.map((p) => [p.id, p]));
   const nextById = new Map(latest.map((p) => [p.id, p]));
   const added = latest.filter((p) => !prevById.has(p.id));
   const removed = previous.filter((p) => !nextById.has(p.id));
-  const updated = latest.filter((p) => {
+  const changed = [];
+  for (const p of latest) {
     const old = prevById.get(p.id);
-    return old && (old.title !== p.title || old.excerpt !== p.excerpt);
-  });
+    if (!old) continue;
+    const reasons = [];
+    if (old.title !== p.title || old.excerpt !== p.excerpt)
+      reasons.push("summary");
+    if (old.date !== p.date || old.url !== p.url) reasons.push("meta");
+    if (old.contentHash !== p.contentHash) reasons.push("content");
+    if (reasons.length > 0) changed.push({ post: p, reasons });
+  }
 
-  if (added.length === 0 && removed.length === 0 && updated.length === 0) {
+  if (added.length === 0 && removed.length === 0 && changed.length === 0) {
     console.log("Already up to date — nothing to commit.");
     return;
   }
 
   for (const p of added) console.log(`  + ${p.title}`);
-  for (const p of updated) console.log(`  ~ ${p.title}`);
+  for (const { post: p, reasons } of changed)
+    console.log(
+      `  ~ ${p.title}${reasons.length === 1 && reasons[0] === "content" ? " (content changed)" : ""}`,
+    );
   for (const p of removed) console.log(`  - ${p.title}`);
+
+  if (!process.stdin.isTTY) {
+    throw new Error("--sync needs an interactive terminal");
+  }
 
   const rl = createInterface({ input: process.stdin, output: process.stdout });
   const ask = async (q) => {
