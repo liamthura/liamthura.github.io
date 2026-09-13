@@ -13,10 +13,16 @@ function iconClass(name: string): string {
   return `ph-duotone ph-${slug}`;
 }
 
-export function Hobbies() {
+export function Hobbies({
+  header = true,
+  bare = false,
+}: {
+  header?: boolean;
+  bare?: boolean;
+}) {
   return (
-    <SectionShell>
-      <SectionHeader label="Outside of work" title="When I'm not at a screen" />
+    <SectionShell bare={bare}>
+      {header && <SectionHeader label="Outside of work" title="When I'm not at a screen" />}
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
         {hobbies.map((hobby, i) => (

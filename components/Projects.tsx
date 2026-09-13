@@ -7,6 +7,7 @@ import {
   ArrowSquareOutIcon,
   GithubLogoIcon,
   ArticleIcon,
+  BookOpenIcon,
 } from "@phosphor-icons/react";
 import projects from "@/content/projects.json";
 import { SectionShell, SectionHeader, Tag, StatusChip } from "@/components/site-ui";
@@ -25,10 +26,10 @@ const IMAGE_POSITIONS: Record<string, string> = {
   "bottom-right": "object-right-bottom",
 };
 
-export function Projects() {
+export function Projects({ header = true }: { header?: boolean }) {
   return (
     <SectionShell id="projects">
-      <SectionHeader label="Projects" title="Things I've made" />
+      {header && <SectionHeader label="Projects" title="Things I've made" />}
 
       <div className="grid grid-cols-1 md:grid-cols-6 gap-6 auto-rows-[minmax(140px,auto)] grid-flow-dense w-full">
         {projects.map((project) => {
@@ -96,7 +97,7 @@ export function Projects() {
               )}
 
               {/* Link row — pinned to the bottom edge */}
-              {(project.url || project.github || project.readMore) && (
+              {(project.url || project.github || project.readMore || project.blogUrl) && (
                 <div className="mt-auto pt-3 border-t border-line flex flex-wrap gap-x-5 gap-y-1 text-[11px] font-bold uppercase tracking-[0.1em]">
                   {project.url && (
                     <a
@@ -126,6 +127,16 @@ export function Projects() {
                       className="inline-flex items-center gap-1.5 min-h-[44px] text-accent-deep hover:opacity-80"
                     >
                       <ArticleIcon size={13} /> Read
+                    </a>
+                  )}
+                  {project.blogUrl && (
+                    <a
+                      href={project.blogUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 min-h-[44px] text-accent-deep hover:opacity-80"
+                    >
+                      <BookOpenIcon size={13} /> Build log
                     </a>
                   )}
                 </div>

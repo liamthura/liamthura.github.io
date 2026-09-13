@@ -20,12 +20,18 @@ function formatDate(iso: string): string {
   });
 }
 
-export function Blog() {
+export function Blog({
+  header = true,
+  bare = false,
+}: {
+  header?: boolean;
+  bare?: boolean;
+}) {
   const latest = posts.slice(0, 3);
 
   return (
-    <SectionShell id="blog">
-      <SectionHeader label="Blog" title="Latest posts" />
+    <SectionShell id="blog" bare={bare}>
+      {header && <SectionHeader label="Blog" title="Latest posts" />}
 
       <div>
         {latest.map((post, i) => (

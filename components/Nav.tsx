@@ -1,54 +1,25 @@
 "use client";
 
-// Nav.tsx - Desktop top nav + mobile dropdown
-// Mobile: shows current section with chevron, expands on click
+// Nav.tsx — route links + mobile dropdown + theme toggle.
 
 import { useEffect, useState, useRef } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { CaretDownIcon } from "@phosphor-icons/react";
 import { ThemeToggle } from "./ThemeToggle";
 
 const navLinks = [
-  { label: "Home", href: "#", sectionId: "" },
-  { label: "About", href: "#about", sectionId: "about" },
-  { label: "Skills", href: "#skills", sectionId: "skills" },
-  { label: "Projects", href: "#projects", sectionId: "projects" },
-  { label: "Work", href: "#experience", sectionId: "experience" },
-  { label: "Blog", href: "#blog", sectionId: "blog" },
-  { label: "Contact", href: "#contact", sectionId: "contact" },
+  { label: "Home", href: "/" },
+  { label: "Projects", href: "/projects" },
+  { label: "Lists", href: "/lists" },
+  { label: "Blog", href: "/#blog" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export function Nav() {
-  const [activeSection, setActiveSection] = useState("");
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPos = window.scrollY + window.innerHeight / 3;
-      const sections = document.querySelectorAll("section[id]");
-
-      // Check if at top (hero)
-      if (window.scrollY < 100) {
-        setActiveSection("");
-        return;
-      }
-
-      sections.forEach((section) => {
-        const sectionTop = (section as HTMLElement).offsetTop;
-        const sectionHeight = (section as HTMLElement).offsetHeight;
-        const sectionId = section.getAttribute("id");
-
-        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-          setActiveSection(sectionId || "");
-        }
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Close menu when clicking outside or pressing Escape
   useEffect(() => {
@@ -71,7 +42,7 @@ export function Nav() {
   }, []);
 
   const activeLabel =
-    navLinks.find((link) => link.sectionId === activeSection)?.label || "Home";
+    navLinks.find((link) => link.href === pathname)?.label || "Home";
 
   const handleLinkClick = () => {
     setMobileMenuOpen(false);
@@ -81,35 +52,33 @@ export function Nav() {
     <nav className="fixed top-0 left-0 right-0 bg-paper/85 backdrop-blur-md z-50 border-b border-line">
       <div className="container-main flex justify-between items-center h-16">
         {/* Logo */}
-        <a
-          href="#"
+        <Link
+          href="/"
           className="font-display font-bold text-xl text-ink no-underline flex items-baseline"
         >
           liam<span className="text-accent text-3xl leading-none">.</span>
-        </a>
+        </Link>
 
         {/* Desktop links + theme toggle */}
         <div className="hidden md:flex items-center gap-8">
           <ul className="flex list-none gap-8">
-            {navLinks
-              .filter((link) => link.sectionId !== "")
-              .map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className={`
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className={`
             inline-flex items-center min-h-[44px] text-[11px] font-semibold uppercase tracking-[0.1em] no-underline transition-colors
             ${
-              activeSection === link.sectionId
+              pathname === link.href
                 ? "text-accent-deep"
                 : "text-muted hover:text-ink"
             }
           `}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
           </ul>
           <ThemeToggle />
         </div>
@@ -141,7 +110,7 @@ export function Nav() {
                 className="absolute right-0 top-full mt-2 bg-surface rounded-xl border border-line shadow-lg py-2 min-w-[140px]"
               >
                 {navLinks.map((link) => (
-                  <a
+                  <Link
                     key={link.href}
                     href={link.href}
                     role="menuitem"
@@ -149,14 +118,14 @@ export function Nav() {
                     className={`
                       flex items-center px-4 min-h-[44px] text-sm no-underline transition-colors
                       ${
-                        activeSection === link.sectionId
+                        pathname === link.href
                           ? "text-ink bg-paper font-medium"
                           : "text-muted hover:bg-paper hover:text-ink"
                       }
                     `}
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             )}

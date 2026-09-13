@@ -7,12 +7,24 @@ import type { ReactNode } from "react";
 export function SectionShell({
   id,
   dark = false,
+  bare = false,
   children,
 }: {
   id?: string;
   dark?: boolean;
+  bare?: boolean;
   children: ReactNode;
 }) {
+  if (bare) {
+    return (
+      <section
+        id={id}
+        className={dark ? "bg-ink-island text-ink-island-fg" : ""}
+      >
+        {children}
+      </section>
+    );
+  }
   return (
     <section id={id} className={dark ? "bg-ink-island text-ink-island-fg" : ""}>
       {!dark && <div className="hatch-divider" aria-hidden />}

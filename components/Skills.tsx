@@ -3,10 +3,16 @@
 import skills from "@/content/skills.json";
 import { SectionShell, SectionHeader, Tag } from "@/components/site-ui";
 
-export function Skills() {
+export function Skills({
+  header = true,
+  bare = false,
+}: {
+  header?: boolean;
+  bare?: boolean;
+}) {
   return (
-    <SectionShell id="skills">
-      <SectionHeader label="Skills" title="What I work with" />
+    <SectionShell id="skills" bare={bare}>
+      {header && <SectionHeader label="Skills" title="What I work with" />}
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {skills.map((skill) => {

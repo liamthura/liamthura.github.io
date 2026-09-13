@@ -4,14 +4,27 @@
 import { useState } from "react";
 import { ArrowRightIcon } from "@phosphor-icons/react";
 import about from "@/content/about.json";
+import experience from "@/content/experience.json";
 import { SectionShell, SectionHeader } from "@/components/site-ui";
 
-export function About() {
+export function About({
+  header = true,
+  bare = false,
+}: {
+  header?: boolean;
+  bare?: boolean;
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
 
+  // Current roles first: active entries (no end date), newest start first.
+  const nowRoles = experience
+    .filter((role) => role.to === null)
+    .sort((a, b) => (a.from < b.from ? 1 : -1))
+    .slice(0, 2);
+
   return (
-    <SectionShell id="about">
-      <SectionHeader label="About" title="The slightly longer version" />
+    <SectionShell id="about" bare={bare}>
+      {header && <SectionHeader label="About" title="The slightly longer version" />}
 
       <div className="grid md:grid-cols-[400px_1fr] gap-12 md:gap-[72px] items-start">
         {/* Pull quote */}
@@ -66,6 +79,33 @@ export function About() {
               </div>
             ))}
           </div>
+
+          {nowRoles.length > 0 && (
+            <div className="mt-8 pt-5 border-t border-line">
+              <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-ink mb-3">
+                Now
+              </p>
+              <ul className="space-y-2">
+                {nowRoles.map((role) => (
+                  <li
+                    key={role.id}
+                    className="flex items-center gap-2.5 text-sm"
+                  >
+                    <span
+                      aria-hidden
+                      className="w-1.5 h-1.5 rounded-full bg-accent shrink-0"
+                    />
+                    <span className="text-muted">
+                      <span className="font-semibold text-ink">
+                        {role.role}
+                      </span>{" "}
+                      at {role.company}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </SectionShell>

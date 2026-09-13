@@ -178,6 +178,15 @@ html.theme-transition * {
   opacity: 0.9;
 }
 
+/* Horizontal strip without a browser scrollbar (arrow buttons drive it). */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Lime marker highlight behind a headline word. */
 .mark {
   background: var(--marker);

@@ -16,7 +16,9 @@
       "Zod"
     ],
     "size": "medium",
-    "imagePosition": "top"
+    "imagePosition": "top",
+    "blogUrl": "",
+    "featured": false
   },
   {
     "id": "project-keeper",
@@ -33,7 +35,9 @@
       "CMS"
     ],
     "size": "large",
-    "imagePosition": "center"
+    "imagePosition": "center",
+    "blogUrl": "",
+    "featured": true
   },
   {
     "id": "persona-mcp",
@@ -51,7 +55,9 @@
       "Pydantic"
     ],
     "size": "large",
-    "imagePosition": "top"
+    "imagePosition": "top",
+    "blogUrl": "",
+    "featured": false
   },
   {
     "id": "substack",
@@ -65,7 +71,9 @@
     "image": "",
     "tags": [],
     "size": "small",
-    "imagePosition": "center"
+    "imagePosition": "center",
+    "blogUrl": "",
+    "featured": false
   },
   {
     "id": "cbc-hackathon",
@@ -79,7 +87,9 @@
     "image": "",
     "tags": [],
     "size": "small",
-    "imagePosition": "center"
+    "imagePosition": "center",
+    "blogUrl": "",
+    "featured": false
   },
   {
     "id": "solterra",
@@ -98,7 +108,9 @@
       "PostgreSQL"
     ],
     "size": "medium",
-    "imagePosition": "center"
+    "imagePosition": "center",
+    "blogUrl": "",
+    "featured": false
   },
   {
     "id": "gateshead-bike",
@@ -115,7 +127,9 @@
       "SQLite"
     ],
     "size": "standard",
-    "imagePosition": "center"
+    "imagePosition": "center",
+    "blogUrl": "",
+    "featured": false
   },
   {
     "id": "events-great-north",
@@ -133,7 +147,9 @@
       "MySQL"
     ],
     "size": "standard",
-    "imagePosition": "center"
+    "imagePosition": "center",
+    "blogUrl": "",
+    "featured": false
   },
   {
     "id": "capture-booth",
@@ -150,7 +166,9 @@
       "SvelteKit"
     ],
     "size": "standard",
-    "imagePosition": "center"
+    "imagePosition": "center",
+    "blogUrl": "",
+    "featured": false
   },
   {
     "id": "portfolio",
@@ -169,6 +187,8 @@
       "Tailwind CSS"
     ],
     "size": "small",
-    "imagePosition": "center"
+    "imagePosition": "center",
+    "blogUrl": "",
+    "featured": false
   }
 ]

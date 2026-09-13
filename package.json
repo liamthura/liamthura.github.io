@@ -7,6 +7,7 @@
     "build": "next build",
     "update-posts": "node scripts/update-posts.mjs",
     "sync-posts": "node scripts/update-posts.mjs --sync",
+    "sync-lists": "node scripts/sync-lists.mjs",
     "start": "next start",
     "lint": "eslint"
   },

@@ -5,10 +5,16 @@ import { ArrowRightIcon } from "@phosphor-icons/react";
 import education from "@/content/education.json";
 import { SectionShell, SectionHeader, StatusChip } from "@/components/site-ui";
 
-export function Education() {
+export function Education({
+  header = true,
+  bare = false,
+}: {
+  header?: boolean;
+  bare?: boolean;
+}) {
   return (
-    <SectionShell>
-      <SectionHeader label="Education" title="Academic background" />
+    <SectionShell bare={bare}>
+      {header && <SectionHeader label="Education" title="Academic background" />}
 
       {education.map((entry) => (
         <div

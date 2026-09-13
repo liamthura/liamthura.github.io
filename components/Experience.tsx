@@ -38,7 +38,13 @@ function dateValue(value: string | null): number {
   return Number(match[1]) * 12 + Number(match[2]);
 }
 
-export function Experience() {
+export function Experience({
+  header = true,
+  bare = false,
+}: {
+  header?: boolean;
+  bare?: boolean;
+}) {
   const [expandedRoles, setExpandedRoles] = useState<Set<string>>(new Set());
 
   const toggleRole = (id: string) => {
@@ -99,8 +105,8 @@ export function Experience() {
   };
 
   return (
-    <SectionShell id="experience">
-      <SectionHeader label="Experience" title="Where I've worked" />
+    <SectionShell id="experience" bare={bare}>
+      {header && <SectionHeader label="Experience" title="Where I've worked" />}
 
       <div>
         {groups.map((group, i) => {
