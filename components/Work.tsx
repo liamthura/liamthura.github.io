@@ -29,7 +29,9 @@ const IMAGE_POSITIONS: Record<string, string> = {
 };
 
 export function Work() {
-  const strip = projects.slice(0, 4);
+  // Starred in /admin/projects (max 4); falls back to list order.
+  const featured = projects.filter((p) => p.featured).slice(0, 4);
+  const strip = featured.length > 0 ? featured : projects.slice(0, 4);
   const trackRef = useRef<HTMLDivElement>(null);
   const [canLeft, setCanLeft] = useState(false);
   const [canRight, setCanRight] = useState(false);
@@ -96,8 +98,7 @@ export function Work() {
         </div>
       </div>
       <p className="text-[15px] leading-[1.68] text-muted max-w-[560px] -mt-6 mb-8">
-        Four recent builds: websites, tools, and experiments. The full shelf
-        is on the projects page.
+        These are some favourite projects I&apos;ve had a good time working on. You can always see the full shelf on my Projects page!
       </p>
 
       <div
