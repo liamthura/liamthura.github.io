@@ -1,14 +1,15 @@
-// sync-lists.mjs — pull reading lists from a self-hosted Karakeep
-// instance into a static cache (public/content/lists.json). The /lists
-// page imports the JSON statically, so the portfolio stays fully static.
+// sync-lists.mjs — pull public Karakeep list feeds into a static cache
+// (public/content/lists.json). The /lists page imports the JSON
+// statically, so the portfolio stays fully static.
 //
 // Config (never committed — put these in .env.local):
-//   KARKEEP_BASE_URL  e.g. http://nas.local:3000
-//   KARKEEP_API_KEY   Settings > API Keys in the Karakeep web UI
+//   KARKEEP_FEEDS  comma-separated public list RSS URLs, one per list.
+//                  In Karakeep: open a list > share/RSS to get its URL.
+//                  Tokens stay in .env.local (gitignored), never in git.
 //
 // Run with `npm run sync-lists`. In an interactive terminal it offers to
-// commit and push afterwards. If the instance is unreachable and a cache
-// exists, the cache is kept and the script exits 0 so builds never break.
+// commit and push afterwards. If a feed is unreachable and a cache exists,
+// the cache is kept and the script exits 0 so builds never break.
 
 import { writeFile, mkdir, readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
@@ -21,7 +22,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const outPath = join(root, "public", "content", "lists.json");
 
 // node doesn't read .env.local by itself — load it so the CLI works
-// without exporting variables first. CI never runs this script.
+// without exporting variables first. CI never needs this script.
 for (const file of [".env.local", ".env"]) {
   const path = join(root, file);
   if (!existsSync(path)) continue;
@@ -43,82 +44,93 @@ for (const file of [".env.local", ".env"]) {
   }
 }
 
-const BASE_URL = (process.env.KARKEEP_BASE_URL || "").replace(/\/$/, "");
-const API_KEY = process.env.KARKEEP_API_KEY || "";
-const MAX_ITEMS_PER_LIST = 20;
+const FEEDS = (process.env.KARKEEP_FEEDS || "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+const MAX_ITEMS_PER_LIST = 30;
 
-async function api(path) {
-  const res = await fetch(`${BASE_URL}/api/v1${path}`, {
-    headers: { Authorization: `Bearer ${API_KEY}` },
-  });
-  if (!res.ok) throw new Error(`${path} request failed: ${res.status}`);
-  return res.json();
+const HEADERS = {
+  "User-Agent":
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+  Accept: "application/rss+xml, application/xml, */*",
+};
+
+function field(block, tag) {
+  const match = block.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`));
+  if (!match) return "";
+  return stripTags(match[1]);
 }
 
-function itemOf(bookmark) {
-  const content = bookmark.content || {};
-  if (content.type === "link" && content.url) {
-    return {
-      title: content.title || bookmark.title || content.url,
-      url: content.url,
-      ...(content.description
-        ? { note: content.description.slice(0, 140) }
-        : {}),
-    };
-  }
-  if (content.type === "text" && content.text) {
-    const firstLine = content.text.split("\n")[0].slice(0, 120);
-    return { title: firstLine, url: null };
-  }
-  if (bookmark.title) return { title: bookmark.title, url: null };
-  return null;
+function stripTags(html) {
+  return html
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, "&")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&#?\w+;/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
-async function listBookmarks(listId) {
-  const items = [];
-  let cursor = null;
-  while (items.length < MAX_ITEMS_PER_LIST) {
-    const params = new URLSearchParams({ limit: "50" });
-    if (cursor) params.set("cursor", cursor);
-    const page = await api(`/lists/${listId}/bookmarks?${params}`);
-    const bookmarks = page.bookmarks ?? page.items ?? [];
-    for (const b of bookmarks) {
-      const item = itemOf(b);
-      if (item) items.push(item);
-      if (items.length >= MAX_ITEMS_PER_LIST) break;
-    }
-    cursor = page.nextCursor ?? null;
-    if (!cursor) break;
-  }
-  return items;
+// Feed URLs carry tokens — never print one; refer to feeds by number.
+async function fetchList(url, index) {
+  const label = `feed #${index + 1}`;
+  const res = await fetch(url, { headers: HEADERS });
+  if (!res.ok) throw new Error(`${label} request failed: ${res.status}`);
+  const xml = await res.text();
+
+  const channel = (xml.match(/<channel>([\s\S]*?)<\/channel>/) || [])[1] || "";
+  let name = field(channel, "title") || `List ${index + 1}`;
+  name = name.replace(/^Bookmarks from\s+/i, "");
+  const rawDescription = field(channel, "description") || "";
+  const description = rawDescription.replace(/^Bookmarks from\s+/i, "");
+  const id =
+    (url.match(/\/lists\/([^/?]+)/) || [])[1] || `feed-${index + 1}`;
+
+  const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)]
+    .map((m) => {
+      const title = field(m[1], "title");
+      const link = (m[1].match(/<link>([\s\S]*?)<\/link>/) || [])[1]?.trim();
+      const note = field(m[1], "description").slice(0, 140) || undefined;
+      if (!title && !link) return null;
+      return {
+        title: title || link,
+        url: link || null,
+        ...(note ? { note } : {}),
+      };
+    })
+    .filter(Boolean)
+    .slice(0, MAX_ITEMS_PER_LIST);
+
+  return {
+    id,
+    name,
+    ...(description && description !== name ? { description } : {}),
+    items,
+  };
 }
 
 let latest = null;
 try {
-  if (!BASE_URL || !API_KEY) {
-    throw new Error(
-      "Set KARKEEP_BASE_URL and KARKEEP_API_KEY (via .env.local) to sync",
-    );
+  if (FEEDS.length === 0) {
+    throw new Error("Set KARKEEP_FEEDS in .env.local (comma-separated RSS URLs)");
   }
-  const data = await api("/lists");
-  const rawLists = data.lists ?? data ?? [];
   latest = [];
-  for (const list of Array.isArray(rawLists) ? rawLists : []) {
-    if (!list?.id) continue;
+  for (let i = 0; i < FEEDS.length; i++) {
     try {
-      latest.push({
-        id: String(list.id),
-        name: list.name || "Untitled list",
-        ...(list.description ? { description: list.description } : {}),
-        items: await listBookmarks(list.id),
-      });
+      latest.push(await fetchList(FEEDS[i], i));
     } catch (err) {
-      console.warn(`Skipping list ${list.id}: ${err.message}`);
+      console.warn(`Skipping ${err.message}`);
     }
   }
+  if (latest.length === 0) throw new Error("No list feeds could be read");
 } catch (err) {
   if (existsSync(outPath)) {
-    console.warn(`Karakeep unreachable (${err.message}); keeping cache`);
+    console.warn(`Lists unreachable (${err.message}); keeping cache`);
     process.exit(0);
   }
   throw err;
@@ -159,8 +171,8 @@ async function syncFlow(previous, latest) {
     return;
   }
 
-  for (const l of added) console.log(`  + ${l.name}`);
-  for (const l of changed) console.log(`  ~ ${l.name}`);
+  for (const l of added) console.log(`  + ${l.name} (${l.items.length} items)`);
+  for (const l of changed) console.log(`  ~ ${l.name} (${l.items.length} items)`);
   for (const l of removed) console.log(`  - ${l.name}`);
 
   if (!process.stdin.isTTY) {

@@ -76,7 +76,8 @@ jobs:
       - name: Build with Next.js
         env:
           PAGES_BUILD: "1"
-        run: ${{ steps.detect-package-manager.outputs.runner }} node scripts/update-posts.mjs && ${{ steps.detect-package-manager.outputs.runner }} next build
+          KARKEEP_FEEDS: ${{ secrets.KARKEEP_FEEDS }}
+        run: ${{ steps.detect-package-manager.outputs.runner }} node scripts/update-posts.mjs && ${{ steps.detect-package-manager.outputs.runner }} node scripts/sync-lists.mjs && ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -30,6 +30,11 @@ export function ListSections({ lists }: { lists: ReadingList[] }) {
               {list.description}
             </p>
           )}
+          {list.items.length === 0 ? (
+            <p className="text-sm text-muted border-t border-line py-3.5">
+              No bookmarks in this list yet.
+            </p>
+          ) : (
           <ul className="border-t border-line">
             {list.items.map((item, i) => (
               <li key={`${list.id}-${i}`} className="border-b border-line">
@@ -71,6 +76,7 @@ export function ListSections({ lists }: { lists: ReadingList[] }) {
               </li>
             ))}
           </ul>
+          )}
         </section>
       ))}
     </div>

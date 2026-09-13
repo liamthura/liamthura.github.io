@@ -1,0 +1,42 @@
+# Refresh the reading-lists snapshot weekly. Runs sync-lists.mjs with the
+# feed URLs from the KARKEEP_FEEDS repo secret, commits
+# public/content/lists.json when it changed; the push to main triggers the
+# Pages deploy, so the /lists page picks up new bookmarks automatically.
+name: Refresh reading lists
+
+on:
+  schedule:
+    # Mondays 06:30 UTC (30 min after the blog refresh to avoid push races)
+    - cron: "30 6 * * 1"
+
+  # Allows manual refresh from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-lists:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Fetch latest lists
+        env:
+          KARKEEP_FEEDS: ${{ secrets.KARKEEP_FEEDS }}
+        run: node scripts/sync-lists.mjs
+      - name: Commit updated lists
+        run: |
+          if git diff --quiet -- public/content/lists.json; then
+            echo "No list changes."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/content/lists.json
+            git commit -m "Update reading lists"
+            git push
+          fi
