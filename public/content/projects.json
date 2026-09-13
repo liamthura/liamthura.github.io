@@ -18,7 +18,7 @@
     "size": "medium",
     "imagePosition": "top",
     "blogUrl": "",
-    "featured": false
+    "featured": true
   },
   {
     "id": "project-keeper",
@@ -42,7 +42,7 @@
   {
     "id": "persona-mcp",
     "title": "MyGist Persona MCP",
-    "description": " An MCP server that stores personal context for AI interactions\u2014profile, interests, knowledge, preferences. Inspired by my dissertation on context-aware AI tools for small business owners using design science methodology.",
+    "description": " An MCP server that stores personal context for AI interactions—profile, interests, knowledge, preferences. Inspired by my dissertation on context-aware AI tools for small business owners using design science methodology.",
     "status": "Active",
     "type": "Side Project",
     "url": "https://mygist.thuradev.qzz.io",
@@ -57,13 +57,13 @@
     "size": "large",
     "imagePosition": "top",
     "blogUrl": "",
-    "featured": false
+    "featured": true
   },
   {
     "id": "substack",
     "title": "just so i know",
     "description": "Substack about life as an international student. Mostly therapy disguised as content.",
-    "status": "Active",
+    "status": "Archived",
     "type": "Writing",
     "url": "",
     "github": "",
@@ -189,6 +189,6 @@
     "size": "small",
     "imagePosition": "center",
     "blogUrl": "",
-    "featured": false
+    "featured": true
   }
 ]
