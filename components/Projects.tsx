@@ -11,6 +11,20 @@ import {
 import projects from "@/content/projects.json";
 import { SectionShell, SectionHeader, Tag, StatusChip } from "@/components/site-ui";
 
+// object-position for the card image. Full literals only — Tailwind
+// can't see dynamically built class names.
+const IMAGE_POSITIONS: Record<string, string> = {
+  "top-left": "object-left-top",
+  top: "object-top",
+  "top-right": "object-right-top",
+  left: "object-left",
+  center: "object-center",
+  right: "object-right",
+  "bottom-left": "object-left-bottom",
+  bottom: "object-bottom",
+  "bottom-right": "object-right-bottom",
+};
+
 export function Projects() {
   return (
     <SectionShell id="projects">
@@ -46,7 +60,7 @@ export function Projects() {
                     alt={project.title}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover"
+                    className={`object-cover ${IMAGE_POSITIONS[project.imagePosition] ?? "object-center"}`}
                   />
                 </div>
               )}

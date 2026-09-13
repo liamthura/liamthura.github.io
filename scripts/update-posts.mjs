@@ -4,10 +4,12 @@
 // (or on a schedule) to refresh. The Blog section imports the JSON
 // statically, so the portfolio stays fully static — no runtime fetching.
 
-import { writeFile, mkdir } from "node:fs/promises";
+import { writeFile, mkdir, readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { existsSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { createInterface } from "node:readline/promises";
 
 const FEED_URL = "https://thurashares.qzz.io/blog/index.xml";
 const MAX_POSTS = 6;
@@ -128,6 +130,85 @@ const latest = posts
 
 if (latest.length === 0) throw new Error("No posts parsed from feed");
 
+// Snapshot of the previous cache so --sync can report what changed.
+let previous = [];
+if (existsSync(outPath)) {
+  try {
+    previous = JSON.parse(await readFile(outPath, "utf8"));
+  } catch {
+    previous = [];
+  }
+}
+
 await mkdir(dirname(outPath), { recursive: true });
 await writeFile(outPath, `${JSON.stringify(latest, null, 2)}\n`);
 console.log(`Wrote ${latest.length} posts to public/content/posts.json`);
+
+// --sync: interactive commit + push flow. Reports what changed since the
+// last snapshot, then walks through commit and push with confirmations.
+async function syncFlow(previous, latest) {
+  if (!process.stdin.isTTY) {
+    throw new Error("--sync needs an interactive terminal");
+  }
+
+  const prevById = new Map(previous.map((p) => [p.id, p]));
+  const nextById = new Map(latest.map((p) => [p.id, p]));
+  const added = latest.filter((p) => !prevById.has(p.id));
+  const removed = previous.filter((p) => !nextById.has(p.id));
+  const updated = latest.filter((p) => {
+    const old = prevById.get(p.id);
+    return old && (old.title !== p.title || old.excerpt !== p.excerpt);
+  });
+
+  if (added.length === 0 && removed.length === 0 && updated.length === 0) {
+    console.log("Already up to date — nothing to commit.");
+    return;
+  }
+
+  for (const p of added) console.log(`  + ${p.title}`);
+  for (const p of updated) console.log(`  ~ ${p.title}`);
+  for (const p of removed) console.log(`  - ${p.title}`);
+
+  const rl = createInterface({ input: process.stdin, output: process.stdout });
+  const ask = async (q) => {
+    try {
+      return (await rl.question(`${q} [Y/n] `)).trim().toLowerCase();
+    } catch (err) {
+      // Ctrl+D with a pending question rejects instead of returning.
+      if (err?.code === "ABORT_ERR") {
+        console.log("\nCancelled.");
+        process.exit(1);
+      }
+      throw err;
+    }
+  };
+  try {
+    if (!(await ask("Commit these changes?")).startsWith("n")) {
+      execFileSync("git", ["add", "public/content/posts.json"], { stdio: "inherit" });
+      execFileSync("git", ["commit", "-m", "Update latest blog posts"], {
+        stdio: "inherit",
+      });
+    } else {
+      console.log("Skipped commit — leaving changes uncommitted.");
+      return;
+    }
+
+    const branch = execFileSync("git", ["rev-parse", "--abbrev-ref", "HEAD"], {
+      encoding: "utf8",
+    }).trim();
+    if (branch === "HEAD") {
+      console.log("Detached HEAD — push it yourself with: git push origin <branch>");
+      return;
+    }
+    if ((await ask(`Push to origin/${branch}?`)).startsWith("n")) {
+      console.log("Skipped push — run git push when ready.");
+      return;
+    }
+    execFileSync("git", ["push", "origin", branch], { stdio: "inherit" });
+    console.log("Pushed — the Pages deploy will rebuild with the new posts.");
+  } finally {
+    rl.close();
+  }
+}
+
+if (process.argv.includes("--sync")) await syncFlow(previous, latest);

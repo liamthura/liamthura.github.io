@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Bricolage_Grotesque } from "next/font/google";
 import { ThemeProvider, THEME_INIT_SCRIPT } from "@/components/ThemeProvider";
+import "@phosphor-icons/web/duotone";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({

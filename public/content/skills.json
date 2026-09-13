@@ -54,7 +54,8 @@
       "Jira",
       "ServiceNow",
       "Change Mgmt",
-      "Agile"
+      "Agile",
+      "Stakeholder Comms"
     ],
     "highlight": ""
   },
@@ -65,19 +66,8 @@
       "Docker",
       "Git",
       "Azure DevOps",
-      "Coolify"
-    ],
-    "highlight": ""
-  },
-  {
-    "title": "Testing & QA",
-    "description": "Regression testing, API validation, bug confirmation. Finding problems before anyone does is surprisingly satisfying.",
-    "tags": [
-      "Regression Testing",
-      "API Testing",
-      "Bug Validation",
-      "Test Plans",
-      "Postman"
+      "Coolify",
+      "Homelab"
     ],
     "highlight": ""
   },
@@ -89,16 +79,6 @@
       "Prompt Engineering",
       "FastMCP",
       "AI Agent Tools"
-    ],
-    "highlight": ""
-  },
-  {
-    "title": "Stakeholder & Vendor Work",
-    "description": "First point of contact for group projects, and vendors at my placement. Cross-team coordination.",
-    "tags": [
-      "Vendor Relations",
-      "Stakeholder Comms",
-      "Requirements"
     ],
     "highlight": ""
   }

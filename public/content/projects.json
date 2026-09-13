@@ -15,7 +15,8 @@
       "TamboUI",
       "Zod"
     ],
-    "size": "medium"
+    "size": "medium",
+    "imagePosition": "top"
   },
   {
     "id": "project-keeper",
@@ -31,24 +32,26 @@
       "UI/UX Experiment",
       "CMS"
     ],
-    "size": "large"
+    "size": "large",
+    "imagePosition": "center"
   },
   {
     "id": "persona-mcp",
-    "title": "Persona MCP Server",
-    "description": " An MCP server that stores personal context for AI interactions—profile, interests, knowledge, preferences. Inspired by my dissertation on context-aware AI tools for small business owners using design science methodology.",
+    "title": "MyGist Persona MCP",
+    "description": " An MCP server that stores personal context for AI interactions\u2014profile, interests, knowledge, preferences. Inspired by my dissertation on context-aware AI tools for small business owners using design science methodology.",
     "status": "Active",
     "type": "Side Project",
-    "url": "",
+    "url": "https://mygist.thuradev.qzz.io",
     "github": "https://github.com/liamthura/project-twin",
     "readMore": "",
-    "image": "",
+    "image": "https://filedn.com/l7MoJ9O3yxzYHH8mSYBkrjH/Porforlio/mygist-screenshot.png",
     "tags": [
       "Python",
       "FastMCP",
       "Pydantic"
     ],
-    "size": "large"
+    "size": "large",
+    "imagePosition": "top"
   },
   {
     "id": "substack",
@@ -61,7 +64,8 @@
     "readMore": "https://justsoiknow.substack.com",
     "image": "",
     "tags": [],
-    "size": "small"
+    "size": "small",
+    "imagePosition": "center"
   },
   {
     "id": "cbc-hackathon",
@@ -74,7 +78,8 @@
     "readMore": "https://thurashares.qzz.io/blog/first-hackathon/",
     "image": "",
     "tags": [],
-    "size": "small"
+    "size": "small",
+    "imagePosition": "center"
   },
   {
     "id": "solterra",
@@ -92,7 +97,8 @@
       "FastAPI",
       "PostgreSQL"
     ],
-    "size": "medium"
+    "size": "medium",
+    "imagePosition": "center"
   },
   {
     "id": "gateshead-bike",
@@ -108,7 +114,8 @@
       "Python",
       "SQLite"
     ],
-    "size": "standard"
+    "size": "standard",
+    "imagePosition": "center"
   },
   {
     "id": "events-great-north",
@@ -125,7 +132,8 @@
       "JavaScript",
       "MySQL"
     ],
-    "size": "standard"
+    "size": "standard",
+    "imagePosition": "center"
   },
   {
     "id": "capture-booth",
@@ -141,7 +149,8 @@
       "Svelte",
       "SvelteKit"
     ],
-    "size": "standard"
+    "size": "standard",
+    "imagePosition": "center"
   },
   {
     "id": "portfolio",
@@ -159,6 +168,7 @@
       "TypeScript",
       "Tailwind CSS"
     ],
-    "size": "small"
+    "size": "small",
+    "imagePosition": "center"
   }
 ]
