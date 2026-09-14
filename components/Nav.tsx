@@ -19,6 +19,9 @@ const navLinks = [
 export function Nav() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hash, setHash] = useState(() =>
+    typeof window === "undefined" ? "" : window.location.hash,
+  );
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Close menu when clicking outside or pressing Escape
@@ -41,8 +44,42 @@ export function Nav() {
     };
   }, []);
 
+  // Same-page anchors (Blog, Contact) never match the pathname, so track
+  // the visible home section for both the mobile label and highlighting.
+  // Clearing on navigation happens during render (the documented
+  // adjust-state-when-props-change pattern); the effect only subscribes.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
+    if (pathname !== "/") setHash("");
+  }
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+    const ids = ["blog", "contact"];
+    const update = () => {
+      const scrollPos = window.scrollY + window.innerHeight / 2;
+      let current = "";
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && (el as HTMLElement).offsetTop <= scrollPos) current = id;
+      }
+      setHash(current ? `#${current}` : "");
+    };
+    const onHashChange = () => setHash(window.location.hash);
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("hashchange", onHashChange);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("hashchange", onHashChange);
+    };
+  }, [pathname]);
+
+  const isActive = (href: string) =>
+    href.startsWith("/#") ? hash === href.slice(1) : pathname === href;
+
   const activeLabel =
-    navLinks.find((link) => link.href === pathname)?.label || "Home";
+    navLinks.find((link) => isActive(link.href))?.label || "Home";
 
   const handleLinkClick = () => {
     setMobileMenuOpen(false);
@@ -69,7 +106,7 @@ export function Nav() {
                   className={`
             inline-flex items-center min-h-[44px] text-[11px] font-semibold uppercase tracking-[0.1em] no-underline transition-colors
             ${
-              pathname === link.href
+              isActive(link.href)
                 ? "text-accent-deep"
                 : "text-muted hover:text-ink"
             }
@@ -118,7 +155,7 @@ export function Nav() {
                     className={`
                       flex items-center px-4 min-h-[44px] text-sm no-underline transition-colors
                       ${
-                        pathname === link.href
+                        isActive(link.href)
                           ? "text-ink bg-paper font-medium"
                           : "text-muted hover:bg-paper hover:text-ink"
                       }
