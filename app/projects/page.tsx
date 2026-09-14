@@ -23,8 +23,7 @@ export default function ProjectsPage() {
               Things I&apos;ve made
             </h1>
             <p className="text-[15px] leading-[1.68] text-muted max-w-[560px]">
-              Side projects, uni builds, and experiments. Some have build
-              logs on the blog that trace how they came together.
+              Here you&apos;ll find my projects that I&apos;ve worked on. Side projects as well as some of the serious ones ofc.
             </p>
           </div>
         </div>

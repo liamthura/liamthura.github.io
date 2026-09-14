@@ -23,12 +23,10 @@ export default function ListsPage() {
               Lists
             </p>
             <h1 className="font-display text-4xl md:text-5xl font-extrabold text-ink mb-4">
-              Worth keeping
+              I like lists!
             </h1>
             <p className="text-[15px] leading-[1.68] text-muted max-w-[560px]">
-              Reading lists and reference collections I actually return to.
-              Synced from my own library. A snapshot, refreshed whenever I
-              remember.
+              Here you can find my lists of everything I find interesting and want to share with you. They're basically bookmarks :)
             </p>
           </div>
         </div>
