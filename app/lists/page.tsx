@@ -26,7 +26,7 @@ export default function ListsPage() {
               I like lists!
             </h1>
             <p className="text-[15px] leading-[1.68] text-muted max-w-[560px]">
-              Here you can find my lists of everything I find interesting and want to share with you. They're basically bookmarks :)
+              Here you can find my lists of everything I find interesting and want to share with you. They&apos;re basically bookmarks :)
             </p>
           </div>
         </div>

@@ -57,26 +57,37 @@ export function Nav() {
   useEffect(() => {
     if (pathname !== "/") return;
     const ids = ["blog", "contact"];
-    const update = () => {
-      const scrollPos = window.scrollY + window.innerHeight / 2;
-      let current = "";
-      for (const id of ids) {
-        const el = document.getElementById(id);
-        if (el && (el as HTMLElement).offsetTop <= scrollPos) current = id;
-      }
-      setHash(current ? `#${current}` : "");
-    };
+    const visible: Record<string, boolean> = {};
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          visible[entry.target.id] = entry.isIntersecting;
+        }
+        const active = ids.filter((id) => visible[id]).pop();
+        setHash(active ? `#${active}` : "");
+      },
+      // Active while crossing the viewport middle.
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    for (const id of ids) {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    }
     const onHashChange = () => setHash(window.location.hash);
-    window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("hashchange", onHashChange);
     return () => {
-      window.removeEventListener("scroll", update);
+      observer.disconnect();
       window.removeEventListener("hashchange", onHashChange);
     };
   }, [pathname]);
 
+  // Route links match the pathname; same-page anchors match the visible
+  // section. Home only wins when no section is active, otherwise it would
+  // shadow every anchor on "/".
   const isActive = (href: string) =>
-    href.startsWith("/#") ? hash === href.slice(1) : pathname === href;
+    href.startsWith("/#")
+      ? hash === href.slice(1)
+      : pathname === href && hash === "";
 
   const activeLabel =
     navLinks.find((link) => isActive(link.href))?.label || "Home";
