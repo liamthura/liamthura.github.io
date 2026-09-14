@@ -41,23 +41,71 @@ const iconMap: {
 export function Contact() {
   const headlineParts = contact.headline.split(/(\btalk\b)/i);
   const { resolved } = useTheme();
-  const [formReady, setFormReady] = useState(false);
+  const [formReady, setFormReady] = useState(
+    () => typeof window !== "undefined" && Boolean(window.YTFeedbackForm),
+  );
+  const [formFailed, setFormFailed] = useState(false);
   const [popupOpen, setPopupOpen] = useState(false);
   const formMount = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  // Render the inline form on first open (keyed by theme below so it
-  // always matches the site, at the cost of a fresh form on toggle).
+  // Load the YouTrack form script on demand when the popup opens, so the
+  // row button is never gated on third-party script timing. Blockers and
+  // slow networks fail here instead — with a direct-link fallback.
+  useEffect(() => {
+    if (!popupOpen || formReady || formFailed) return;
+    let done = false;
+    const finish = (ok: boolean) => {
+      if (done) return;
+      done = true;
+      window.clearTimeout(timer);
+      if (ok && window.YTFeedbackForm) setFormReady(true);
+      else setFormFailed(true);
+    };
+    const timer = window.setTimeout(() => finish(false), 10000);
+    const script = document.createElement("script");
+    script.src =
+      "https://thuradev.youtrack.cloud/static/simplified/form/form-entry.js?auto=false";
+    script.async = true;
+    script.onload = () => finish(true);
+    script.onerror = () => finish(false);
+    document.body.appendChild(script);
+    return () => {
+      done = true;
+      window.clearTimeout(timer);
+    };
+  }, [popupOpen, formReady, formFailed]);
+
+  // Render the inline form once the on-demand script lands (keyed by
+  // theme below so it always matches the site, at the cost of a fresh
+  // form on toggle).
   useEffect(() => {
     const mount = formMount.current;
-    if (!formReady || !popupOpen || !mount || mount.hasChildNodes()) return;
+    if (!formReady || formFailed || !popupOpen || !mount || mount.hasChildNodes()) return;
     window.YTFeedbackForm?.renderInline(mount, {
       backendURL: "https://thuradev.youtrack.cloud",
       formUUID: "b00df07f-343c-411d-98e1-2d05946ffa0f",
       theme: resolved === "dark" ? "dark" : "light",
       language: "en",
     });
-  }, [formReady, popupOpen, resolved]);
+  }, [formReady, formFailed, popupOpen, resolved]);
+
+  // Deep link + CTA trigger: #message opens the popup from any page.
+  useEffect(() => {
+    const openFromHash = () => {
+      if (window.location.hash === "#message") setPopupOpen(true);
+    };
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+  }, []);
+
+  // Clear our hash on close so the same link re-triggers next click.
+  useEffect(() => {
+    if (!popupOpen && window.location.hash === "#message") {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+  }, [popupOpen]);
 
   // Escape closes; lock body scroll while open; focus the close control.
   useEffect(() => {
@@ -107,12 +155,12 @@ export function Contact() {
         </div>
 
         <div className="flex flex-col gap-3">
-          {/* Feedback form row — opens the popup below. */}
+          {/* Feedback form row — always enabled; the vendor script loads
+              only after the popup opens. */}
           <button
             type="button"
             onClick={() => setPopupOpen(true)}
-            disabled={!formReady}
-            className="flex items-center justify-between gap-3 px-[18px] py-3.5 min-h-[44px] border border-ink-island-fg/15 rounded-[10px] hover:border-ink-island-fg/30 transition-colors text-left w-full disabled:opacity-60"
+            className="flex items-center justify-between gap-3 px-[18px] py-3.5 min-h-[44px] border border-ink-island-fg/15 rounded-[10px] hover:border-ink-island-fg/30 transition-colors text-left w-full"
           >
             <span className="inline-flex items-center gap-2.5">
               <EnvelopeIcon size={16} className="text-accent-deep" />
@@ -173,11 +221,6 @@ export function Contact() {
         src="https://www.google.com/recaptcha/api.js"
         strategy="afterInteractive"
       />
-      <Script
-        src="https://thuradev.youtrack.cloud/static/simplified/form/form-entry.js?auto=false"
-        strategy="lazyOnload"
-        onLoad={() => setFormReady(true)}
-      />
 
       {/* Feedback popup — our shell, their inline form. */}
       {popupOpen && (
@@ -208,7 +251,39 @@ export function Contact() {
                 <XIcon size={17} aria-hidden />
               </button>
             </div>
-            <div ref={formMount} key={resolved} />
+            {formFailed ? (
+              <div className="py-6 text-center">
+                <p className="text-sm text-ink/70 mb-4">
+                  The embedded form could not load (a tracker blocker or a
+                  network hiccup usually). The direct form always works:
+                </p>
+                <a
+                  href="https://thuradev.youtrack.cloud/form/b00df07f-343c-411d-98e1-2d05946ffa0f"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 py-3.5 px-6 min-h-[44px] rounded-[10px] text-[11px] font-bold uppercase tracking-[0.1em] bg-ink text-paper hover:opacity-90 transition-opacity"
+                >
+                  Open the form
+                  <ArrowUpRightIcon size={14} aria-hidden />
+                </a>
+              </div>
+            ) : (
+              <>
+                {!formReady && (
+                  <p
+                    className="py-10 text-center text-sm text-ink/60"
+                    role="status"
+                  >
+                    Loading the form…
+                  </p>
+                )}
+                <div
+                  ref={formMount}
+                  key={resolved}
+                  hidden={!formReady}
+                />
+              </>
+            )}
           </div>
         </div>
       )}

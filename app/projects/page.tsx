@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Projects } from "@/components/Projects";
 import { Contact } from "@/components/Contact";
@@ -32,19 +31,18 @@ export default function ProjectsPage() {
           <div className="col-shell pb-24">
             <div className="bg-tint border border-tint-line rounded-2xl px-6 py-6">
               <p className="font-display text-xl font-semibold text-ink mb-2">
-                Want something like this?
+                Fancy building something together?
               </p>
               <p className="text-sm leading-[1.65] text-muted mb-4 max-w-[520px]">
-                I take on small projects: websites, AI tweaks, automation
-                that removes busywork. Tell me what you&apos;re trying to do
-                and we&apos;ll figure it out.
+                Always up for a chat about side projects, hackathons, or
+                half-formed ideas. The best builds start as conversations.
               </p>
-              <Link
-                href="/#contact"
+              <a
+                href="#message"
                 className="inline-flex items-center min-h-[44px] text-[11px] font-bold uppercase tracking-[0.1em] text-accent-deep hover:opacity-80"
               >
-                Get in touch
-              </Link>
+                Come say hi
+              </a>
             </div>
           </div>
         </div>
