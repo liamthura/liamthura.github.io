@@ -7,6 +7,44 @@ import { ArrowDownIcon } from "@phosphor-icons/react";
 import profile from "@/content/profile.json";
 import { MarkerText } from "@/components/site-ui";
 
+function Polaroid({
+  hiddenFromAssistiveTech = false,
+  compact = false,
+}: {
+  hiddenFromAssistiveTech?: boolean;
+  compact?: boolean;
+}) {
+  const frame = compact ? "w-[200px]" : "w-[250px]";
+  const photo = compact ? "w-[172px] h-[172px]" : "w-[222px] h-[222px]";
+  const side = compact ? 172 : 222;
+  return (
+    <div
+      className={`relative ${frame} rotate-3`}
+      aria-hidden={hiddenFromAssistiveTech || undefined}
+    >
+      <div
+        className="absolute -top-3 left-1/3 w-24 h-6 -rotate-6 rounded-sm bg-cover-fill/85"
+        aria-hidden
+      />
+      <div className="bg-surface rounded-xl p-3.5 shadow-[0_10px_30px_rgba(30,26,20,0.14)]">
+        <div className={`${photo} rounded-md overflow-hidden bg-cover-fill`}>
+          <Image
+            src={profile.avatar}
+            alt={hiddenFromAssistiveTech ? "" : profile.name}
+            width={side}
+            height={side}
+            priority
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <p className="text-center text-sm font-semibold text-muted mt-2.5">
+          hi, i&apos;m liam
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export function Hero() {
   const parts = profile.tagline.split(profile.highlightWord);
 
@@ -15,6 +53,11 @@ export function Hero() {
       <div className="container-main">
         <div className="col-shell pt-9 pb-24">
           <div className="dot-band mb-10" aria-hidden />
+
+          {/* Polaroid avatar — mobile only, between the lines and status. */}
+          <div className="flex justify-center mb-8 md:hidden">
+            <Polaroid hiddenFromAssistiveTech compact />
+          </div>
 
           {/* Status line */}
           <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.08em] mb-8 py-1.5 px-2.5 rounded bg-tint text-accent-deep">
@@ -52,29 +95,9 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Polaroid avatar */}
-            <div className="flex-shrink-0 md:pt-2">
-              <div className="relative w-[250px] rotate-3">
-                <div
-                  className="absolute -top-3 left-1/3 w-24 h-6 -rotate-6 rounded-sm bg-cover-fill/85"
-                  aria-hidden
-                />
-                <div className="bg-surface rounded-xl p-3.5 shadow-[0_10px_30px_rgba(30,26,20,0.14)]">
-                  <div className="w-[222px] h-[222px] rounded-md overflow-hidden bg-cover-fill">
-                    <Image
-                      src={profile.avatar}
-                      alt={profile.name}
-                      width={222}
-                      height={222}
-                      priority
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <p className="text-center text-sm font-semibold text-muted mt-2.5">
-                    hi, i&apos;m liam
-                  </p>
-                </div>
-              </div>
+            {/* Polaroid avatar — desktop position, side by side. */}
+            <div className="hidden md:block flex-shrink-0 md:pt-2">
+              <Polaroid />
             </div>
           </div>
         </div>

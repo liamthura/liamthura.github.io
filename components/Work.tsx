@@ -143,7 +143,7 @@ export function Work({ children }: { children?: React.ReactNode }) {
             <h3 className="font-display font-semibold text-ink text-lg mb-1.5">
               {project.title}
             </h3>
-            <p className="text-[13px] leading-[1.6] text-muted mb-3 line-clamp-3">
+            <p className={`text-[13px] leading-[1.6] text-muted mb-3 ${project.image ? "line-clamp-3" : ""}`}>
               {project.description}
             </p>
 
