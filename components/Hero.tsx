@@ -81,7 +81,7 @@ export function Hero() {
 
               <div className="flex gap-3.5 flex-wrap">
                 <a
-                  href="#projects"
+                  href="#work"
                   className="inline-flex items-center gap-2 py-3.5 px-6 min-h-[44px] rounded-[10px] text-[11px] font-bold uppercase tracking-[0.1em] bg-ink text-paper hover:opacity-90 transition-opacity"
                 >
                   See my work <ArrowDownIcon size={13} aria-hidden />
