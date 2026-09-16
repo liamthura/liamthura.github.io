@@ -3,30 +3,11 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowSquareOutIcon,
-  GithubLogoIcon,
-  BookOpenIcon,
-  ArrowUpRightIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
-} from "@phosphor-icons/react";
+import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import projects from "@/content/projects.json";
-import { SectionShell, StatusChip } from "@/components/site-ui";
-
-const IMAGE_POSITIONS: Record<string, string> = {
-  "top-left": "object-left-top",
-  top: "object-top",
-  "top-right": "object-right-top",
-  left: "object-left",
-  center: "object-center",
-  right: "object-right",
-  "bottom-left": "object-left-bottom",
-  bottom: "object-bottom",
-  "bottom-right": "object-right-bottom",
-};
+import { SectionShell } from "@/components/site-ui";
+import { ProjectCard, CarouselArrow } from "@/components/project-card";
 
 export function Work({ children }: { children?: React.ReactNode }) {
   // Starred in /admin/projects (max 4); falls back to list order.
@@ -60,13 +41,6 @@ export function Work({ children }: { children?: React.ReactNode }) {
     });
   };
 
-  const arrowClass = (enabled: boolean) =>
-    `w-11 h-11 inline-flex items-center justify-center rounded-full border transition-colors ${
-      enabled
-        ? "border-line text-ink hover:border-ink"
-        : "border-line/60 text-muted/40 cursor-default"
-    }`;
-
   return (
     <SectionShell id="work">
       <div className="flex items-end justify-between gap-6 mb-10">
@@ -79,22 +53,18 @@ export function Work({ children }: { children?: React.ReactNode }) {
           </h2>
         </div>
         <div className="flex gap-2 shrink-0 pb-1">
-          <button
+          <CarouselArrow
+            direction="prev"
+            label="Scroll projects left"
             onClick={() => nudge(-1)}
             disabled={!canLeft}
-            aria-label="Scroll projects left"
-            className={arrowClass(canLeft)}
-          >
-            <ArrowLeftIcon size={17} aria-hidden />
-          </button>
-          <button
+          />
+          <CarouselArrow
+            direction="next"
+            label="Scroll projects right"
             onClick={() => nudge(1)}
             disabled={!canRight}
-            aria-label="Scroll projects right"
-            className={arrowClass(canRight)}
-          >
-            <ArrowRightIcon size={17} aria-hidden />
-          </button>
+          />
         </div>
       </div>
       <p className="text-[15px] leading-[1.68] text-muted max-w-[560px] -mt-6 mb-8">
@@ -110,78 +80,7 @@ export function Work({ children }: { children?: React.ReactNode }) {
         className="no-scrollbar flex gap-5 overflow-x-auto snap-x snap-mandatory pb-2 -mx-1 px-1"
       >
         {strip.map((project) => (
-          <article
-            key={project.id}
-            className="snap-start shrink-0 w-[280px] md:w-[320px] bg-surface rounded-2xl border border-line overflow-hidden flex flex-col p-5"
-          >
-            {project.image && (
-              <div className="h-36 -m-5 mb-4 w-[calc(100%+2.5rem)] relative">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  sizes="320px"
-                  className={`object-cover ${IMAGE_POSITIONS[project.imagePosition] ?? "object-center"}`}
-                />
-              </div>
-            )}
-
-            <div className="mb-2.5">
-              <StatusChip
-                tone={
-                  project.status === "Completed"
-                    ? "completed"
-                    : project.status === "Archived"
-                      ? "archived"
-                      : "active"
-                }
-              >
-                {project.status} · {project.type}
-              </StatusChip>
-            </div>
-
-            <h3 className="font-display font-semibold text-ink text-lg mb-1.5">
-              {project.title}
-            </h3>
-            <p className={`text-[13px] leading-[1.6] text-muted mb-3 ${project.image ? "line-clamp-3" : ""}`}>
-              {project.description}
-            </p>
-
-            {(project.url || project.github || project.blogUrl) && (
-              <div className="mt-auto pt-3 border-t border-line flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-bold uppercase tracking-[0.1em]">
-                {project.url && (
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 min-h-[44px] text-accent-deep hover:opacity-80"
-                  >
-                    <ArrowSquareOutIcon size={13} /> Live
-                  </a>
-                )}
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 min-h-[44px] text-ink hover:opacity-80"
-                  >
-                    <GithubLogoIcon size={13} /> GitHub
-                  </a>
-                )}
-                {project.blogUrl && (
-                  <a
-                    href={project.blogUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 min-h-[44px] text-accent-deep hover:opacity-80"
-                  >
-                    <BookOpenIcon size={13} /> Build log
-                  </a>
-                )}
-              </div>
-            )}
-          </article>
+          <ProjectCard key={project.id} project={project} />
         ))}
       </div>
 

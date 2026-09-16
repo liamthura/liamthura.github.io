@@ -11,25 +11,10 @@ import {
   GithubLogoIcon,
   ArticleIcon,
   BookOpenIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
 } from "@phosphor-icons/react";
 import projects from "@/content/projects.json";
 import { SectionShell, SectionHeader, Tag, StatusChip } from "@/components/site-ui";
-
-// object-position for project images. Full literals only — Tailwind
-// can't see dynamically built class names.
-const IMAGE_POSITIONS: Record<string, string> = {
-  "top-left": "object-left-top",
-  top: "object-top",
-  "top-right": "object-right-top",
-  left: "object-left",
-  center: "object-center",
-  right: "object-right",
-  "bottom-left": "object-left-bottom",
-  bottom: "object-bottom",
-  "bottom-right": "object-right-bottom",
-};
+import { IMAGE_POSITIONS, ProjectCard, CarouselArrow } from "@/components/project-card";
 
 type Project = (typeof projects)[number];
 
@@ -42,16 +27,17 @@ function toneFor(status: string): "completed" | "archived" | "active" {
 }
 
 // Photo alternates side per slide; tilt and edge-break alternate with it,
-// so every slide shares one alignment system instead of four.
+// so every slide shares one alignment system instead of four. The breakout
+// is desktop-only — on mobile the polaroid stays inside the card.
 function SidePhoto({ project, photoLeft }: { project: Project; photoLeft: boolean }) {
   return (
     <div
-      className={`relative ${photoLeft ? "rotate-[-4deg] -ml-3 md:-ml-14 -mt-10 md:-mt-16" : "rotate-[4deg] -mr-3 md:-mr-14 -mb-10 md:-mb-16"}`}
+      className={`relative ${photoLeft ? "rotate-[-2deg] md:rotate-[-4deg] md:-ml-14 md:-mt-16" : "rotate-[2deg] md:rotate-[4deg] md:-mr-14 md:-mb-16"}`}
     >
       <div className="bg-white p-2.5 pb-9 shadow-[0_18px_40px_rgba(30,26,20,0.22)] rounded-[4px]">
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-cover-fill/85 rounded-sm" />
         {project.image ? (
-          <div className="relative aspect-[4/3] overflow-hidden rounded-[2px] bg-cover-fill">
+          <div className="relative aspect-[16/10] md:aspect-[4/3] overflow-hidden rounded-[2px] bg-cover-fill">
             <Image
               src={project.image}
               alt=""
@@ -61,7 +47,7 @@ function SidePhoto({ project, photoLeft }: { project: Project; photoLeft: boolea
             />
           </div>
         ) : (
-          <div className="aspect-[4/3] rounded-[2px] bg-tint flex items-center justify-center">
+          <div className="aspect-[16/10] md:aspect-[4/3] rounded-[2px] bg-tint flex items-center justify-center">
             <span className="font-display text-7xl font-extrabold text-ink/15">
               {project.title.charAt(0)}
             </span>
@@ -74,6 +60,11 @@ function SidePhoto({ project, photoLeft }: { project: Project; photoLeft: boolea
 
 function FeaturedSlide({ project, index }: { project: Project; index: number }) {
   const photoLeft = index % 2 === 0;
+  // Mobile shows the opening sentence only — full story on desktop.
+  const firstSentence =
+    project.description.trim().match(/^.*?[.!?](?=\s|$)/)?.[0] ??
+    project.description.trim();
+  const descClass = "text-[15px] leading-[1.68] text-muted mb-4 max-w-[60ch]";
   return (
     <article className="grid md:grid-cols-2 gap-8 md:gap-12 items-center bg-surface border border-line rounded-2xl p-6 md:p-12 h-full">
       <div className={photoLeft ? "" : "md:order-2"}>
@@ -88,9 +79,10 @@ function FeaturedSlide({ project, index }: { project: Project; index: number }) 
         <h3 className="font-display font-semibold text-ink text-2xl md:text-[32px] leading-tight mb-3 text-balance">
           {project.title}
         </h3>
-        <p className="text-[15px] leading-[1.68] text-muted mb-4 max-w-[60ch]">
+        <p className={`${descClass} hidden md:block`}>
           {project.description}
         </p>
+        <p className={`${descClass} md:hidden`}>{firstSentence}</p>
         {project.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-4">
             {project.tags.map((tag) => (
@@ -149,7 +141,6 @@ function FeaturedCarousel({ items }: { items: Project[] }) {
   const [pos, setPos] = useState(loop ? count : 0);
   const [instant, setInstant] = useState(false);
   const [offset, setOffset] = useState(0);
-  const viewRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const snapTimer = useRef<number | null>(null);
 
@@ -181,15 +172,14 @@ function FeaturedCarousel({ items }: { items: Project[] }) {
     }
   };
 
-  // Center the active slide; neighbors peek at the edges, dimmed.
+  // Center the active slide in the track; neighbors peek, dimmed.
   useEffect(() => {
     const layout = () => {
-      const view = viewRef.current;
       const track = trackRef.current;
-      if (!view || !track || track.children.length === 0) return;
+      if (!track || track.children.length === 0) return;
       const w = (track.children[0] as HTMLElement).offsetWidth;
       const gap = parseFloat(getComputedStyle(track).columnGap || "0");
-      setOffset(pos * (w + gap) - (view.clientWidth - w) / 2);
+      setOffset(Math.round(pos * (w + gap) - (track.clientWidth - w) / 2));
     };
     layout();
     window.addEventListener("resize", layout);
@@ -203,31 +193,25 @@ function FeaturedCarousel({ items }: { items: Project[] }) {
           Featured
         </h2>
         {count > 1 && (
-          <div className="flex items-center gap-3 shrink-0 pb-1">
-            <button
-              type="button"
+          <div className="flex items-center gap-2 shrink-0 pb-1">
+            <CarouselArrow
+              direction="prev"
+              label="Previous featured project"
               onClick={() => go(-1)}
-              aria-label="Previous featured project"
-              className="w-11 h-11 inline-flex items-center justify-center rounded-full border border-line text-ink hover:border-ink transition-colors"
-            >
-              <ArrowLeftIcon size={17} aria-hidden />
-            </button>
-            <button
-              type="button"
+            />
+            <CarouselArrow
+              direction="next"
+              label="Next featured project"
               onClick={() => go(1)}
-              aria-label="Next featured project"
-              className="w-11 h-11 inline-flex items-center justify-center rounded-full border border-line text-ink hover:border-ink transition-colors"
-            >
-              <ArrowRightIcon size={17} aria-hidden />
-            </button>
+            />
           </div>
         )}
       </div>
       <p className="sr-only" role="status">
         Showing {items[logical].title}, {logical + 1} of {count}
       </p>
-      {/* Breathing room for the edge-breaking photo. */}
-      <div ref={viewRef} className="overflow-hidden px-2 md:px-8 pt-12 md:pt-20 pb-12 md:pb-20 -mx-2 md:-mx-8">
+      {/* Breathing room for the edge-breaking photo (desktop only). */}
+      <div className="overflow-hidden px-2 md:px-8 pt-6 md:pt-20 pb-8 md:pb-20 -mx-2 md:-mx-8">
         <div
           ref={trackRef}
           className={`flex gap-10 md:gap-16 items-stretch duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${instant ? "transition-none" : "transition-transform"}`}
@@ -239,7 +223,7 @@ function FeaturedCarousel({ items }: { items: Project[] }) {
               return (
                 <div
                   key={`${copy}-${project.id}`}
-                  className={`flex-none w-[86%] sm:w-[82%] md:w-[76%] ${instant ? "transition-none" : "transition-opacity transition-transform duration-500 motion-reduce:transition-none"} ${p === pos ? "opacity-100 scale-100" : "opacity-40 scale-[0.94]"}`}
+                  className={`flex-none w-full sm:w-[82%] md:w-[76%] ${instant ? "transition-none" : "transition-opacity transition-transform duration-500 motion-reduce:transition-none"} ${p === pos ? "opacity-100" : "opacity-40 scale-[0.94]"}`}
                   aria-hidden={p !== pos}
                   inert={p !== pos}
                 >
@@ -254,53 +238,18 @@ function FeaturedCarousel({ items }: { items: Project[] }) {
   );
 }
 
-// Home-page card, reused for the timeline strips.
-function ArchiveCard({ project }: { project: Project }) {
-  const isArchived = project.status === "Archived";
-  return (
-    <article
-      className={`snap-start shrink-0 w-[280px] md:w-[320px] bg-surface rounded-2xl border overflow-hidden flex flex-col p-5 transition-colors
-        ${isArchived ? "border-line/70 opacity-70 hover:opacity-100" : "border-line hover:border-tint-line"}`}
-    >
-      {project.image && (
-        <div className="h-36 -m-5 mb-4 w-[calc(100%+2.5rem)] relative">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            sizes="280px"
-            className={`object-cover ${IMAGE_POSITIONS[project.imagePosition] ?? "object-center"}`}
-          />
-        </div>
-      )}
-      <div className="mb-2.5">
-        <StatusChip tone={toneFor(project.status)}>
-          {project.status} · {project.type}
-        </StatusChip>
-      </div>
-      <h3 className="font-display font-semibold text-ink text-lg mb-1.5">
-        {project.title}
-      </h3>
-      <p className={`text-[13px] leading-[1.6] text-muted mb-3 ${project.image ? "line-clamp-3" : ""}`}>
-        {project.description}
-      </p>
-      <div className="mt-auto pt-3 border-t border-line">
-        <ProjectLinks project={project} />
-      </div>
-    </article>
-  );
-}
-
 function YearRow({ label, items, anchor }: { label: string; items: Project[]; anchor: string }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [canLeft, setCanLeft] = useState(false);
   const [canRight, setCanRight] = useState(false);
+  const [overflows, setOverflows] = useState(false);
 
   const updateEdges = useCallback(() => {
     const el = trackRef.current;
     if (!el) return;
     setCanLeft(el.scrollLeft > 4);
     setCanRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
+    setOverflows(el.scrollWidth > el.clientWidth + 4);
   }, []);
 
   useEffect(() => {
@@ -319,15 +268,6 @@ function YearRow({ label, items, anchor }: { label: string; items: Project[]; an
     });
   };
 
-  const arrowClass = (enabled: boolean) =>
-    `w-11 h-11 inline-flex items-center justify-center rounded-full border transition-colors ${
-      enabled
-        ? "border-line text-ink hover:border-ink"
-        : "border-line/60 text-muted/40 cursor-default"
-    }`;
-
-  const roomy = items.length > 4;
-
   return (
     <section id={anchor} aria-label={`Projects from ${label}`} className="scroll-mt-28 mb-12 md:mb-16 last:mb-0">
       <div className="flex items-end justify-between gap-6 mb-6">
@@ -339,26 +279,20 @@ function YearRow({ label, items, anchor }: { label: string; items: Project[]; an
             {items.length} {items.length === 1 ? "project" : "projects"}
           </span>
         </div>
-        {roomy && (
+        {overflows && (
           <div className="flex gap-2 shrink-0 pb-1">
-            <button
-              type="button"
+            <CarouselArrow
+              direction="prev"
+              label={`Scroll ${label} projects left`}
               onClick={() => nudge(-1)}
               disabled={!canLeft}
-              aria-label={`Scroll ${label} projects left`}
-              className={arrowClass(canLeft)}
-            >
-              <ArrowLeftIcon size={17} aria-hidden />
-            </button>
-            <button
-              type="button"
+            />
+            <CarouselArrow
+              direction="next"
+              label={`Scroll ${label} projects right`}
               onClick={() => nudge(1)}
               disabled={!canRight}
-              aria-label={`Scroll ${label} projects right`}
-              className={arrowClass(canRight)}
-            >
-              <ArrowRightIcon size={17} aria-hidden />
-            </button>
+            />
           </div>
         )}
       </div>
@@ -368,10 +302,10 @@ function YearRow({ label, items, anchor }: { label: string; items: Project[]; an
         role="region"
         aria-label={`${label} projects`}
         tabIndex={0}
-        className="no-scrollbar flex gap-6 overflow-x-auto snap-x pb-2 -mx-1 px-1"
+        className="no-scrollbar flex gap-5 overflow-x-auto snap-x pb-2 -mx-1 px-1"
       >
         {items.map((project) => (
-          <ArchiveCard key={project.id} project={project} />
+          <ProjectCard key={project.id} project={project} />
         ))}
       </div>
     </section>
