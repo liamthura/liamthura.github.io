@@ -1,11 +1,11 @@
 [
   {
     "id": "u5t3od2xythx8apeielz0amf",
-    "name": "💡 Recommendations",
+    "name": "📚 Reading List",
     "items": [
       {
-        "title": "This is a test item",
-        "url": "https://google.com"
+        "title": "Jev: The Language Model That Won’t Talk - Anthony Maio",
+        "url": "https://anthonymaio.substack.com/p/jev-the-language-model-that-wont"
       }
     ]
   }
