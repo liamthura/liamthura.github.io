@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Bricolage_Grotesque } from "next/font/google";
+import Script from "next/script";
 import { ThemeProvider, THEME_INIT_SCRIPT } from "@/components/ThemeProvider";
 import "@phosphor-icons/web/duotone";
 import "./globals.css";
@@ -36,6 +37,13 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
         />
+        {/* Cloudflare Web Analytics */}
+        <Script
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "bb05de189ee4492a9e4e152a3ce2412e"}'
+          strategy="afterInteractive"
+        />
+        {/* End Cloudflare Web Analytics */}
       </head>
       <body>
         <ThemeProvider>{children}</ThemeProvider>
