@@ -26,7 +26,7 @@ function Polaroid({
         className="absolute -top-3 left-1/3 w-24 h-6 -rotate-6 rounded-sm bg-cover-fill/85"
         aria-hidden
       />
-      <div className="bg-surface rounded-xl p-3.5 shadow-[0_10px_30px_rgba(30,26,20,0.14)]">
+      <div className="bg-surface rounded-xl p-3.5 shadow-[0_10px_30px_color-mix(in_srgb,var(--shade)_14%,transparent)]">
         <div className={`${photo} rounded-md overflow-hidden bg-cover-fill`}>
           <Image
             src={profile.avatar}
@@ -52,7 +52,10 @@ export function Hero() {
     <section className="pt-16">
       <div className="container-main">
         <div className="col-shell pt-9 pb-24">
-          <div className="dot-band mb-10" aria-hidden />
+          <div
+            className="aspect-[700/250] md:aspect-[1400/250] w-full bg-muted/80 mb-8 md:mb-10 [mask:url(/myanmar-skyline-mobile.svg)_center/contain_no-repeat] md:[mask:url(/myanmar-skyline.svg)_center/contain_no-repeat]"
+            aria-hidden
+          />
 
           {/* Polaroid avatar — mobile only, between the lines and status. */}
           <div className="flex justify-center mb-8 md:hidden">
