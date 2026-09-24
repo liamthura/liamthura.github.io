@@ -19,12 +19,12 @@ export default function Home() {
       <Hero />
       <About>
         <Fold
-          label={
+          label="Work and education"
+          title={
             <>
               For the <s>nosy</s> curious
             </>
           }
-          title="Work and education"
         >
           <Experience header={false} bare />
           <div className="border-t border-line mt-12 pt-12">

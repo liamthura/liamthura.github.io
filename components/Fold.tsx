@@ -1,5 +1,6 @@
 // Fold.tsx — collapsible wrapper for the home page's secondary sections.
-// Closed it reads as an index row (eyebrow + title + plus); open it
+// Closed it reads as an index row (title + plus, with a screen-reader-only
+// label naming the section) and its content is inert; open it
 // renders the section bare. Motion is continuity only: the grid-rows
 // track explains the height change, content fades in, the plus turns
 // into a close mark. Entrance 300ms, exit 200ms, expo-out throughout.
@@ -13,35 +14,35 @@ export function Fold({
   title,
   children,
 }: {
-  label: React.ReactNode;
-  title: string;
+  label: string;
+  title: React.ReactNode;
   children: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="border-b border-line">
-      <button
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        className="w-full flex items-center justify-between gap-6 py-6 min-h-[44px] text-left"
-      >
-        <span>
-          <span className="block text-[11px] font-bold uppercase tracking-[0.14em] text-accent-deep mb-1">
-            {label}
+      <h2>
+        <button
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          className="w-full flex items-center justify-between gap-6 py-6 min-h-[44px] text-left"
+        >
+          <span>
+            <span className="sr-only">{label}: </span>
+            <span className="block font-display text-2xl md:text-[28px] font-semibold text-ink">
+              {title}
+            </span>
           </span>
-          <span className="block font-display text-2xl md:text-[28px] font-semibold text-ink">
-            {title}
-          </span>
-        </span>
-        <PlusIcon
-          size={20}
-          aria-hidden
-          className={`text-muted shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            open ? "rotate-45" : ""
-          }`}
-        />
-      </button>
+          <PlusIcon
+            size={20}
+            aria-hidden
+            className={`text-muted shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              open ? "rotate-45" : ""
+            }`}
+          />
+        </button>
+      </h2>
       <div
         className={`grid transition-[grid-template-rows] ease-[cubic-bezier(0.16,1,0.3,1)] ${
           open
@@ -49,7 +50,7 @@ export function Fold({
             : "grid-rows-[0fr] duration-200"
         }`}
       >
-        <div className="overflow-hidden">
+        <div className="overflow-hidden" inert={!open}>
           <div
             className={`pb-10 pt-2 transition-[opacity,transform] ease-[cubic-bezier(0.16,1,0.3,1)] ${
               open

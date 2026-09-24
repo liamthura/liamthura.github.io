@@ -45,10 +45,8 @@ export function Work({ children }: { children?: React.ReactNode }) {
     <SectionShell id="work">
       <div className="flex items-end justify-between gap-6 mb-10">
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-[0.14em] mb-3 text-accent-deep">
-            Work
-          </p>
           <h2 className="font-display text-3xl md:text-[40px] font-semibold text-ink">
+            <span className="sr-only">Work: </span>
             Selected work
           </h2>
         </div>

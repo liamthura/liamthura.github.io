@@ -75,7 +75,7 @@ export function ThemeToggle() {
         aria-expanded={open}
         aria-label={triggerLabel}
         title={triggerLabel}
-        className="w-11 h-11 inline-flex items-center justify-center rounded-lg text-muted hover:text-ink hover:bg-surface transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-charcoal/30"
+        className="w-11 h-11 inline-flex items-center justify-center rounded-lg text-muted hover:text-ink hover:bg-surface transition-colors"
       >
         <TriggerIcon
           size={17}

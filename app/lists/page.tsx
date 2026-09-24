@@ -19,10 +19,8 @@ export default function ListsPage() {
       <div className="pt-16">
         <div className="container-main">
           <div className="col-shell pt-12 pb-4">
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] mb-3 text-accent-deep">
-              Lists
-            </p>
             <h1 className="font-display text-4xl md:text-5xl font-extrabold text-ink mb-4">
+              <span className="sr-only">Lists: </span>
               I like lists!
             </h1>
             <p className="text-[15px] leading-[1.68] text-muted max-w-[560px]">

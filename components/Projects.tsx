@@ -34,7 +34,7 @@ function SidePhoto({ project, photoLeft }: { project: Project; photoLeft: boolea
     <div
       className={`relative ${photoLeft ? "rotate-[-2deg] md:rotate-[-4deg] md:-ml-14 md:-mt-16" : "rotate-[2deg] md:rotate-[4deg] md:-mr-14 md:-mb-16"}`}
     >
-      <div className="bg-white p-2.5 pb-9 shadow-[0_18px_40px_rgba(30,26,20,0.22)] rounded-[4px]">
+      <div className="bg-white p-2.5 pb-9 shadow-[0_18px_40px_color-mix(in_srgb,var(--shade)_22%,transparent)] rounded-[4px]">
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-cover-fill/85 rounded-sm" />
         {project.image ? (
           <div className="relative aspect-[16/10] md:aspect-[4/3] overflow-hidden rounded-[2px] bg-cover-fill">

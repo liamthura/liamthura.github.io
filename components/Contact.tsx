@@ -164,7 +164,7 @@ export function Contact() {
           >
             <span className="inline-flex items-center gap-2.5">
               <EnvelopeIcon size={16} className="text-accent-deep" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-accent-deep">
+              <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-accent-deep">
                 Form
               </span>
             </span>
@@ -185,7 +185,7 @@ export function Contact() {
               >
                 <span className="inline-flex items-center gap-2.5">
                   {Icon && <Icon size={16} className="text-accent-deep" />}
-                  <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-accent-deep">
+                  <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-accent-deep">
                     {link.label}
                   </span>
                 </span>

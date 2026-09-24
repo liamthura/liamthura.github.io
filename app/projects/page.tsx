@@ -15,10 +15,8 @@ export default function ProjectsPage() {
       <div className="pt-16">
         <div className="container-main">
           <div className="col-shell pt-12 pb-4">
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] mb-3 text-accent-deep">
-              Projects
-            </p>
             <h1 className="font-display text-4xl md:text-5xl font-extrabold text-ink mb-4">
+              <span className="sr-only">Projects: </span>
               Things I&apos;ve made
             </h1>
             <p className="text-[15px] leading-[1.68] text-muted max-w-[560px]">

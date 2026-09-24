@@ -28,7 +28,7 @@ export function Hobbies({
         {hobbies.map((hobby, i) => (
           <div
             key={hobby.title}
-            className={`bg-surface p-5 rounded-2xl border border-line shadow-[0_6px_16px_rgba(30,26,20,0.07)] transition-transform hover:rotate-0 ${
+            className={`bg-surface p-5 rounded-2xl border border-line shadow-[0_6px_16px_color-mix(in_srgb,var(--shade)_7%,transparent)] transition-transform hover:rotate-0 ${
               TILT[i % TILT.length]
             }`}
           >
